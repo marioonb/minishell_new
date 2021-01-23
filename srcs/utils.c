@@ -1,0 +1,58 @@
+#include "../include/minishell.h"
+
+void	free_double_tab(char **tab)
+{
+	int i;
+
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		tab[i] = NULL;
+		i++;
+	}
+	free(tab);
+	tab = NULL;
+}
+
+void	ft_read_tab_char(char **tab)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (tab[i] != NULL)
+	{
+		while (tab[i][j] != '\0')
+		{
+			printf("%c", tab[i][j]);
+			j++;
+		}
+		printf("\n");
+		j = 0;
+		i++;
+	}
+}
+
+char	**duplicate_env(char **envp)
+{
+	char	**env;
+	int		ligne;
+	int		i;
+
+	env = NULL;
+	ligne = 3;
+	while (envp[ligne] != NULL)
+		ligne++;
+	i = 0;
+	if (!(env = (char**)malloc(sizeof(char*) * (ligne + 1))))
+		ft_putstr("error");
+	while (i < ligne)
+	{
+		env[i] = ft_strdup(envp[i]);
+		i++;
+	}
+	env[i] = NULL;
+	return (env);
+}
