@@ -116,7 +116,9 @@ char *double_quote(char *cmd, int fd, char **env)
 
 	i = 0;
 	str = ft_strdup(cmd);
+	printf("cmd 1 est a %s\n",cmd);
 	cmd++;
+	printf("cmd 2 est a %s\n",cmd);
 	while (*cmd && *cmd != DOUBLE_Q)
 		{
 			if (*cmd == BACK_S)
@@ -128,7 +130,8 @@ char *double_quote(char *cmd, int fd, char **env)
 			cmd++;
 		}
 	cmd++;
-	str = ft_substr(str, 0, i);
+	str = ft_substr(str, 1, i);
+	printf("cmd 3 est a %s\n", str);
 	while (*str)
 	{
 		if (*str == DOLLS && str[1])
@@ -141,6 +144,7 @@ char *double_quote(char *cmd, int fd, char **env)
 				str++;
 			}
 	}
+	//printf("cmd est a %s\n", str);
 return (cmd);
 
 }
