@@ -6,6 +6,8 @@ void	ft_error(int a, int nexit)
 		printf ("erreur de quotes");
 	if (a == 2)
 		mini_printf("exit\nminishell: exit: trop d'arguments");
+	if (a == 3)
+		mini_printf("error backslash");
 	exit (nexit);
 }
 

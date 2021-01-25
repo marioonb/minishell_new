@@ -1,21 +1,17 @@
-
-
-
-
 ERREUR QUOTES
 **echo "1234\\" #####
 **echo 00\\\\'pp' ;
 **echo "\\"
+**echo "and right here;;; 'We have the second'" ; echo and" a fe"'w 'here'; with some slash and quotes .' '\' ; echo '\\' ; echo "\\" ; echo "\"" ; echo \\ ; echo \' ; echo \" "\\" "\"" \\ \' \"
+**echo ; echo \n ' \n this is the; "first line"'
 
 **echo ';;' #####
-**echo 'ma\' Hij ziet de \ niet als escape, print gewoon \ → ERROR QUOTES nornalement
 
 echo -n -n -n $potato$orange; unset orange potato; echo $potato$orange
 echo papa; exit ; echo maman
 echo ";;; » —>serrault
 
-**echo ; echo \n ' \n this is the; "first line"'
-**echo "and right here;;; 'We have the second'" ; echo and" a fe"'w 'here'; with some slash and quotes .' '\' ; echo '\\' ; echo "\\" ; echo "\"" ; echo \\ ; echo \' ; echo \" "\\" "\"" \\ \' \"
+
 **echo $? → devrait renvoyer le code erreur
 echo « → segfault 
 echo > ilovewords.                                                                                                              txt count me ; wc ilovewords.txt

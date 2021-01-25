@@ -14,8 +14,8 @@ char	*find_var_doll(char *tab, int fd, char **env)
 	str_var[i] = '\0';
 	if ((str = find_var(str_var, env)) != NULL)
 		ft_out(str, fd);
-	free(str_var); // AJOUT +++++++++++++++++++++++++++++++
-	free(str); ///////AJOUT ++++++++++++++++++++++++++++++++++++
+	free(str_var);
+	free(str);
 	return (tab);
 }
 
@@ -38,7 +38,7 @@ int	flag_n(char *tab)
 	}
 	return (0);
 }
-char *special_charactere(char *cmd, int fd)
+char	*special_charactere(char *cmd, int fd)
 {
 	if (cmd[1])
 	{
@@ -122,6 +122,8 @@ char	*backslash(char *cmd, int fd, char **env, int x)
 		ft_putchar_fd(BACK_S, fd);
 		cpt2--;
 	}
+	if (!*cmd && cpt%2 != 0)
+		ft_error(3, 0);
 	if (*cmd && *cmd == DOLLS)
 	{
 		if (cpt % 2 == 0)
