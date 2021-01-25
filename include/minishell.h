@@ -11,6 +11,7 @@
 #define SIMPLE_Q '\''
 #define BACK_S '\\'
 #define DOLLS '$'
+#define ACCENT '`'
 
 typedef struct	s_env
 {

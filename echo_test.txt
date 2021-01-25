@@ -1,71 +1,21 @@
 
-**echo /$"123$USER" ##### pas la meme --> SEG
 
-**echo "123\`456" #####
+
+
+ERREUR QUOTES
 **echo "1234\\" #####
-**echo hallo$\abc ##### pas la meme
-**echo hallo$\\abc #### pas la meme
-**echo “$\hallo” ##### mais pas meme
-**echo "$%%%%jlkjtwejt" #####
-**echo "$=TEST"  ###########
-**echo $%%%%jlkjtwejt #####
-**echo $####jgklj$USER #####
-**echo ';;' #####
-**echo "$####jgklj" ######
+**echo 00\\\\'pp' ;
+**echo "\\"
 
+**echo ';;' #####
 **echo 'ma\' Hij ziet de \ niet als escape, print gewoon \ → ERROR QUOTES nornalement
-echo \[
-echo \\
-echo \]
-echo \^
-echo \_
-echo \`
-echo \{
-echo \|
-echo \}
-echo \~
-echo "\!"
-echo "\""
-echo "\#"
-echo "\$"
-echo "\%"
-echo "\&"
-echo "\'"
-echo "\("
-echo "\)"
-echo "\*"
-echo "\+"
-echo "\,"
-echo "\-"
-echo "\."
-echo "\/"
-echo "\:"
-echo "\;" → error quote alors que non
-echo "\<"
-echo "\="
-echo "\?"
-echo "\@"
-echo "\["
-echo "\\"
-echo "\]"
-echo "\^"
-echo "\_"
-echo "\`"
-echo "\{"
-echo "\|"
-echo "\}"
-echo "\~"
-echo '\!'
-echo '\"'
-echo -n -n -n $potato$orange; unset
-orange potato; echo $potato$orange
+
+echo -n -n -n $potato$orange; unset orange potato; echo $potato$orange
 echo papa; exit ; echo maman
 echo ";;; » —>serrault
-**echo 00\\\\'pp' ;
-echo “./hello”. ;
-echo ./hello ;
-echo ; echo \n ' \n this is the; "first line"'
-; echo "and right here;;; 'We have the second'" ; echo and" a fe"'w 'here'; with some slash and quotes .' '\' ; echo '\\' ; echo "\\" ; echo "\"" ; echo \\ ; echo \' ; echo \" "\\" "\"" \\ \' \"
-echo $? → devrait renvoyer 127
+
+**echo ; echo \n ' \n this is the; "first line"'
+**echo "and right here;;; 'We have the second'" ; echo and" a fe"'w 'here'; with some slash and quotes .' '\' ; echo '\\' ; echo "\\" ; echo "\"" ; echo \\ ; echo \' ; echo \" "\\" "\"" \\ \' \"
+**echo $? → devrait renvoyer le code erreur
 echo « → segfault 
 echo > ilovewords.                                                                                                              txt count me ; wc ilovewords.txt

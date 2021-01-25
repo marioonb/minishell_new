@@ -38,8 +38,38 @@ int	flag_n(char *tab)
 	}
 	return (0);
 }
+char *special_charactere(char *cmd, int fd)
+{
+	if (cmd[1])
+	{
+		if (cmd[1] == '#')
+		{
+			cmd++;
+			ft_putchar_fd('0', fd);
+		}
+		else if (cmd[1] == '=' || cmd[1] == '%' || cmd[1] ==  BACK_S) // AJOUT DERNIER INS sinon marche pas : bash-3.2$ echo hallo$\USER
+//hallo$USER
+//bash-3.2$ echo hallo$\$USER
+//hallo$$USER
+//bash-3.2$
+			ft_putchar_fd(DOLLS, fd);
+	}
+	return(cmd);
 
+}
 
+int echo_charactere(char c)
+{
+
+	if (c == '#' || c == '%' || c == '=' || c == BACK_S) // AJOUT DERNIER INS sinon marche pas : bash-3.2$ echo hallo$\USER
+//hallo$USER
+//bash-3.2$ echo hallo$\$USER
+//hallo$$USER
+//bash-3.2$
+		return(1);
+	return(0);
+
+}
 
 char *simple_quote (char *cmd, int fd)
 {
@@ -60,6 +90,9 @@ char	*dolls(char *cmd, int fd, char **env)
 {
 	if (cmd[1] && cmd[1] == '?')
 		ft_putchar_fd('0', fd); // mettre la sortie plutot
+	else if (cmd[1] && echo_charactere(cmd[1]))
+			cmd = special_charactere(cmd, fd);
+	else
 	cmd ++;
 	if (*cmd && (!ft_isalpha(*cmd) && *cmd != '_') && *cmd != DOUBLE_Q)
 		cmd++;
@@ -77,18 +110,19 @@ char	*backslash(char *cmd, int fd, char **env, int x)
 	cpt2 = 0;
 	while (*cmd && *cmd == BACK_S)
 	{
+
 		cpt++;
 		cmd++;
 	}
 	cpt2 = cpt / 2;
-	if ((*cmd && (*cmd!= DOLLS && *cmd!= DOUBLE_Q)) && x == 2)
+	if ((*cmd && (*cmd!= DOLLS && *cmd != DOUBLE_Q && *cmd != ACCENT)) && x == 2)
 		cpt2 = cpt2 + (cpt % 2);
 	while (cpt2 > 0)
 	{
 		ft_putchar_fd(BACK_S, fd);
 		cpt2--;
 	}
-	if (*cmd == DOLLS)
+	if (*cmd && *cmd == DOLLS)
 	{
 		if (cpt % 2 == 0)
 		{
@@ -101,7 +135,7 @@ char	*backslash(char *cmd, int fd, char **env, int x)
 			cmd++;
 		}
 	}
-	else
+	else if (*cmd)  // ajout de if et (*cmd) sinon echo \\ marche pas
 		{
 			ft_putchar_fd(*cmd, fd);
 			cmd++;
@@ -115,9 +149,10 @@ char *double_quote(char *cmd, int fd, char **env)
 	int i;
 
 	i = 0;
-	str = ft_strdup(cmd);
+
 	printf("cmd 1 est a %s\n",cmd);
 	cmd++;
+	str = ft_strdup(cmd);
 	printf("cmd 2 est a %s\n",cmd);
 	while (*cmd && *cmd != DOUBLE_Q)
 		{
@@ -130,7 +165,7 @@ char *double_quote(char *cmd, int fd, char **env)
 			cmd++;
 		}
 	cmd++;
-	str = ft_substr(str, 1, i);
+	str = ft_substr(str, 0, i);
 	printf("cmd 3 est a %s\n", str);
 	while (*str)
 	{
@@ -165,6 +200,7 @@ void	ft_treatment_instruct(char *cmd, int fd, char **env)
 			cmd = backslash(cmd, fd, env, 1);
 		else
 		{
+			printf("cmd c est quoi ? |%c|\n", cmd[0]);
 			ft_putchar_fd(cmd[0], fd);
 			cmd++;
 		}
