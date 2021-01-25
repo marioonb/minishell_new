@@ -1,7 +1,7 @@
 ERREUR QUOTES
-**echo "1234\\" #####
+					**echo "1234\\" #####
 **echo 00\\\\'pp' ;
-**echo "\\"
+					**echo "\\"
 **echo "and right here;;; 'We have the second'" ; echo and" a fe"'w 'here'; with some slash and quotes .' '\' ; echo '\\' ; echo "\\" ; echo "\"" ; echo \\ ; echo \' ; echo \" "\\" "\"" \\ \' \"
 **echo ; echo \n ' \n this is the; "first line"'
 
