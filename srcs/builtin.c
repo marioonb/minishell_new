@@ -32,6 +32,20 @@ int	is_builtin(char *cmd)
 	}
 	return (0);
 }
+int find_pipe(char **tab)
+{
+	int pipe;
+
+	pipe = 0;
+	while (*tab)
+	{
+		if (*tab[0] == PIPE)
+			pipe ++;
+		tab ++;
+	}
+	printf ("pipe est a %d dans fonction\n", pipe);
+	return (pipe);
+}
 
 /* cherche a quoi correspond tab[0], c est a dire la premiere instruction de la commande
 * appel la fonction qui permet de traiter le builtin de la commande
@@ -40,6 +54,8 @@ int	is_builtin(char *cmd)
 
 void	find_builtin (char **tab, t_env *env)
 {
+	env-> pipe = find_pipe(tab);
+	printf ("pipe est a %d\n", env->pipe);
 	if (tab[0] == NULL)
 		printf("error");
 	else if (ft_strncmp(tab[0], "echo", ft_strlen(tab[0])) == 0)

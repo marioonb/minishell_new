@@ -123,7 +123,8 @@ void	ft_parse(char *tab, t_env *env)
 {
 	char	**tab_cmd;
 
-	tab_cmd = ft_split_space(tab, ' ');
+	tab_cmd = ft_split_space(tab, SPACE);
+	ft_read_tab_char(tab_cmd);
 	check_error_quotes1(tab_cmd);
 	tab_cmd = modif_commande_quote(tab_cmd);
 	if (is_builtin(tab_cmd[0]) == 1)

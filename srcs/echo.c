@@ -152,10 +152,10 @@ char *double_quote(char *cmd, int fd, char **env)
 
 	i = 0;
 
-	printf("cmd 1 est a %s\n",cmd);
+	//printf("cmd 1 est a %s\n",cmd);
 	cmd++;
 	str = ft_strdup(cmd);
-	printf("cmd 2 est a %s\n",cmd);
+	//printf("cmd 2 est a %s\n",cmd);
 	while (*cmd && *cmd != DOUBLE_Q)
 		{
 			if (*cmd == BACK_S)
@@ -168,7 +168,7 @@ char *double_quote(char *cmd, int fd, char **env)
 		}
 	cmd++;
 	str = ft_substr(str, 0, i);
-	printf("cmd 3 est a %s\n", str);
+	//printf("cmd 3 est a %s\n", str);
 	while (*str)
 	{
 		if (*str == DOLLS && str[1])
@@ -202,7 +202,7 @@ void	ft_treatment_instruct(char *cmd, int fd, char **env)
 			cmd = backslash(cmd, fd, env, 1);
 		else
 		{
-			printf("cmd c est quoi ? |%c|\n", cmd[0]);
+			//printf("cmd c est quoi ? |%c|\n", cmd[0]);
 			ft_putchar_fd(cmd[0], fd);
 			cmd++;
 		}

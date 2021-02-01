@@ -8,6 +8,8 @@ void	ft_error(int a, int nexit)
 		mini_printf("exit\nminishell: exit: trop d'arguments");
 	if (a == 3)
 		mini_printf("error backslash");
+	if (a == 4)
+		mini_printf("minishell: cd: trop d'arguments");
 	exit (nexit);
 }
 
@@ -26,5 +28,7 @@ void	ft_error_str(int a, char *s, int nexit)
 		mini_printf("env: «%s»: Aucun fichier ou dossier de ce type", s);
 	if (a == 3)
 		mini_printf("exit \nminishell: exit: %s : argument numérique nécessaire", s);
+	if (a == 4)
+		mini_printf("minishell: cd: %s: Aucun fichier ou dossier de ce type", s);
 	exit (nexit);
 }

@@ -12,11 +12,14 @@
 #define BACK_S '\\'
 #define DOLLS '$'
 #define ACCENT '`'
+#define PIPE '|'
+#define SPACE ' '
 
 typedef struct	s_env
 {
 	char **env;
 	char **export;
+	int pipe;
 
 }				t_env;
 
@@ -57,3 +60,9 @@ void	change_env_add (char *tab, t_env *env);
 void	replace_var_env(char *bin, char *str, t_env *env);
 char	*find_bin(char *str, char c, int a);
 char	**replace_for_add(char *str, char **env);
+void	treat_var(char *str, t_env *env);
+
+			//printf("pwd est %s\n", pwd);
+			//printf("pwd est %d\n", (int)ft_strlen(pwd));
+			//printf("lenght est donc a %d\n", lenght);
+			//printf("juste pour la compil %c\n", tab[1][1]);
