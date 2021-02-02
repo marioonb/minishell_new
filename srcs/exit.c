@@ -13,9 +13,9 @@
 
 int	ft_str_isdigit(char *str)
 {
-	int i;
-	int nb;
-	int space;
+	int	i;
+	int	nb;
+	int	space;
 
 	i = 0;
 	nb = 0;
@@ -35,14 +35,14 @@ int	ft_str_isdigit(char *str)
 
 void	builtin_exit(char **tab)
 {
-	int nexit = 0;
+	int	nexit;
 
+	nexit = 0;
 	if (!tab[1])
-		{
-			ft_putstr_fd("exit\n", 1);
-			exit(EXIT_SUCCESS);
-		}
-
+	{
+		ft_putstr_fd("exit\n", 1);
+		exit(EXIT_SUCCESS);
+	}
 	if (tab[1] && (!ft_str_isdigit(tab[1])))
 		ft_error_str(3, tab[1], 2);
 	else
@@ -52,4 +52,3 @@ void	builtin_exit(char **tab)
 	ft_putstr_fd("exit\n", 1);
 	exit(nexit);
 }
-

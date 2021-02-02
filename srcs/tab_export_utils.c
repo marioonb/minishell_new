@@ -66,4 +66,5 @@ void	declare_x(char **tab, t_env *env)
 		write(fd, "\n", 1);
 		i++;
 	}
+	free(bin);
 }

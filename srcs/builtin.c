@@ -32,9 +32,10 @@ int	is_builtin(char *cmd)
 	}
 	return (0);
 }
-int find_pipe(char **tab)
+
+int	find_pipe(char **tab)
 {
-	int pipe;
+	int	pipe;
 
 	pipe = 0;
 	while (*tab)
@@ -43,7 +44,7 @@ int find_pipe(char **tab)
 			pipe ++;
 		tab ++;
 	}
-	printf ("pipe est a %d dans fonction\n", pipe);
+	//printf ("pipe est a %d dans fonction\n", pipe);
 	return (pipe);
 }
 
@@ -55,7 +56,7 @@ int find_pipe(char **tab)
 void	find_builtin (char **tab, t_env *env)
 {
 	env-> pipe = find_pipe(tab);
-	printf ("pipe est a %d\n", env->pipe);
+	//printf ("pipe est a %d\n", env->pipe);
 	if (tab[0] == NULL)
 		printf("error");
 	else if (ft_strncmp(tab[0], "echo", ft_strlen(tab[0])) == 0)
@@ -128,6 +129,8 @@ int	find_fd(char **tab)
 		if (tab[i + 1] && ft_strchr(tab[i], '>'))
 		{
 			files = malloc (sizeof(char) * ft_strlen(tab[i + 1]) + 1);
+			if (files == NULL)
+				ft_error_malloc();
 			ft_strncpy(files, tab[i + 1], ft_strlen(tab[i + 1]));
 			fd = open(files, O_CREAT | O_RDONLY | O_WRONLY | O_TRUNC, 0666 );
 			free(files); // AJOUT +++++++++++++++++++++++++++++++++++++++++++++
@@ -136,4 +139,3 @@ int	find_fd(char **tab)
 	}
 	return (fd);
 }
-

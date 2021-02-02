@@ -3,18 +3,19 @@
 int	check_error_quote(char *tab, int quote)
 {
 	int	i;
+	int	cpt;
 
 	i = 0;
-	int cpt = 0;
+	cpt = 0;
 	while (tab[i])
 	{
 		// AJOUT
 		cpt = 0;
 		while (tab[i] == BACK_S)
-			{
-				cpt++;
-				i++;
-			}
+		{
+			cpt++;
+			i++;
+		}
 		//if (tab[i] == DOUBLE_Q && (i == 0 || tab[i - 1] != BACK_S))
 		//{
 		//	quote *= -1;
@@ -26,14 +27,14 @@ int	check_error_quote(char *tab, int quote)
 		{
 			quote *= -1;
 			while (tab[++i] && quote < 0)
-				{
-					if (tab[i] == BACK_S)
-						cpt ++;
-					if (tab[i] == DOUBLE_Q && cpt % 2 == 0)
+			{
+				if (tab[i] == BACK_S)
+					cpt ++;
+				if (tab[i] == DOUBLE_Q && cpt % 2 == 0)
 					quote *= -1;
-				}
+			}
 		}
-		else if (tab[i] == SIMPLE_Q && cpt % 2 != 0) // chang'e avec && (i == 0 || tab[i - 1] != BACK_S)
+		else if (tab[i] == SIMPLE_Q && cpt % 2 != 0) // change avec && (i == 0 || tab[i - 1] != BACK_S)
 		{
 			quote *= -1;
 			while (tab[++i] && quote < 0)
@@ -60,4 +61,3 @@ void	check_error_quotes1(char **tab)
 		i++;
 	}
 }
-

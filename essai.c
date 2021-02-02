@@ -121,7 +121,7 @@ static bool	get_absolute_path(char **cmd, char **env)
 		// On boucle sur chaque dossier du path pour trouver l'emplacement du binaire
 		for (idx = 0; path_split[idx]; idx++) {
 			// alloc len du path + '/' + len du binaire + 1 pour le '\0'
-			bin = (char *)calloc(sizeof(char), (strlen(path_split[idx]) + 1 + strlen(cmd[0]) + 1));
+			bin = (char *)(sizeof(char), (strlen(path_split[idx]) + 1 + strlen(cmd[0]) + 1));
 			if (bin == NULL)
 				break ;
 
@@ -197,7 +197,7 @@ static char	*built_in_pwd(void)
 	char	*cwd = NULL;
 
 	// On alloue la longueur de PWD= + PATH_MAX + 1 pour le \0
-	cwd = (char *)calloc(sizeof(char), PATH_MAX + strlen("PWD=") + 1);
+	cwd = (char *)(sizeof(char), PATH_MAX + strlen("PWD=") + 1);
 	if (cwd == NULL)
 		return (NULL);
 
@@ -237,7 +237,7 @@ static void	add_tail(char *var)
 	t_env	*ptr = first;
 	t_env	*new_node = NULL;
 
-	new_node = (t_env *)calloc(sizeof(t_env), 1);
+	new_node = (t_env *)(sizeof(t_env), 1);
 	if (new_node == NULL) {
 		printf("Alloc failure\n");
 		return ;
@@ -261,7 +261,7 @@ static void	add_env_var(char *var)
 	char			*alloc = NULL;
 
 	if (!strcmp(var, "HOME")) {
-		alloc = (char *)calloc(sizeof(char), strlen(pw->pw_dir) + strlen("HOME=") + 1);
+		alloc = (char *)(sizeof(char), strlen(pw->pw_dir) + strlen("HOME=") + 1);
 		if (alloc == NULL) {
 			fprintf(stderr, "Cannot add HOME\n");
 			return ;
@@ -336,9 +336,9 @@ static char	**lst_to_array()
 	}
 
 	// Allcoation (+ 1 pour l'element null de fin)
-	array = (char **)calloc(sizeof(char *), idx + 1);
+	array = (char **)(sizeof(char *), idx + 1);
 	if (array == NULL) {
-		perror("calloc");
+		perror("");
 		exit(-1);
 	}
 
@@ -381,7 +381,7 @@ int	main(int argc, char **argv, char **envp)
 	dup_env(envp);
 
 	// alloc buffer qui stockera la commande entree par l'user
-	buffer = (char *)calloc(sizeof(char), buf_size);
+	buffer = (char *)(sizeof(char), buf_size);
 	if (buffer == NULL) {
 		perror("Malloc failure");
 		return (EXIT_FAILURE);

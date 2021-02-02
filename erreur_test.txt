@@ -1,53 +1,25 @@
 
-======================== TEST 6 ✗ ========================[0m
-						echo lala\nlala
-======================== TEST 7 ✗ ========================[0m
-						echo "lala\nlala"
-======================== TEST 8 ✗ ========================[0m
-						echo 'lala\nlala'
-======================== TEST 10 ✗ ========================[0m
-						echo "test"test"" "lala"
 ======================== TEST 11 ✗ ========================[0m
-						echo "test"\""test" "lala"
+						echo "test"\""test" "lala" --> ERREUR QUOTE ALORS QUE NON
 ======================== TEST 12 ✗ ========================[0m
-**echo "test"\"\""\"test" "lala"
-======================== TEST 13 ✗ ========================[0m
-						echo 'test''test''lala'
-======================== TEST 14 ✗ ========================[0m
-						echo 'test'\'test'\''lala'
-======================== TEST 15 ✗ ========================[0m
-						echo 'test''test''lala'
-======================== TEST 16 ✗ ========================[0m
-						echo test "" test "" test
-======================== TEST 17 ✗ ========================[0m
-						echo test """" test """" test
-======================== TEST 18 ✗ ========================[0m
-						echo test "" "" "" test
-======================== TEST 19 ✗ ========================[0m
-						echo "" test "" test "" test ""
-======================== TEST 20 ✗ ========================[0m
-						echo -n oui
-======================== TEST 21 ✗ ========================[0m
-						echo $PWD
-======================== TEST 25 ✗ ========================[0m
-						echo $NOVAR  --> ABORT ?
+						echo "test"\"\""\"test" "lala" --> IDEM
 ======================== TEST 26 ✗ ========================[0m
 pwd ; echo $PWD ; echo OLDPWD ; unset PWD ; echo $PWD ; echo $OLDPWD ; cd .. ; echo $OLDPWD ; pwd ; echo $OLDPWD ; cd .. ; pwd ; echo $OLDPWD
 
 --> SEGFAULT ?
-     #0 0x101467ad3 in ft_strrchr ft_strrchr.c:29
-     #1 0x1014651b8 in builtin_cd cd.c:57
-     #2 0x101462c48 in find_builtin builtin.c:50
-     #3 0x10145ec39 in ft_parse parse.c:118
-     #4 0x10145eb8c in ft_read_buffer parse.c:22
-     #5 0x10145e99e in main main.c:25
-     #6 0x7fff705a3cc8 in start+0x0 (libdyld.dylib:x86_64+0x1acc8)
+    #0 0x10a9126a7 in ft_strlen ft_strlen.c:20
+    #1 0x10a90f432 in builtin_cd cd.c:91
+    #2 0x10a90cc80 in find_builtin builtin.c:66
+    #3 0x10a909609 in ft_parse parse.c:132
+    #4 0x10a90955c in ft_read_buffer parse.c:19
+    #5 0x10a909354 in main main.c:23
+    #6 0x7fff6b64acc8 in start+0x0 (libdyld.dylib:x86_64+0x1acc8)
 ======================== TEST 27 ✗ ========================[0m
-**echo ${PWD}
+**********************echo ${PWD}
 ======================== TEST 28 ✗ ========================[0m
-**echo ${PATH
+************************echo ${PATH
 ======================== TEST 29 ✗ ========================[0m
-							echo $PWD}
+LUI C EST OK 			echo $PWD}
 ======================== TEST 30 ✗ ========================[0m
 env
 
@@ -154,18 +126,10 @@ export _testvar10=10; export | grep -a _testvar10
 export testvar=10 ; export testvar=20 ; export | grep -a testvar
 ======================== TEST 96 ✗ ========================[0m
 **export testvar=lala ; export ; export testvar=10 ; export --> change bien la var mais doit etre entre huillemet
-======================== TEST 97 ✗ ========================[0m
-						unset --> segfault
 ======================== TEST 98 ✗ ========================[0m
 						unset novar
 ======================== TEST 99 ✗ ========================[0m
 **unset % -> unset:"%": identifiant non valable, mais renvoi rien
-
-
-
-
-
-
 ======================== TEST 100 ✗ ========================[0m
 						export a ; export ; unset a ; export
 ======================== TEST 101 ✗ ========================[0m
@@ -418,33 +382,8 @@ exit lala lala
 ======================== TEST 205 ✗ ========================[0m
 						export a b c ; unset a c ; export
 export test=echo val=lala ; $test $lala ; export
-======================== TEST 207 ✗ ========================[0m
-						echo $TEST$TEST=lala
-======================== TEST 208 ✗ ========================[0m
-						echo $TEST=lala$TEST
-======================== TEST 209 ✗ ========================[0m
-						echo $TEST$TEST=lala$TEST
-======================== TEST 210 ✗ ========================[0m
-						echo $TEST$TEST=$TEST=$TEST=$TEST=$TEST=$TEST
-======================== TEST 211 ✗ ========================[0m
-						echo $1TEST
-======================== TEST 212 ✗ ========================[0m
-						echo $10000TEST
-======================== TEST 213 ✗ ========================[0m
-						echo $99TEST
-======================== TEST 214 ✗ ========================[0m
-**echo $=TEST
-======================== TEST 215 ✗ ========================[0m
-echo $1 "" $9 "" $4 "" $7
 ======================== TEST 216 ✗ ========================[0m
-						echo $?TEST$?
-======================== TEST 217 ✗ ========================[0m
-echo "$PWD"
-======================== TEST 218 ✗ ========================[0m
-						echo "$LALA"
-======================== TEST 219 ✗ ========================[0m
-echo \'/Users/belorgeymarion/42/minishell_git/minishell/minishell_tester\'
-
+**************************echo $?TEST$?
 ======================== TEST 221 ✗ ========================[0m
 export a | echo lala ; export
      #2 0x104d28bef in builtin_export export.c:105

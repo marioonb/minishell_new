@@ -1,7 +1,6 @@
 #include "../include/minishell.h"
 #include <stdbool.h>
 
-
 /*
 * Lit le buffer envoyé par l'utilisateur
 *et separe chaque commande en double tableau de char
@@ -21,7 +20,9 @@ void	ft_read_buffer(char *buffer, t_env *env)
 	}
 	free_double_tab(tab);
 }
+
 ////////////////////////////////////////////////////////////////111111//
+
 static void	exec_cmd(char **cmd, t_env *env)						////
 {																	////
 	pid_t	pid;													////
@@ -114,43 +115,28 @@ char	**modif_commande_quote(char **cmd)
 		cmd[0] = str;
 		printf("str est a %s\n", str);
 	}
+	free(str);
 	return (cmd);
 }
-
-
 
 void	ft_parse(char *tab, t_env *env)
 {
 	char	**tab_cmd;
 
 	tab_cmd = ft_split_space(tab, SPACE);
-	ft_read_tab_char(tab_cmd);
+	//ft_read_tab_char(tab_cmd);
 	check_error_quotes1(tab_cmd);
 	tab_cmd = modif_commande_quote(tab_cmd);
 	if (is_builtin(tab_cmd[0]) == 1)
 		find_builtin(tab_cmd, env);
 	else
 	{
-//////////////////////////////////////////////////////////////1111111///			\									////
+//////////////////////////////////////////////////////////////1111111///
 		if (get_absolute_path(tab_cmd, env) == true)				////
-			exec_cmd(tab_cmd, env);								////
+			exec_cmd(tab_cmd, env);									////
 		else														////
-			fprintf(stderr, "Command not found\n");					////										////
+			fprintf(stderr, "Command not found\n");					////
 //////////////////////////////////////////////////////////////////222222
 	}
+	//free_double_tab(tab_cmd); -> seg
 }
-
-int	search_doll(char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == '$')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-

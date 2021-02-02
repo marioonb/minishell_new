@@ -1,5 +1,11 @@
 #include "../include/minishell.h"
 
+void	ft_error_malloc(void)
+{
+	printf ("erreur malloc");
+	exit (EXIT_FAILURE);
+}
+
 void	ft_error(int a, int nexit)
 {
 	if (a == 1)

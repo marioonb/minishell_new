@@ -48,7 +48,7 @@ char	**replace_for_add(char *str, char **env)
 	i = 0;
 	env_new = (char**)malloc(sizeof(char*) * (ligne + 2));
 	if (!env_new)
-		ft_putstr("error");
+		ft_error_malloc();
 	while (i < ligne)
 	{
 		env_new[i] = ft_strdup(env[i]);

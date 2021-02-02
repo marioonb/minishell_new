@@ -68,7 +68,6 @@ char	**ft_split_minishell(char const *s, char c)
 	return (resultat);
 }*/
 
-
 static int	comptword(char *s, char c)
 {
 	int			word;
@@ -116,13 +115,14 @@ char	**ft_split_minishell(char const *s, char c)
 	int		word;
 	int		i;
 
+	resultat = NULL; // a retirer si trop de ligne
 	i = 0;
 	if (!s)
 		return (0);
 	word = comptword((char*)s, c);
 	resultat = (char**)malloc(sizeof(char*) * (word + 1));
 	if (!resultat)
-		return (0);
+		ft_error_malloc();
 	while (i < word)
 	{
 		caractere = 0;
@@ -133,7 +133,7 @@ char	**ft_split_minishell(char const *s, char c)
 		if (*s == '\\')
 			s++;
 		while (*s && *s != c)
-				s++;
+			s++;
 		i++;
 	}
 	resultat[i] = NULL;

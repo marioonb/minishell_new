@@ -2,7 +2,7 @@
 
 void	free_double_tab(char **tab)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (tab[i])
@@ -46,8 +46,9 @@ char	**duplicate_env(char **envp)
 	while (envp[ligne] != NULL)
 		ligne++;
 	i = 0;
-	if (!(env = (char**)malloc(sizeof(char*) * (ligne + 1))))
-		ft_putstr("error");
+	env = malloc(sizeof(char*) * (ligne + 1));
+	if (!env)
+		ft_error_malloc();
 	while (i < ligne)
 	{
 		env[i] = ft_strdup(envp[i]);
@@ -55,4 +56,18 @@ char	**duplicate_env(char **envp)
 	}
 	env[i] = NULL;
 	return (env);
+}
+
+int	search_doll(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == '$')
+			return (1);
+		i++;
+	}
+	return (0);
 }

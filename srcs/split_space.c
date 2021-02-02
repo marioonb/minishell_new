@@ -104,7 +104,6 @@ char	**ft_split_space(char const *s, char c, char p)
 //  	return 0;
 //}
 
-
 static int	comptword(char *s, char c)
 {
 	int		word;
@@ -168,13 +167,14 @@ char	**ft_split_space(char const *s, char c)
 	int		i;
 	char	d;
 
+	resultat = NULL; // peut etre enleve apparemment
 	i = 0;
 	if (!s)
 		return (0);
 	word = comptword((char*)s, c);
 	resultat = (char**)malloc(sizeof(char*) * (word + 1));
 	if (!resultat)
-		return (0);
+		ft_error_malloc();
 	while (i < word)
 	{
 		caractere = 0;
@@ -201,4 +201,3 @@ char	**ft_split_space(char const *s, char c)
 	resultat[i] = NULL;
 	return (resultat);
 }
-

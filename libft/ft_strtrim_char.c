@@ -34,7 +34,8 @@ char	*ft_strtrim_char(char const *s1, char set)
 	//	return (ft_calloc(1, sizeof(char)));
 	if (s1[j] == set)
 		j--;
-	if (!(str = ft_calloc(sizeof(char) * (j - i + 2), 2)))
+	str = ft_calloc(sizeof(char) * (j - i + 2), 2);
+	if (!str)
 		return (NULL);
 	while (i <= j)
 		str[a++] = s1[i++];

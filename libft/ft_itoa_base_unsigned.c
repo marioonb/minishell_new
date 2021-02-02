@@ -33,7 +33,8 @@ char	*ft_itoa_base_unsigned(unsigned int value, int base)
 		tmp = tmp / base;
 		i++;
 	}
-	if (!(str = (char *)malloc(sizeof(char) * (i + 2))))
+	str = (char *)malloc(sizeof(char) * (i + 2));
+	if (!str)
 		return (NULL);
 	str[i + 1] = '\0';
 	while (i >= 0)

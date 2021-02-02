@@ -41,17 +41,14 @@ char	*find_var(char *str, char **env)
 	i = 0;
 	while (env[i])
 	{
-		lenght = var_lenght(env[i]); // ajouter un + 1 pour CD maus voir si pb dans export
+		lenght = var_lenght(env[i]);
 		//printf ("env[i] = %s pos %d\n", env[i], i);
 		//printf("lenght est a = %d\n", lenght);
 		//printf("env[i] avant boucle = %s\n", env[i]);
 		//		if (ft_strncmp(str, env[i], (int)ft_strlen(str)) == 0)
 		if (ft_strncmp(str, env[i], lenght) == 0
 			&& (int)ft_strlen(str) <= lenght)
-		{
-			//printf ("le retour est %s\n", ft_substr(env[i] + 1, lenght, ft_strlen(env[i]) - lenght));
 			return (ft_substr(env[i] + 1, lenght, ft_strlen(env[i]) - lenght));
-		}
 		i++;
 	}
 	return (NULL);
@@ -71,6 +68,7 @@ void	builtin_cd(char **tab, t_env *env)
 	oldpwd2 = NULL;
 	oldpwd = NULL;
 	pwd = NULL;
+	pwd2 = NULL;
 	if (chdir(tab[1]) == 0)
 	{
 		if (!tab[1])
@@ -82,15 +80,21 @@ void	builtin_cd(char **tab, t_env *env)
 		}
 		lenght = 4 + ft_strlen(pwd) + 1;
 		pwd2 = malloc(sizeof(char) * (lenght));
+		if (pwd2 == NULL)
+			ft_error_malloc();
 		ft_strncpy(pwd2, "PWD=", 5);
 		ft_strlcat(pwd2, pwd, lenght);
 		oldpwd = find_var("PWD", env->env);
 		lenght = 7 + ft_strlen(oldpwd) + 1;
 		oldpwd2 = malloc(sizeof(char) * (lenght));
+		if (oldpwd2 == NULL)
+			ft_error_malloc();
 		ft_strncpy(oldpwd2, "OLDPWD=", 8);
 		ft_strlcat(oldpwd2, oldpwd, lenght);
 		treat_var(pwd2, env);
 		treat_var(oldpwd2, env);
+		free(oldpwd2);
+		free(pwd2);
 	}
 	else
 		ft_error_str(4, tab[1], 1);

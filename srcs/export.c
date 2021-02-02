@@ -5,8 +5,11 @@ char	*find_bin(char *str, char c, int a)
 	int		i;
 	char	*strr;
 
+	strr = NULL;
 	i = 0;
 	strr = malloc(sizeof(char) * a + 1);
+	if (strr == NULL)
+		ft_error_malloc();
 	while (str[i] && str[i] != c)
 	{
 		strr[i] = str[i];
@@ -68,6 +71,7 @@ void	treat_var(char *str, t_env *env)
 		if (!(find_var(bin, env->export) != NULL))
 			change_export_add(str, env);
 	}
+	free(bin);
 }
 
 void	builtin_export(char **tab, t_env *env)
@@ -89,4 +93,5 @@ void	builtin_export(char **tab, t_env *env)
 			i++;
 		}
 	}
+	free(str);
 }

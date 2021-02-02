@@ -1,28 +1,27 @@
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
 #include <signal.h>
 #include <fcntl.h>
 
-# include "../libft/libft.h"
+#include "../libft/libft.h"
 
-#define DOUBLE_Q '"'
-#define SIMPLE_Q '\''
-#define BACK_S '\\'
-#define DOLLS '$'
-#define ACCENT '`'
-#define PIPE '|'
-#define SPACE ' '
+#define	DOUBLE_Q '"'
+#define	SIMPLE_Q '\''
+#define	BACK_S '\\'
+#define	DOLLS '$'
+#define	ACCENT '`'
+#define	PIPE '|'
+#define	SPACE ' '
 
-typedef struct	s_env
+typedef struct s_env
 {
-	char **env;
-	char **export;
-	int pipe;
+	char	**env;
+	char	**export;
+	int		pipe;
 
 }				t_env;
-
 
 void	ft_read_buffer(char *buffer, t_env *env);
 void	ft_error(int a, int nexit);
@@ -40,13 +39,13 @@ void	builtin_pwd(char **tab, t_env *env);
 void	builtin_cd(char **tab, t_env *env);
 void	builtin_export(char **tab, t_env *env);
 void	builtin_unset(char **tab, t_env *env);
-void	builtin_env(char ** tab, t_env *env);
+void	builtin_env(char **tab, t_env *env);
 void	builtin_exit(char **tab);
 char	**duplicate_env(char **envp);
 void	ft_out(char *str, int fd);
 int		find_fd(char **tab);
 //void	change_env (char *tab, t_env *env);
-char	*find_var(char *str, char** env);
+char	*find_var(char *str, char **env);
 void	ft_error_char(int a, char c, int nexit);
 char	**ft_split_minishell(char const *s, char c);
 void	ft_error_str(int a, char *s, int nexit);
@@ -61,7 +60,7 @@ void	replace_var_env(char *bin, char *str, t_env *env);
 char	*find_bin(char *str, char c, int a);
 char	**replace_for_add(char *str, char **env);
 void	treat_var(char *str, t_env *env);
-
+void	ft_error_malloc(void);
 			//printf("pwd est %s\n", pwd);
 			//printf("pwd est %d\n", (int)ft_strlen(pwd));
 			//printf("lenght est donc a %d\n", lenght);
