@@ -29,7 +29,7 @@ SRC = 	main.c \
 		srcs/tab_env_utils.c \
 		srcs/tab_export_utils.c \
 		srcs/exit.c \
-		srcs\echo_utils.c
+		srcs/echo_utils.c
 
 OBJ = main.o \
 		parse.o \

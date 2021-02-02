@@ -1,29 +1,5 @@
 #include "../include/minishell.h"
 
-void	ft_treatment_instruct(char *cmd, int fd, char **env)
-{
-	int	x;
-
-	x = 1;
-	while (*cmd)
-	{
-		if (*cmd == DOUBLE_Q)
-			cmd = double_quote(cmd, fd, env);
-		else if (*cmd == SIMPLE_Q)
-			cmd = simple_quote (cmd, fd);
-		else if (*cmd == DOLLS && cmd[1])
-			cmd = dolls(cmd, fd, env);
-		else if (*cmd == BACK_S)
-			cmd = backslash(cmd, fd, env, 1);
-		else
-		{
-			//printf("cmd c est quoi ? |%c|\n", cmd[0]);
-			ft_putchar_fd(cmd[0], fd);
-			cmd++;
-		}
-	}
-}
-
 char	*simple_quote (char *cmd, int fd)
 {
 	int	i;
@@ -137,4 +113,28 @@ char	*double_quote(char *cmd, int fd, char **env)
 	//free(str);
 	//printf("cmd est a %s\n", str);
 	return (cmd);
+}
+
+void	ft_treatment_instruct(char *cmd, int fd, char **env)
+{
+	int	x;
+
+	x = 1;
+	while (*cmd)
+	{
+		if (*cmd == DOUBLE_Q)
+			cmd = double_quote(cmd, fd, env);
+		else if (*cmd == SIMPLE_Q)
+			cmd = simple_quote (cmd, fd);
+		else if (*cmd == DOLLS && cmd[1])
+			cmd = dolls(cmd, fd, env);
+		else if (*cmd == BACK_S)
+			cmd = backslash(cmd, fd, env, 1);
+		else
+		{
+			//printf("cmd c est quoi ? |%c|\n", cmd[0]);
+			ft_putchar_fd(cmd[0], fd);
+			cmd++;
+		}
+	}
 }

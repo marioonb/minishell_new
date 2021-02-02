@@ -65,3 +65,7 @@ void	ft_error_malloc(void);
 			//printf("pwd est %d\n", (int)ft_strlen(pwd));
 			//printf("lenght est donc a %d\n", lenght);
 			//printf("juste pour la compil %c\n", tab[1][1]);
+char	*find_var_doll(char *tab, int fd, char **env);
+char	*special_charactere(char *cmd, int fd);
+void	ft_treatment_instruct(char *cmd, int fd, char **env);
+int		echo_charactere(char c);

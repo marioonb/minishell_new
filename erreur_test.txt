@@ -1,8 +1,4 @@
 
-======================== TEST 11 ✗ ========================[0m
-						echo "test"\""test" "lala" --> ERREUR QUOTE ALORS QUE NON
-======================== TEST 12 ✗ ========================[0m
-						echo "test"\"\""\"test" "lala" --> IDEM
 ======================== TEST 26 ✗ ========================[0m
 pwd ; echo $PWD ; echo OLDPWD ; unset PWD ; echo $PWD ; echo $OLDPWD ; cd .. ; echo $OLDPWD ; pwd ; echo $OLDPWD ; cd .. ; pwd ; echo $OLDPWD
 

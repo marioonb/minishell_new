@@ -87,7 +87,7 @@ static bool	get_absolute_path(char **cmd, t_env *env)				////
 			free(bin);												////
 			bin = NULL;												////
 		}															////
-		free_double_tab(path_split);										////
+		free_double_tab(path_split);								////
 		free(cmd[0]);												////
 		cmd[0] = bin;												////
 	}																////
