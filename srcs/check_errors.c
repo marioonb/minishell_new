@@ -78,12 +78,20 @@ int	check_error_quote(char *tab, int quote)
 					quote *= -1;
 			}
 		}
-		else if (tab[i] == SIMPLE_Q && cpt % 2 != 0)
+		else if (tab[i] == SIMPLE_Q && cpt % 2 == 0)
 		{
 			quote *= -1;
 			while (tab[++i] && quote < 0)
+			{
+				cpt = 0;
+				if (tab[i] == BACK_S)
+				{
+					cpt ++;
+					i++;
+				}
 				if (tab[i] == SIMPLE_Q)
 					quote *= -1;
+			}
 		}
 		else
 			i++;

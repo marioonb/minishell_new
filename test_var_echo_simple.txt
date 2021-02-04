@@ -1,0 +1,10 @@
+*****echo $TEST ; echo $USER_
+*****echo 123$USER---- ; echo 123$USER----$
+*****echo abc$USERdef ; echo abc$USER123 ; echo abc$POEPdef
+*****echo $
+*****echo $POEP ; echo $POEP $MEERPOEP ; echo hallo $POEP ;
+*****echo $%%%%jlkjtwejt ; echo %%$ ; echo $####jgklj$USER
+*****echo $@@@lkgj ; echo $hallo
+
+A REGLER
+echo $POEP hallo --> me met un espace avant hallo alors que ne devrait pas

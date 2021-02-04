@@ -1,0 +1,40 @@
+****echo 00\\\'pp ;
+****echo 00\\\\\'pp
+****echo 00\\\\'pp'
+*****echo "\!" ; echo "\"" ; echo "\#"
+*****echo "\$" ; echo "\%" ; echo "\&" ; echo "\'" ; echo "\(" ; echo "\)"
+*****echo "\*" ; echo "\+" ; echo "\," ; echo "\-"
+*****echo "\." ; echo "\/"
+*****echo "\0" ; echo "\1"
+*****echo "\:" ; echo "\;" ; echo "\="
+*****echo "\?" ; echo "\@"
+*****echo "\A" ; echo "\B" ; echo "\C"
+******echo "\[" ; echo "\\" ; echo "\]" ; echo "\^" ; echo "\_" ; echo "\`"
+*****echo "\a" ; echo "\b" ; echo "\c"
+*****echo "\{" ; echo "\|" ; echo "\}" ; echo "\~" ; echo '\!' ; echo '\"'
+*****echo '\#' ; echo '\$' ; echo '\%' ; echo '\&'
+*****echo '\(' ; echo '\)' ; echo '\*' ; echo '\+' ; echo '\,' ; echo '\-' ; echo '\.' ; echo '\/'
+*****echo '\0' ; echo '\1' ; echo '\2'
+*****echo '\:' ;  echo '\=' ; echo '\?' ; echo '\@'
+*****echo '\A' ; echo '\B' ; echo '\C'
+*****echo '\[' ; echo '\\' ; echo '\]'
+*****echo '\^' ; echo '\_' ; echo '\`'
+*****echo '\a' ; echo '\b' ; echo '\c'
+*****echo '\{' ; echo '\|' ; echo '\}' ; echo '\~'
+*****echo "123\\456" ; echo "123\!456" ; echo "1234" ; echo "12\34"
+*****echo "1\a234" ; echo "123\"456"
+echo '\<'
+echo '\>'
+echo "\<"
+*****echo '\'' ; REGLE
+
+Echo "\>" → segfault
+
+ERROR QUOTE :
+
+******echo "1234\"
+*****echo \"1234"
+
+A REGLER
+echo '\;' ; --> ERREUR QUOTE SI J EN MET PLUSIEURS A LA SUITE
+ --> SEGFAULT

@@ -6,7 +6,7 @@ char	*simple_quote (char *cmd, int fd)
 
 	i = 0;
 	cmd++;
-	while (*cmd != SIMPLE_Q)
+	while (*cmd && *cmd != SIMPLE_Q)
 	{
 		ft_putchar_fd(*cmd, fd);
 		cmd++;
@@ -23,10 +23,11 @@ char	*dolls(char *cmd, int fd, char **env)
 		cmd = special_charactere(cmd, fd);
 	else
 		cmd ++;
-	if (*cmd && (!ft_isalpha(*cmd) && *cmd != '_') && *cmd != DOUBLE_Q)
+	if (*cmd && (!ft_isalpha(*cmd) && *cmd != '_') && *cmd != DOUBLE_Q && *cmd != SIMPLE_Q)
 		cmd++;
 	else
 		cmd = find_var_doll(cmd, fd, env);
+		//printf("cmd est a %s\n", cmd);
 	return (cmd);
 }
 
@@ -39,15 +40,27 @@ char	*backslash(char *cmd, int fd, char **env, int x)
 	cpt2 = 0;
 	while (*cmd && *cmd == BACK_S)
 	{
+		//printf("il passe dans la boucle 1 : \n");
+		//printf("bcl 1 -> cpt est a : %d\n", cpt);
+		//printf("bcl 1 -> cmd est a : %s\n", cmd);
 		cpt++;
 		cmd++;
+		//printf("apres bcl 1 -> cpt est a : %d\n", cpt);
+		//printf("apres bcl 1 -> cmd est a : %s\n", cmd);
 	}
 	cpt2 = cpt / 2;
+	//printf("en divisant par 2 -> cpt2 est a : %d\n", cpt2);
 	if ((*cmd && (*cmd != DOLLS && *cmd != DOUBLE_Q && *cmd != ACCENT))
 		&& x == 2)
+		{
+		//printf("il passe dans le if\n");
 		cpt2 = cpt2 + (cpt % 2);
+		//printf("cpt2 devient : %d\n", cpt2);
+		}
 	while (cpt2 > 0)
 	{
+		//printf("il passe dans la boucle 2 : \n");
+		//printf("il put un \\ : \n");
 		ft_putchar_fd(BACK_S, fd);
 		cpt2--;
 	}
@@ -66,11 +79,14 @@ char	*backslash(char *cmd, int fd, char **env, int x)
 			cmd++;
 		}
 	}
-	else if (*cmd) // ajout de if et (*cmd) sinon echo \\ marche pas
+	else if (*cmd && cpt % 2 != 0)
 	{
+		//printf("il passe dans le else if : \n");
+		////printf("il put un %c : \n", *cmd);
 		ft_putchar_fd(*cmd, fd);
-		cmd++;
+		cmd++; // a remettre ??
 	}
+	//printf("il retourne cmd = %s\n", cmd);
 	return (cmd);
 }
 
