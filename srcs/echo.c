@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   echo.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbelorge <mbelorge@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/05 11:12:31 by mbelorge          #+#    #+#             */
+/*   Updated: 2021/02/05 18:58:33 by mbelorge         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 char	*find_var_doll(char *tab, int fd, char **env)
@@ -32,8 +44,8 @@ int	flag_n(char *tab)
 	if (tab[i] == '-')
 	{
 		i++;
-		if (tab[i] && tab[i] != 'n')
-			ft_error_char(1, tab[i], 1);
+		//if (tab[i] && tab[i] != 'n')
+		//	ft_error_flag(tab[i]);
 		while (tab[i] && tab[i] == 'n')
 			i++;
 		if (tab[i] == '\0')

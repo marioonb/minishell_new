@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_error.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbelorge <mbelorge@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/05 11:12:31 by mbelorge          #+#    #+#             */
+/*   Updated: 2021/02/05 18:58:33 by mbelorge         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 /*int	check_error_quote(char *tab, int quote)
@@ -99,7 +111,7 @@ int	check_error_quote(char *tab, int quote)
 	return (quote);
 }
 
-void	check_error_quotes1(char **tab)
+int	check_error_quotes1(char **tab)
 {
 	int	i;
 	int	quotes;
@@ -109,7 +121,11 @@ void	check_error_quotes1(char **tab)
 	{
 		quotes = check_error_quote(tab[i], 1);
 		if (quotes < 0)
+		{
 			ft_error(1, 130);
+			return (0);
+		}
 		i++;
 	}
+	return (1);
 }

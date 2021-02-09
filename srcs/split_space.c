@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   split_space.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbelorge <mbelorge@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/05 11:12:31 by mbelorge          #+#    #+#             */
+/*   Updated: 2021/02/05 18:58:33 by mbelorge         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 /*static int	comptword(char *s, char c, char p)
@@ -142,7 +154,7 @@ static int	comptcaractere(char *s, char c)
 	char	d;
 
 	i = 0;
-	while ((s[i] != c) && s[i] != '\0')
+	while (s[i] != c && s[i] != '\0')
 	{
 		if (s[i] == '\'' || s[i] == '"')
 		{
@@ -167,7 +179,7 @@ char	**ft_split_space(char const *s, char c)
 	int		i;
 	char	d;
 
-	resultat = NULL; // peut etre enleve apparemment
+	//resultat = NULL; // peut etre enleve apparemment
 	i = 0;
 	if (!s)
 		return (0);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbelorge <mbelorge@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/05 11:12:31 by mbelorge          #+#    #+#             */
+/*   Updated: 2021/02/05 18:58:33 by mbelorge         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 char	*check_path(char **tab)
@@ -6,7 +18,10 @@ char	*check_path(char **tab)
 
 	i = 0;
 	if (tab[2])
+	{
 		ft_error(4, 1);
+		return (NULL);
+	}
 	if (tab[1][i] == '.')
 		while (tab[1][i] == '.')
 			i++;
@@ -57,7 +72,9 @@ char	*find_var(char *str, char **env)
 /* recherche les path oldpwd et pwd et les modifie
 */
 
-void	builtin_cd(char **tab, t_env *env)
+//void	builtin_cd(char **tab, t_env *env)
+
+int	builtin_cd(char **tab, t_env *env)
 {
 	char	*oldpwd;
 	char	*pwd;
@@ -69,15 +86,13 @@ void	builtin_cd(char **tab, t_env *env)
 	oldpwd = NULL;
 	pwd = NULL;
 	pwd2 = NULL;
+	pwd = check_path(tab);
+	if (pwd == NULL)
+		return (0);
 	if (chdir(tab[1]) == 0)
 	{
 		if (!tab[1])
 			pwd = find_var("HOME", env->env);
-		else
-		{
-			pwd = check_path(tab);
-			//pwd = strdup(tab[1]);
-		}
 		lenght = 4 + ft_strlen(pwd) + 1;
 		pwd2 = malloc(sizeof(char) * (lenght));
 		if (pwd2 == NULL)
@@ -97,5 +112,6 @@ void	builtin_cd(char **tab, t_env *env)
 		free(pwd2);
 	}
 	else
-		ft_error_str(4, tab[1], 1);
+		ft_error_str(3, tab[1], 1);
+	return (1); ////
 }

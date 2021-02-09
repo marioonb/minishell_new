@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
+
 static int	cherchecaractere(const char *s, int c)
 {
 	int	i;

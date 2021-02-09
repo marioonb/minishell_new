@@ -89,6 +89,7 @@ int			ft_isnumber(char *s);
 char		*ft_strstr(char *str, char *to_find);
 float		ft_power(float nb, int power);
 int			mini_printf(const char *s, ...);
+int			mini_printf_fd(int fd, const char *s, ...);
 char		*ft_strtrim_char(char const *s1, char set);
 
 #endif

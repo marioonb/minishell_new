@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbelorge <mbelorge@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/05 11:12:31 by mbelorge          #+#    #+#             */
+/*   Updated: 2021/02/05 18:58:33 by mbelorge         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 void	free_double_tab(char **tab)
@@ -26,7 +38,7 @@ void	ft_read_tab_char(char **tab)
 	{
 		while (tab[i][j] != '\0')
 		{
-			printf("%c", tab[i][j]);
+			printf("|%c|", tab[i][j]);
 			j++;
 		}
 		printf("\n");

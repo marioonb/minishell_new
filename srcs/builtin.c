@@ -1,4 +1,15 @@
 #include "../include/minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbelorge <mbelorge@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/05 11:12:31 by mbelorge          #+#    #+#             */
+/*   Updated: 2021/02/05 18:58:33 by mbelorge         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 /* fonction qui prend une string et qui verifie si un des termes de nos buildin y est present
 * (ex : echo, pwd etc...) renvoi 1 si oui et 0 sinon
@@ -10,6 +21,8 @@ int	is_builtin(char *cmd)
 	char	*buil[8];
 
 	i = 0;
+	if (cmd == NULL)
+		return (0);
 	while (cmd && cmd[0] == ' ')
 		cmd++;
 	buil[0] = "echo";
@@ -23,11 +36,11 @@ int	is_builtin(char *cmd)
 	while (buil[i] && cmd)
 	{
 		if (!ft_strncmp(buil[i], cmd, ft_strlen(buil[i])))
-		{
+		{ // voir a enlever pour la norme
 			if (ft_strlen (cmd) > ft_strlen(buil[i]))
 				return (0);
 			return (1);
-		}
+		} // voir a enlever pour la norme
 		i++;
 	}
 	return (0);
@@ -73,8 +86,6 @@ void	find_builtin (char **tab, t_env *env)
 		builtin_env(tab, env);
 	else if (ft_strncmp(tab[0], "exit", ft_strlen(tab[0])) == 0)
 		builtin_exit(tab);
-	//else
-	//	printf ("commande %s inconnue\n", tab[0]);
 }
 
 /* permet l'affichage
@@ -137,5 +148,6 @@ int	find_fd(char **tab)
 		}
 		i++;
 	}
+	//printf("donne moi le fd = %d", fd);
 	return (fd);
 }

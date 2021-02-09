@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbelorge <mbelorge@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/05 11:12:31 by mbelorge          #+#    #+#             */
+/*   Updated: 2021/02/05 18:58:33 by mbelorge         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 char	*find_bin(char *str, char c, int a)
@@ -26,7 +38,7 @@ int	check_caractere_name_var(char c)
 	int	i;
 
 	i = 0;
-	if (ft_isalnum(c) || c == '_')
+	if (ft_isalnum(c) || c == '_' ) // AJOUTER # pour unset, voir pour export
 		return (1);
 	else
 		return (0);
@@ -37,11 +49,16 @@ void	check_name_var(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i] && str[i] != '=')
+	if (ft_isdigit(str[0]))
+		ft_error_str(1, str, 1);
+	else
 	{
-		if (check_caractere_name_var(str[i]) == 0)
-			ft_error_str(1, str, 1);
-		i++;
+		while (str[i] && str[i] != '=')
+		{
+			if (check_caractere_name_var(str[i]) == 0)
+				ft_error_str(1, str, 1);
+			i++;
+		}
 	}
 }
 

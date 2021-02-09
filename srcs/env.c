@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbelorge <mbelorge@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/05 11:12:31 by mbelorge          #+#    #+#             */
+/*   Updated: 2021/02/05 18:58:33 by mbelorge         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 /*
@@ -14,10 +26,13 @@ void	builtin_env(char **tab, t_env *env)
 	fd = find_fd(tab);
 	if (tab[1])
 		ft_error_str(2, tab[1], 127);
-	while (env->env[i])
+	else
 	{
-		ft_out(env->env[i], fd);
-		write(fd, "\n", 1);
-		i++;
+		while (env->env[i])
+		{
+			ft_out(env->env[i], fd);
+			write(fd, "\n", 1);
+			i++;
+		}
 	}
 }

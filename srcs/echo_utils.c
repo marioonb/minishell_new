@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   echo_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbelorge <mbelorge@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/05 11:12:31 by mbelorge          #+#    #+#             */
+/*   Updated: 2021/02/05 18:58:33 by mbelorge         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 char	*simple_quote (char *cmd, int fd)
@@ -52,11 +64,11 @@ char	*backslash(char *cmd, int fd, char **env, int x)
 	//printf("en divisant par 2 -> cpt2 est a : %d\n", cpt2);
 	if ((*cmd && (*cmd != DOLLS && *cmd != DOUBLE_Q && *cmd != ACCENT))
 		&& x == 2)
-		{
+	{
 		//printf("il passe dans le if\n");
 		cpt2 = cpt2 + (cpt % 2);
 		//printf("cpt2 devient : %d\n", cpt2);
-		}
+	}
 	while (cpt2 > 0)
 	{
 		//printf("il passe dans la boucle 2 : \n");

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exit.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbelorge <mbelorge@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/05 11:12:31 by mbelorge          #+#    #+#             */
+/*   Updated: 2021/02/05 18:58:33 by mbelorge         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 /*
@@ -44,11 +56,11 @@ void	builtin_exit(char **tab)
 		exit(EXIT_SUCCESS);
 	}
 	if (tab[1] && (!ft_str_isdigit(tab[1])))
-		ft_error_str(3, tab[1], 2);
+		ft_error_exit(1, tab[1], 2);
 	else
 		nexit = ft_atoi(tab[1]) % 256;
 	if (tab[1] && tab[2])
-		ft_error(2, 1);
+		ft_error_exit(2, NULL, 1);
 	ft_putstr_fd("exit\n", 1);
 	exit(nexit);
 }
