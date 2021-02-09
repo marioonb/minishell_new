@@ -66,24 +66,25 @@ int	find_pipe(char **tab)
 * ne peux etre appelé que si la commade fait partie des commandes qu il fauut coder
 */
 
-void	find_builtin (char **tab, t_env *env)
+void	find_builtin (char **tab, t_env *env, t_exit *exit)
 {
+	//printf("%d\n", exit->exit);
 	env-> pipe = find_pipe(tab);
 	//printf ("pipe est a %d\n", env->pipe);
 	if (tab[0] == NULL)
 		printf("error");
 	else if (ft_strncmp(tab[0], "echo", ft_strlen(tab[0])) == 0)
-		builtin_echo(tab, env->env);
+		builtin_echo(tab, env->env, exit);
 	else if (ft_strncmp(tab[0], "pwd", ft_strlen(tab[0])) == 0)
 		builtin_pwd(tab, env);
 	else if (ft_strncmp(tab[0], "cd", ft_strlen(tab[0])) == 0)
-		builtin_cd(tab, env);
+		builtin_cd(tab, env, exit);
 	else if (ft_strncmp(tab[0], "export", ft_strlen(tab[0])) == 0)
-		builtin_export(tab, env);
+		builtin_export(tab, env, exit);
 	else if (ft_strncmp(tab[0], "unset", ft_strlen(tab[0])) == 0)
-		builtin_unset(tab, env);
+		builtin_unset(tab, env, exit);
 	else if (ft_strncmp(tab[0], "env", ft_strlen(tab[0])) == 0)
-		builtin_env(tab, env);
+		builtin_env(tab, env, exit);
 	else if (ft_strncmp(tab[0], "exit", ft_strlen(tab[0])) == 0)
 		builtin_exit(tab);
 }

@@ -17,7 +17,7 @@
 ** call ft_out for write env line by line
 */
 
-void	builtin_env(char **tab, t_env *env)
+void	builtin_env(char **tab, t_env *env, t_exit *exit)
 {
 	int	fd;
 	int	i;
@@ -25,7 +25,7 @@ void	builtin_env(char **tab, t_env *env)
 	i = 0;
 	fd = find_fd(tab);
 	if (tab[1])
-		ft_error_str(2, tab[1], 127);
+		exit->exit = ft_error_str(2, tab[1], 127);
 	else
 	{
 		while (env->env[i])

@@ -44,19 +44,19 @@ int	check_caractere_name_var(char c)
 		return (0);
 }
 
-void	check_name_var(char *str)
+void	check_name_var(char *str, t_exit *exit)
 {
 	int	i;
 
 	i = 0;
 	if (ft_isdigit(str[0]))
-		ft_error_str(1, str, 1);
+		exit->exit = ft_error_str(1, str, 1);
 	else
 	{
 		while (str[i] && str[i] != '=')
 		{
 			if (check_caractere_name_var(str[i]) == 0)
-				ft_error_str(1, str, 1);
+				exit->exit = ft_error_str(1, str, 1);
 			i++;
 		}
 	}
@@ -91,7 +91,7 @@ void	treat_var(char *str, t_env *env)
 	free(bin);
 }
 
-void	builtin_export(char **tab, t_env *env)
+void	builtin_export(char **tab, t_env *env, t_exit *exit)
 {
 	char	*str;
 	int		i;
@@ -105,7 +105,7 @@ void	builtin_export(char **tab, t_env *env)
 		while (tab[i])
 		{
 			str = ft_strdup(tab[i]);
-			check_name_var(str);
+			check_name_var(str, exit);
 			treat_var (str, env);
 			i++;
 		}

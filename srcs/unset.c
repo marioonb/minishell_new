@@ -63,7 +63,7 @@ void	change_export_supp (int i, t_env *env)
 	free_double_tab(new_export);
 }
 
-void	builtin_unset(char **tab, t_env *env)
+void	builtin_unset(char **tab, t_env *env, t_exit *exit)
 {
 	int	i;
 	int	j;
@@ -71,7 +71,7 @@ void	builtin_unset(char **tab, t_env *env)
 	j = 1;
 	i = 0;
 	if (tab[1])
-		check_name_var(tab[1]);
+		check_name_var(tab[1], exit);
 	while (tab[j])
 	{
 		while (env->env[i])

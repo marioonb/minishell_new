@@ -105,24 +105,25 @@ int	check_error_quote(char *tab, int quote)
 					quote *= -1;
 			}
 		}
-		else
+		else if (tab[i]) // sinon ne marche pas avec echo \ ou echo \\ etc...
 			i++;
 	}
 	return (quote);
 }
 
-int	check_error_quotes1(char **tab)
+int	check_error_quotes1(char **tab, t_exit *exit)
 {
 	int	i;
 	int	quotes;
-
+	//printf("%d dans check\n", exit->exit);
 	i = 0;
 	while (tab[i])
 	{
 		quotes = check_error_quote(tab[i], 1);
 		if (quotes < 0)
 		{
-			ft_error(1, 130);
+			exit->exit = ft_error(1, 2);
+			//printf("%dapres l erreur\n", exit->exit);
 			return (0);
 		}
 		i++;

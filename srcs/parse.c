@@ -17,16 +17,18 @@
 *et separe chaque commande en double tableau de char
 */
 
-void	ft_read_buffer(char *buffer, t_env *env)
+void	ft_read_buffer(char *buffer, t_env *env, t_exit *exit)
 {
 	char	**tab;
 	int		i;
 
+
 	i = 0;
+	//printf("%d dans read\n", exit->exit);
 	tab = ft_split_minishell(buffer, ';');
 	while (tab[i])
 	{
-		ft_parse(tab[i], env);
+		ft_parse(tab[i], env, exit);
 		i++;
 	}
 	free_double_tab(tab);
@@ -139,24 +141,25 @@ char	*modif_commande_quote(char *cmd)
 		c = str[0];
 		str = ft_strtrim_char(str, c);
 		ft_strncpy(cmd, str, ft_strlen(cmd));
-		printf("str est a %s\n", str);
+		//printf("str est a %s\n", str);
 	}
 	free(str);
 	return (cmd);
 }
 
-int	ft_parse(char *tab, t_env *env)
+int	ft_parse(char *tab, t_env *env, t_exit *exit)
 {
 	char	**tab_cmd;
 
+	 //printf("%d dans parse\n", exit->exit);
 	tab_cmd = ft_split_space(tab, SPACE);
 	//ft_read_tab_char(tab_cmd);
-	if (!(check_error_quotes1(tab_cmd)))
+	if (!(check_error_quotes1(tab_cmd, exit)))
 		return (0);
-	check_error_quotes1(tab_cmd);
+	//check_error_quotes1(tab_cmd, exit);
 	tab_cmd[0] = modif_commande_quote(tab_cmd[0]);
 	if (is_builtin(tab_cmd[0]) == 1)
-		find_builtin(tab_cmd, env);
+		find_builtin(tab_cmd, env, exit);
 	else
 	{
 		if (get_path(tab_cmd, env) == 1)

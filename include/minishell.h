@@ -37,26 +37,31 @@ typedef struct s_env
 
 }				t_env;
 
-void	ft_read_buffer(char *buffer, t_env *env);
-void	ft_error(int a, int nexit);
+typedef struct s_exit
+{
+	int	exit;
+}				t_exit;
+
+void	ft_read_buffer(char *buffer, t_env *env, t_exit *exit);
+int	ft_error(int a, int nexit);
 void	ft_echo(char **tab);
 void	free_double_tab(char **tab);
 int		check_error_quote(char *tab, int quote);
 //void	check_error_quotes1(char **tab);
-int	check_error_quotes1(char **tab);
+int	check_error_quotes1(char **tab, t_exit *exit);
 void	ft_read_tab_char(char **tab);
 char	**modif_tab(char **cmd);
 int		is_builtin(char *cmd);
-int		ft_parse(char *tab, t_env *env);
+int		ft_parse(char *tab, t_env *env, t_exit *exit);
 //void	ft_parse(char *tab, t_env *env);
-void	find_builtin (char **tab, t_env *env);
-void	builtin_echo(char **tab, char **env);
+void	find_builtin (char **tab, t_env *env, t_exit *exit);
+void	builtin_echo(char **tab, char **env, t_exit *exit);
 void	builtin_pwd(char **tab, t_env *env);
 //void	builtin_cd(char **tab, t_env *env);
-int	builtin_cd(char **tab, t_env *env);
-void	builtin_export(char **tab, t_env *env);
-void	builtin_unset(char **tab, t_env *env);
-void	builtin_env(char **tab, t_env *env);
+int	builtin_cd(char **tab, t_env *env, t_exit *exit);
+void	builtin_export(char **tab, t_env *env, t_exit *exit);
+void	builtin_unset(char **tab, t_env *env, t_exit *exit);
+void	builtin_env(char **tab, t_env *env, t_exit *exit);
 void	builtin_exit(char **tab);
 char	**duplicate_env(char **envp);
 void	ft_out(char *str, int fd);
@@ -65,8 +70,8 @@ int		find_fd(char **tab);
 char	*find_var(char *str, char **env);
 void	ft_error_flag(char c);
 char	**ft_split_minishell(char const *s, char c);
-void	ft_error_str(int a, char *s, int nexit);
-void	check_name_var(char *str);
+int		ft_error_str(int a, char *s, int nexit);
+void	check_name_var(char *str, t_exit *exit);
 int		check_caractere_name_var(char c);
 char	**ft_split_space(char const *s, char c);
 void	change_export_add(char *tab, t_env *env);
@@ -84,6 +89,6 @@ void	ft_error_malloc(void);
 			//printf("juste pour la compil %c\n", tab[1][1]);
 char	*find_var_doll(char *tab, int fd, char **env);
 char	*special_charactere(char *cmd, int fd);
-void	ft_treatment_instruct(char *cmd, int fd, char **env);
+void	ft_treatment_instruct(char *cmd, int fd, char **env, t_exit *exit);
 int		echo_charactere(char c);
 void	ft_error_exit (int a, char *s, int nexit);

@@ -27,10 +27,16 @@ char	*simple_quote (char *cmd, int fd)
 	return (cmd);
 }
 
-char	*dolls(char *cmd, int fd, char **env)
+
+char	*dolls(char *cmd, int fd, char **env, t_exit *exit)
 {
+	//printf("%d\n", exit->exit);
 	if (cmd[1] && cmd[1] == '?')
-		ft_putchar_fd('0', fd); // mettre la sortie plutot
+		{
+			mini_printf_fd(fd, "%d", exit->exit);
+			cmd++;
+		}
+		//ft_putchar_fd('0', fd); // mettre la sortie plutot
 	else if (cmd[1] && echo_charactere(cmd[1]))
 		cmd = special_charactere(cmd, fd);
 	else
@@ -76,8 +82,11 @@ char	*backslash(char *cmd, int fd, char **env, int x)
 		ft_putchar_fd(BACK_S, fd);
 		cpt2--;
 	}
-	if (!*cmd && cpt % 2 != 0)
-		ft_error(3, 0);
+	if (!*cmd && cpt % 2 != 0) // si je fait exit-> exit = error, je devrai emporter exit et jai deja 4 param dans la fonction
+		{
+		 	ft_error(3, 0);
+			//return(NULL); // permet de recuperer la valeur null et mettre mexit a 2 mais si je remvoi null je segfault
+		}
 	if (*cmd && *cmd == DOLLS)
 	{
 		if (cpt % 2 == 0)
@@ -102,7 +111,7 @@ char	*backslash(char *cmd, int fd, char **env, int x)
 	return (cmd);
 }
 
-char	*double_quote(char *cmd, int fd, char **env)
+char	*double_quote(char *cmd, int fd, char **env, t_exit *exit)
 {
 	char	*str;
 	int		i;
@@ -129,9 +138,13 @@ char	*double_quote(char *cmd, int fd, char **env)
 	while (*str)
 	{
 		if (*str == DOLLS && str[1])
-			str = dolls(str, fd, env);
+			str = dolls(str, fd, env, exit);
 		else if (*str == BACK_S)
-			str = backslash(str, fd, env, 2);
+			{
+				str = backslash(str, fd, env, 2);
+				//if (str == NULL) je peux pas renvoyer null avec la fonction backslash car sinon ca segfault
+				//	exit->exit = 2;
+			}
 		else
 		{
 			ft_putchar_fd(*str, fd);
@@ -143,21 +156,28 @@ char	*double_quote(char *cmd, int fd, char **env)
 	return (cmd);
 }
 
-void	ft_treatment_instruct(char *cmd, int fd, char **env)
+
+void	ft_treatment_instruct(char *cmd, int fd, char **env, t_exit *exit)
 {
 	int	x;
 
+	//printf("%d\n", exit->exit);
 	x = 1;
 	while (*cmd)
 	{
 		if (*cmd == DOUBLE_Q)
-			cmd = double_quote(cmd, fd, env);
+			cmd = double_quote(cmd, fd, env, exit);
 		else if (*cmd == SIMPLE_Q)
 			cmd = simple_quote (cmd, fd);
 		else if (*cmd == DOLLS && cmd[1])
-			cmd = dolls(cmd, fd, env);
+			cmd = dolls(cmd, fd, env, exit);
 		else if (*cmd == BACK_S)
-			cmd = backslash(cmd, fd, env, 1);
+			{
+				cmd = backslash(cmd, fd, env, 1);
+			//	printf("cmd etait a %s\n", cmd);
+			//	if (cmd == NULL) // obligé si on veut mettre l erreur echo \\ a 2 mais le pb c est que si je renvoi null ca segfault
+			//		exit->exit = 2;
+			}
 		else
 		{
 			//printf("cmd c est quoi ? |%c|\n", cmd[0]);

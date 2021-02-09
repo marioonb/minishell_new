@@ -84,12 +84,14 @@ int	echo_charactere(char c)
 	return (0);
 }
 
-void	builtin_echo(char **tab, char **env) // 31 lignes
+void	builtin_echo(char **tab, char **env, t_exit *exit) // 31 lignes
 {
 	int		i;
 	int		fd;
 	int		flag;
 	int		x;
+
+	//printf("%d\n", exit->exit);
 //	int space;
 //	space = 1;  // si ca a ecrit quelque chose ca reste a 1 sinon ca passe a 0;
 	x = 0;
@@ -107,7 +109,7 @@ void	builtin_echo(char **tab, char **env) // 31 lignes
 		else
 		{
 //			space = ft_essai(tab[i], fd, env);
-			ft_treatment_instruct(tab[i], fd, env);
+			ft_treatment_instruct(tab[i], fd, env, exit);
 			x = 1;
 			if (tab[i + 1]) //&& space == 1)
 				ft_putstr_fd(" ", fd);
@@ -116,4 +118,5 @@ void	builtin_echo(char **tab, char **env) // 31 lignes
 	}
 	if (flag != 1)
 		ft_putstr_fd("\n", fd);
+	exit->exit = 0;
 }

@@ -18,7 +18,9 @@ int	main(int ac, char **av, char **envp)
 	size_t	buf_size;
 	char	*cmd;
 	t_env	env;
+	t_exit	exit;
 
+	exit.exit = 0;
 	(void)ac;
 	(void)av;
 	buffer = NULL;
@@ -32,12 +34,12 @@ int	main(int ac, char **av, char **envp)
 	while (getline(&buffer, &buf_size, stdin) > 0)
 	{
 		cmd = ft_strtrim(buffer, "\n\t");
-		ft_read_buffer(cmd, &env);
+		ft_read_buffer(cmd, &env, &exit);
 		write(2, "$> ", 2);
 		free(cmd);
 	}
 	free(buffer);
-	exit (1);
+	//exit (1);
 	//system("leaks ./minishell");
 	return (0);
 }
