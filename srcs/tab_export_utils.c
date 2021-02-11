@@ -51,21 +51,21 @@ void	replace_var_export(char *bin, char *str, t_env *env)
 ** permet l'afficher du tableau export a l appel de la commande export seule
 */
 
-void	declare_x(char **tab, t_env *env)
+void	declare_x(t_env *env, int fd)
 {
-	int		fd;
+	//int		fd;
 	int		i;
 	char	*bin;
 	int		j;
 
 	i = 0;
-	fd = find_fd(tab);
+	//fd = find_fd(tab);
 	while (env->export[i])
 	{
 		j = 0;
 		while (env->export[i][j] != '\0' && env->export[i][j] != '=')
 			j++;
-		ft_putstr("declare -x ");
+		ft_putstr_fd("declare -x ", fd);
 		bin = find_bin(env->export[i], '=', j);
 		ft_putstr_fd(bin, fd);
 		if ((int)ft_strlen(env->export[i]) > (int)ft_strlen(bin))

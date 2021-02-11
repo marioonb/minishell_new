@@ -28,12 +28,12 @@ char	*simple_quote (char *cmd, int fd)
 }
 
 
-char	*dolls(char *cmd, int fd, char **env, t_exit *exit)
+char	*dolls(char *cmd, int fd, char **env, t_ms *ms)
 {
 	//printf("%d\n", exit->exit);
 	if (cmd[1] && cmd[1] == '?')
 		{
-			mini_printf_fd(fd, "%d", exit->exit);
+			mini_printf_fd(fd, "%d", ms->exit);
 			cmd++;
 		}
 		//ft_putchar_fd('0', fd); // mettre la sortie plutot
@@ -84,8 +84,8 @@ char	*backslash(char *cmd, int fd, char **env, int x)
 	}
 	if (!*cmd && cpt % 2 != 0) // si je fait exit-> exit = error, je devrai emporter exit et jai deja 4 param dans la fonction
 		{
-		 	ft_error(3, 0);
-			//return(NULL); // permet de recuperer la valeur null et mettre mexit a 2 mais si je remvoi null je segfault
+		 	ft_error(3, 0); // voir sinon pour envoye l exit, en elevant une autre variable... ou en la mettant en globale, et du coup retirer la condition dans le dernier else if
+			return(NULL); // permet de recuperer la valeur null et mettre mexit a 2 mais avant si je remvoi null je segfault
 		}
 	if (*cmd && *cmd == DOLLS)
 	{
@@ -111,7 +111,7 @@ char	*backslash(char *cmd, int fd, char **env, int x)
 	return (cmd);
 }
 
-char	*double_quote(char *cmd, int fd, char **env, t_exit *exit)
+char	*double_quote(char *cmd, int fd, char **env, t_ms *ms)
 {
 	char	*str;
 	int		i;
@@ -138,12 +138,15 @@ char	*double_quote(char *cmd, int fd, char **env, t_exit *exit)
 	while (*str)
 	{
 		if (*str == DOLLS && str[1])
-			str = dolls(str, fd, env, exit);
+			str = dolls(str, fd, env, ms);
 		else if (*str == BACK_S)
 			{
 				str = backslash(str, fd, env, 2);
-				//if (str == NULL) je peux pas renvoyer null avec la fonction backslash car sinon ca segfault
-				//	exit->exit = 2;
+				if (str == NULL) //je peux pas renvoyer null avec la fonction backslash car sinon ca segfault
+				{	ms->exit = 2;
+					//printf("PASSE LA ?");
+					break ;
+				}
 			}
 		else
 		{
@@ -157,26 +160,30 @@ char	*double_quote(char *cmd, int fd, char **env, t_exit *exit)
 }
 
 
-void	ft_treatment_instruct(char *cmd, int fd, char **env, t_exit *exit)
+void	ft_treatment_instruct(char *cmd, int fd, char **env, t_ms *ms)
 {
 	int	x;
 
 	//printf("%d\n", exit->exit);
+	//printf("ON ENTRE ????");
 	x = 1;
 	while (*cmd)
 	{
 		if (*cmd == DOUBLE_Q)
-			cmd = double_quote(cmd, fd, env, exit);
+			cmd = double_quote(cmd, fd, env, ms);
 		else if (*cmd == SIMPLE_Q)
 			cmd = simple_quote (cmd, fd);
 		else if (*cmd == DOLLS && cmd[1])
-			cmd = dolls(cmd, fd, env, exit);
+			cmd = dolls(cmd, fd, env, ms);
 		else if (*cmd == BACK_S)
 			{
 				cmd = backslash(cmd, fd, env, 1);
-			//	printf("cmd etait a %s\n", cmd);
-			//	if (cmd == NULL) // obligé si on veut mettre l erreur echo \\ a 2 mais le pb c est que si je renvoi null ca segfault
-			//		exit->exit = 2;
+				if (cmd == NULL) // obligé si on veut mettre l erreur echo \\ a 2 mais le pb c est que si je renvoi null ca segfault
+					{
+						ms->exit = 2;
+						printf("ICI ?\n");
+						break ;
+					}
 			}
 		else
 		{
@@ -184,5 +191,6 @@ void	ft_treatment_instruct(char *cmd, int fd, char **env, t_exit *exit)
 			ft_putchar_fd(cmd[0], fd);
 			cmd++;
 		}
-	}
+	ms->exit = 0;
+	}//printf("exit = %d", exit->exit);
 }

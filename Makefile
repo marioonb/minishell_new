@@ -29,7 +29,8 @@ SRC = 	main.c \
 		srcs/tab_env_utils.c \
 		srcs/tab_export_utils.c \
 		srcs/exit.c \
-		srcs/echo_utils.c
+		srcs/echo_utils.c \
+		srcs/execute.c
 
 OBJ = main.o \
 		parse.o \
@@ -48,7 +49,8 @@ OBJ = main.o \
 		tab_env_utils.o \
 		tab_export_utils.o \
 		exit.o \
-		echo_utils.o
+		echo_utils.o \
+		execute.o
 
 FLAGS = -Wall -Werror -Wextra -fsanitize=address -g3
 

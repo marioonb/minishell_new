@@ -111,7 +111,7 @@ int	check_error_quote(char *tab, int quote)
 	return (quote);
 }
 
-int	check_error_quotes1(char **tab, t_exit *exit)
+int	check_error_quotes1(char **tab, t_ms *ms)
 {
 	int	i;
 	int	quotes;
@@ -122,7 +122,7 @@ int	check_error_quotes1(char **tab, t_exit *exit)
 		quotes = check_error_quote(tab[i], 1);
 		if (quotes < 0)
 		{
-			exit->exit = ft_error(1, 2);
+			ms->exit = ft_error(1, 2);
 			//printf("%dapres l erreur\n", exit->exit);
 			return (0);
 		}

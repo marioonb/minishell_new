@@ -12,14 +12,14 @@
 
 #include "../include/minishell.h"
 
-char	*check_path(char **tab, t_exit *exit)
+char	*check_path(char **tab, t_ms *ms)
 {
 	int	i;
 
 	i = 0;
 	if (tab[2])
 	{
-		exit->exit = ft_error(4, 1);
+		ms->exit = ft_error(4, 1);
 		return (NULL);
 	}
 	if (tab[1][i] == '.')
@@ -74,7 +74,7 @@ char	*find_var(char *str, char **env)
 
 //void	builtin_cd(char **tab, t_env *env)
 
-int	builtin_cd(char **tab, t_env *env, t_exit *exit)
+int	builtin_cd(char **tab, t_env *env, t_ms *ms)
 {
 	char	*oldpwd;
 	char	*pwd;
@@ -86,10 +86,12 @@ int	builtin_cd(char **tab, t_env *env, t_exit *exit)
 	oldpwd = NULL;
 	pwd = NULL;
 	pwd2 = NULL;
-	pwd = check_path(tab, exit);
-	if (pwd == NULL)
-		return (0);
-	if (chdir(tab[1]) == 0)
+	ms->exit = 0;
+	if (tab[1])
+		pwd = check_path(tab, ms);
+	if (tab[1] && pwd == NULL)
+			return (0);
+	if (chdir(tab[1]) == 0 || !tab[1])
 	{
 		if (!tab[1])
 			pwd = find_var("HOME", env->env);
@@ -112,6 +114,6 @@ int	builtin_cd(char **tab, t_env *env, t_exit *exit)
 		free(pwd2);
 	}
 	else
-		exit->exit = ft_error_str(3, tab[1], 1);
+		ms->exit = ft_error_str(3, tab[1], 1);
 	return (1); ////
 }

@@ -31,64 +31,124 @@ typedef struct s_env
 {
 	char	**env;
 	char	**export;
-	int		pipe;
-	pid_t	pid;
-	int		status;
 
 }				t_env;
 
-typedef struct s_exit
+typedef struct s_ms
 {
-	int	exit;
-}				t_exit;
+	int		pipe;
+	pid_t	pid;
+	int		status;
+	char	**enter;
+	int		fd_in;
+	int		fd_out;
+	int		fdp[2];
+	int		exit;
+}				t_ms;
 
-void	ft_read_buffer(char *buffer, t_env *env, t_exit *exit);
-int	ft_error(int a, int nexit);
-void	ft_echo(char **tab);
-void	free_double_tab(char **tab);
-int		check_error_quote(char *tab, int quote);
-//void	check_error_quotes1(char **tab);
-int	check_error_quotes1(char **tab, t_exit *exit);
-void	ft_read_tab_char(char **tab);
-char	**modif_tab(char **cmd);
+// fonctions builtin
 int		is_builtin(char *cmd);
-int		ft_parse(char *tab, t_env *env, t_exit *exit);
-//void	ft_parse(char *tab, t_env *env);
-void	find_builtin (char **tab, t_env *env, t_exit *exit);
-void	builtin_echo(char **tab, char **env, t_exit *exit);
-void	builtin_pwd(char **tab, t_env *env);
-//void	builtin_cd(char **tab, t_env *env);
-int	builtin_cd(char **tab, t_env *env, t_exit *exit);
-void	builtin_export(char **tab, t_env *env, t_exit *exit);
-void	builtin_unset(char **tab, t_env *env, t_exit *exit);
-void	builtin_env(char **tab, t_env *env, t_exit *exit);
-void	builtin_exit(char **tab);
-char	**duplicate_env(char **envp);
+int		find_pipe(char **tab);
+int		find_pipe2(char *tab);
+void	find_builtin (char **tab, t_env *env, t_ms *ms);
 void	ft_out(char *str, int fd);
 int		find_fd(char **tab);
-//void	change_env (char *tab, t_env *env);
+
+// fontions de cd
+char	*check_path(char **tab, t_ms *ms); //*
+int		var_lenght (char *str); //*
 char	*find_var(char *str, char **env);
-void	ft_error_flag(char c);
-char	**ft_split_minishell(char const *s, char c);
-int		ft_error_str(int a, char *s, int nexit);
-void	check_name_var(char *str, t_exit *exit);
+int		builtin_cd(char **tab, t_env *env, t_ms *ms);
+
+// fonctions check_error
+int		check_error_quote(char *tab, int quote);
+int		check_error_quotes1(char **tab, t_ms *ms);
+
+// fonction echo
+char	*find_var_doll(char *tab, int fd, char **env);
+int		flag_n(char *tab); //*
+char	*special_charactere(char *cmd, int fd);
+int		echo_charactere(char c); //*
+void	builtin_echo(char **tab, char **env, t_ms *ms);
+
+// fonctions echo_utils
+char	*simple_quote (char *cmd, int fd); //*
+char	*dolls(char *cmd, int fd, char **env, t_ms *ms); //*
+char	*backslash(char *cmd, int fd, char **env, int x); //*
+char	*double_quote(char *cmd, int fd, char **env, t_ms *ms); //*
+void	ft_treatment_instruct(char *cmd, int fd, char **env, t_ms *ms);
+
+// fonction env
+void	builtin_env(char **tab, t_env *env, t_ms *ms);
+
+// fonctions execute
+int		execute_no_pipe(char *tab, t_env *env, t_ms *ms);
+int		execute_pipe(char *tab, t_ms *ms);
+
+// fonction exit
+int		ft_str_isdigit(char *str); //*
+void	builtin_exit(char **tab);
+
+// fonctions export
+char	*find_bin(char *str, char c, int a);
 int		check_caractere_name_var(char c);
+void	check_name_var(char *str, t_ms *ms);
+void	treat_var(char *str, t_env *env);
+void	builtin_export(char **tab, t_env *env, t_ms *ms);
+
+// fonctions ft_error
+void	ft_error_malloc(void);
+void	ft_error_exit (int a, char *s, int nexit);
+int		ft_error(int a, int nexit);
+int		ft_error_str(int a, char *s, int nexit);
+void	ft_error_flag(char c);
+
+// fonctions parse
+void	ft_read_buffer(char *buffer, t_env *env, t_ms *ms);
+void	exec_cmd(char **cmd, t_env *env);
+char	*check_tab_path(char **path_split, char *bin, char *cmd);
+int		get_path(char **cmd, t_env *env);
+char	*modif_commande_quote(char *cmd);
+void	ft_parse(char *tab, t_env *env, t_ms *exit);
+
+// fonction pwd
+void	builtin_pwd(char **tab, t_env *env);
+
+// split_minishell && split_space
+char	**ft_split_minishell(char const *s, char c);
 char	**ft_split_space(char const *s, char c);
-void	change_export_add(char *tab, t_env *env);
-void	replace_var_export(char *bin, char *str, t_env *env);
-void	declare_x(char **tab, t_env *env);
+
+// fonctions tav_env_utils
 void	change_env_add (char *tab, t_env *env);
 void	replace_var_env(char *bin, char *str, t_env *env);
-char	*find_bin(char *str, char c, int a);
 char	**replace_for_add(char *str, char **env);
-void	treat_var(char *str, t_env *env);
-void	ft_error_malloc(void);
-			//printf("pwd est %s\n", pwd);
-			//printf("pwd est %d\n", (int)ft_strlen(pwd));
-			//printf("lenght est donc a %d\n", lenght);
-			//printf("juste pour la compil %c\n", tab[1][1]);
-char	*find_var_doll(char *tab, int fd, char **env);
-char	*special_charactere(char *cmd, int fd);
-void	ft_treatment_instruct(char *cmd, int fd, char **env, t_exit *exit);
-int		echo_charactere(char c);
-void	ft_error_exit (int a, char *s, int nexit);
+
+
+//fonctions tab_export_utils
+void	change_export_add(char *tab, t_env *env);
+void	replace_var_export(char *bin, char *str, t_env *env);
+void	declare_x(t_env *env, int fd);
+
+
+// fonctions unset
+char	**delete_env_element(int j, char **env);
+void	change_env_supp (int i, t_env *env);
+void	change_export_supp (int i, t_env *env);
+void	builtin_unset(char **tab, t_env *env, t_ms *ms);
+
+
+// fonctions utils
+void	free_double_tab(char **tab);
+void	ft_read_tab_char(char **tab);
+char	**duplicate_env(char **envp);
+int		search_doll(char *s);
+int		lenght_double_tab(char **tab);
+
+
+
+//printf("pwd est %s\n", pwd);
+//printf("pwd est %d\n", (int)ft_strlen(pwd));
+//printf("lenght est donc a %d\n", lenght);
+//printf("juste pour la compil %c\n", tab[1][1]);
+
+

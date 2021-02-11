@@ -1,4 +1,3 @@
-#include "../include/minishell.h"
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -10,6 +9,8 @@
 /*   Updated: 2021/02/05 18:58:33 by mbelorge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../include/minishell.h"
 
 /* fonction qui prend une string et qui verifie si un des termes de nos buildin y est present
 * (ex : echo, pwd etc...) renvoi 1 si oui et 0 sinon
@@ -46,6 +47,21 @@ int	is_builtin(char *cmd)
 	return (0);
 }
 
+int	find_pipe2(char *tab)
+{
+	int	pipe;
+
+	pipe = 0;
+	while (*tab)
+	{
+		if (*tab == PIPE)
+			pipe++;
+		tab++;
+	}
+	//printf ("pipe est a %d dans fonction\n", pipe);
+	return (pipe);
+}
+
 int	find_pipe(char **tab)
 {
 	int	pipe;
@@ -66,25 +82,25 @@ int	find_pipe(char **tab)
 * ne peux etre appelé que si la commade fait partie des commandes qu il fauut coder
 */
 
-void	find_builtin (char **tab, t_env *env, t_exit *exit)
+void	find_builtin (char **tab, t_env *env, t_ms *ms)
 {
 	//printf("%d\n", exit->exit);
-	env-> pipe = find_pipe(tab);
+	//env-> pipe = find_pipe(tab);
 	//printf ("pipe est a %d\n", env->pipe);
 	if (tab[0] == NULL)
 		printf("error");
 	else if (ft_strncmp(tab[0], "echo", ft_strlen(tab[0])) == 0)
-		builtin_echo(tab, env->env, exit);
+		builtin_echo(tab, env->env, ms);
 	else if (ft_strncmp(tab[0], "pwd", ft_strlen(tab[0])) == 0)
 		builtin_pwd(tab, env);
 	else if (ft_strncmp(tab[0], "cd", ft_strlen(tab[0])) == 0)
-		builtin_cd(tab, env, exit);
+		builtin_cd(tab, env, ms);
 	else if (ft_strncmp(tab[0], "export", ft_strlen(tab[0])) == 0)
-		builtin_export(tab, env, exit);
+		builtin_export(tab, env, ms);
 	else if (ft_strncmp(tab[0], "unset", ft_strlen(tab[0])) == 0)
-		builtin_unset(tab, env, exit);
+		builtin_unset(tab, env, ms);
 	else if (ft_strncmp(tab[0], "env", ft_strlen(tab[0])) == 0)
-		builtin_env(tab, env, exit);
+		builtin_env(tab, env, ms);
 	else if (ft_strncmp(tab[0], "exit", ft_strlen(tab[0])) == 0)
 		builtin_exit(tab);
 }

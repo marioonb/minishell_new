@@ -17,24 +17,24 @@
 *et separe chaque commande en double tableau de char
 */
 
-void	ft_read_buffer(char *buffer, t_env *env, t_exit *exit)
+void	ft_read_buffer(char *buffer, t_env *env, t_ms *ms)
 {
 	char	**tab;
 	int		i;
 
 
 	i = 0;
-	//printf("%d dans read\n", exit->exit);
+
 	tab = ft_split_minishell(buffer, ';');
 	while (tab[i])
 	{
-		ft_parse(tab[i], env, exit);
+		ft_parse(tab[i], env, ms);
 		i++;
 	}
 	free_double_tab(tab);
 }
 
-static void	exec_cmd(char **cmd, t_env *env)
+void	exec_cmd(char **cmd, t_env *env)
 {
 	pid_t	pid;
 	int		status;
@@ -147,26 +147,29 @@ char	*modif_commande_quote(char *cmd)
 	return (cmd);
 }
 
-int	ft_parse(char *tab, t_env *env, t_exit *exit)
+/*int	ft_parse(char *tab, t_env *env, t_exit *exit)
 {
 	char	**tab_cmd;
 
-	 //printf("%d dans parse\n", exit->exit);
 	tab_cmd = ft_split_space(tab, SPACE);
-	//ft_read_tab_char(tab_cmd);
 	if (!(check_error_quotes1(tab_cmd, exit)))
 		return (0);
-	//check_error_quotes1(tab_cmd, exit);
 	tab_cmd[0] = modif_commande_quote(tab_cmd[0]);
-	if (is_builtin(tab_cmd[0]) == 1)
-		find_builtin(tab_cmd, env, exit);
+	env->pipe = find_pipe(tab_cmd);
+	if (env->pipe > 0)
+		execute_pipe();
 	else
-	{
-		if (get_path(tab_cmd, env) == 1)
-			exec_cmd(tab_cmd, env);
-		else
-			ft_error(2, 127);
-	}
+		execute_no_pipe(tab_cmd, env, exit);
 	return (1);
+	//free_double_tab(tab_cmd); -> seg
+}*/
+
+void	ft_parse(char *tab, t_env *env, t_ms *ms)
+{
+	ms->pipe = find_pipe2(tab);
+	if (ms->pipe > 0)
+		execute_pipe(tab, ms);
+	else
+		execute_no_pipe(tab, env, ms);
 	//free_double_tab(tab_cmd); -> seg
 }

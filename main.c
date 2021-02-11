@@ -18,9 +18,10 @@ int	main(int ac, char **av, char **envp)
 	size_t	buf_size;
 	char	*cmd;
 	t_env	env;
-	t_exit	exit;
+	t_ms	ms;
 
-	exit.exit = 0;
+	//env.enter = 1;
+	ms.exit = 0;
 	(void)ac;
 	(void)av;
 	buffer = NULL;
@@ -31,15 +32,19 @@ int	main(int ac, char **av, char **envp)
 	if (buffer == NULL)
 		ft_error_malloc();
 	write(2, "$> ", 3);
-	while (getline(&buffer, &buf_size, stdin) > 0)
+	//while (getline(&buffer, &buf_size, stdin) > 0)
+	while (get_next_line(0, &buffer) > 0)
 	{
 		cmd = ft_strtrim(buffer, "\n\t");
-		ft_read_buffer(cmd, &env, &exit);
+		//mini_printf_fd(1, "EXIT avant = %d\n", exit.exit);
+		ft_read_buffer(cmd, &env, &ms);
+		//mini_printf_fd(1, "EXIT apres = %d\n", exit.exit);
 		write(2, "$> ", 2);
 		free(cmd);
 	}
 	free(buffer);
+	//printf("fin");
 	//exit (1);
 	//system("leaks ./minishell");
-	return (0);
+	return(0);
 }
