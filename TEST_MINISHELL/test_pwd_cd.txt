@@ -1,0 +1,130 @@
+
+**pwd
+
+**pwd test
+
+pwd test lala
+
+pwd "test"
+
+pwd ; cd .. ; pwd ; cd / ; pwd ; cd . ; pwd ; cd ~/ ; pwd
+     #1 0x10ebbc1b8 in builtin_cd cd.c:57
+
+pwd .
+
+pwd ..
+
+pwd ; cd ; pwd
+     #0 0x105db0e6f in find_path cd.c:5
+
+pwd ; cd .. ; pwd
+     #1 0x106d2b1b8 in builtin_cd cd.c:57
+
+pwd ; cd $dir ; pwd
+     #1 0x1009121b8 in builtin_cd cd.c:57
+
+#pwd ; cd test_cd ; pwd
+     #1 0x1077171b8 in builtin_cd cd.c:57
+
+pwd ; cd ~/ ; pwd
+     #1 0x1050891b8 in builtin_cd cd.c:57
+
+pwd ; cd ~/test_cd ; pwd
+     #1 0x10a1881b8 in builtin_cd cd.c:57
+
+pwd ; cd .. ; pwd ; cd .. ; pwd ; cd ~/ ; pwd
+     #1 0x108bce1b8 in builtin_cd cd.c:57
+
+#pwd ; cd /
+     #1 0x109abe1b8 in builtin_cd cd.c:57
+
+pwd ; cd error ; pwd
+     #1 0x107d861b8 in builtin_cd cd.c:57
+
+pwd ; cd error error ; pwd
+     #1 0x1097551b8 in builtin_cd cd.c:57
+
+#pwd ; cd test_cd error ; pwd
+     #1 0x106db61b8 in builtin_cd cd.c:57
+
+#pwd ; cd error test_cd error ; pwd
+     #1 0x10f2591b8 in builtin_cd cd.c:57
+
+pwd ; cd ~/test_cd error ; pwd
+     #1 0x10fb371b8 in builtin_cd cd.c:57
+
+pwd ; cd error ~/test_cd error ; pwd
+     #1 0x1081f21b8 in builtin_cd cd.c:57
+
+pwd ; cd .. ; pwd ; cd .. ; pwd ; cd .. ; pwd ; cd .. ; pwd ; cd .. ; pwd ; cd .. ; pwd
+     #1 0x10b22f1b8 in builtin_cd cd.c:57
+
+pwd ; cd .. | pwd
+     #1 0x10ed001b8 in builtin_cd cd.c:57
+
+#pwd | cd | pwd ; cd | pwd
+     #1 0x1002731b8 in builtin_cd cd.c:57
+
+#pwd ; cd ../minishell_tester ; pwd
+     #1 0x10c1871b8 in builtin_cd cd.c:57
+
+pwd ; cd ../error ; pwd
+     #1 0x10bc701b8 in builtin_cd cd.c:57
+
+pwd ; cd . ; pwd
+     #1 0x103d791b8 in builtin_cd cd.c:57
+
+#pwd ; cd ./ ; pwd
+     #1 0x1092b31b8 in builtin_cd cd.c:57
+
+pwd ; cd ../ ; pwd
+     #1 0x10d5f91b8 in builtin_cd cd.c:57
+
+pwd ; cd ... ; pwd
+     #1 0x102e631b8 in builtin_cd cd.c:57
+
+pwd ; cd .error ; pwd
+     #1 0x10c8681b8 in builtin_cd cd.c:57
+
+pwd ; cd ..error ; pwd
+     #1 0x107c251b8 in builtin_cd cd.c:57
+
+pwd ; cd ../../../Bureau/../Bureau/../Bureau ; pwd
+     #1 0x10432f1b8 in builtin_cd cd.c:57
+
+#pwd ; cd ./../../../Bureau/../Bureau/../Bureau ; pwd
+     #1 0x104c641b8 in builtin_cd cd.c:57
+
+pwd ; cd ./../../../Bureau/././././../Bureau/././././../Bureau ; pwd
+     #1 0x10b2b11b8 in builtin_cd cd.c:57
+
+#pwd ; cd ~/../../home/../home/user42/Bureau/../Bureau/../Bureau ; pwd
+     #1 0x104e5f1b8 in builtin_cd cd.c:57
+
+pwd ; cd ~/.. ; pwd
+     #1 0x106f2f1b8 in builtin_cd cd.c:57
+
+pwd ; cd ../.. ; cd minishell/../minishell/.. ; pwd
+     #1 0x10602c1b8 in builtin_cd cd.c:57
+
+#pwd ; cd ../../ ; cd ./minishell/.././minishell/../. ; pwd
+    #1 0x10b5781b8 in builtin_cd cd.c:57
+
+pwd ; cd ~ ; cd ../../../../../ ; pwd
+     #1 0x10a7061b8 in builtin_cd cd.c:57
+
+pwd ; cd ../.../ ; pwd
+     #1 0x101aec1b8 in builtin_cd cd.c:57
+
+pwd ; cd ../... ; pwd
+     #1 0x10eb4b1b8 in builtin_cd cd.c:57
+
+pwd ; cd ... ; pwd
+     #1 0x10221f1b8 in builtin_cd cd.c:57
+
+cd ../minishell_tester/... ; pwd
+     #1 0x1042071b8 in builtin_cd cd.c:57
+
+pwd ; cd .../../..././././../... ; pwd
+     #1 0x1088291b8 in builtin_cd cd.c:57
+

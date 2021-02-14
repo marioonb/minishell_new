@@ -1,0 +1,34 @@
+*****echo $USER "$USER" '$USER'
+*****echo '\$?'
+*****echo '$USER'
+*****echo '\$USER' ; echo '"\$USER"' ;
+*****echo "\poep" ; echo \poep ; echo "poep\"" ; echo "poep\'" ;
+*****echo "hallo\"\poep" ; echo hallo"" ; echo "hoi$USERmaran"
+*****echo "$USER" ; echo "'\$USER'" ; echo "\$USER" ; echo '$USER'$USER
+*****echo hallo$"USER" ; echo hallo$"POEP" ;
+*****echo $"USERhallo"
+*****echo "$2$*" ; echo "$222"
+*****echo "hallo$USER***$USER$2$" ; echo "$_poep" ; echo "$a5aap" ; echo "$halllo###" ; echo "$USER9582309582529"
+*****echo "$USER" ; echo "$USER'" ; echo "$USER_"
+*****echo "abc$USERdef" ; echo "abc$USER123" ; echo "abc$POEPdef"
+*****echo "$" ; echo "%%$" ; echo "$%%%%jlkjtwejt"
+*****echo hallo"$"abc ; echo hallo"$POEP"abc ; echo hallo"$USER"abc
+*****echo "$@@@lkgj" ; echo $"hallo" ; echo $hallo"poep" ; echo $USER"" ;
+*****echo "$PWD" ; echo "$LALA"
+*****echo "$TEST$TEST=lol$TEST" ; echo $TEST$TEST=lol$TEST""lol ; echo "$=TEST" ; echo "$1TEST"
+*****echo \$PWD ; echo \\$PWD
+*****echo '$USER'$USER\$USER/"$USER"
+*****echo hallo"1234"maran"$USER"'/$USER'"/$USER"'poep''poep2'"maran"'ellende'END
+*****echo "$USER"'/$USER'
+
+*****echo hallo$'USER' ; REGLE
+
+
+ERREUR QUOTE
+*****echo "poep\"
+*****echo $USER"
+*****echo $USER' ;
+*****echo "hallo"maran"
+
+A REGLER
+espace apres le ; a la fimn SEGFAULT (ex : echo "\poep" ; echo \poep ; echo "poep\"" ; echo "poep\'" ;)

@@ -1,0 +1,30 @@
+						echo "test""test" "lala"
+
+						echo "test"test"" "lala"
+
+
+
+#						echo 'test''test''lala'
+
+
+
+						echo 'test''test''lala'
+
+						echo test "" test "" test
+
+						echo test """" test """" test
+
+						echo test "" "" "" test
+
+						echo "" test "" test "" test ""
+"echo" hallo daar —-> RENTRE DANS EXECVE
+echo "hallo daar »
+echo “./hello”. ;
+echo ';;’ —> segfault
+
+echo ";;; » —>serrault
+echo "\poep"
+Echo"
+echo « → segfault 
+echo 'poep''poep2'"maran"'ellende'END
+echo 'poep2'"maran"'ellende'

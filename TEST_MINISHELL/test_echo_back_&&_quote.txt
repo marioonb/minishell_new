@@ -1,0 +1,77 @@
+*****echo 00\\\'pp ;
+*****echo 00\\\\\'pp
+****echo 00\\\\'pp'
+*****echo "\!" ; echo "\"" ; echo "\#"
+*****echo "\$" ; echo "\%" ; echo "\&" ; echo "\'" ; echo "\(" ; echo "\)"
+*****echo "\*" ; echo "\+" ; echo "\," ; echo "\-"
+*****echo "\." ; echo "\/"
+*****echo "\0" ; echo "\1"
+*****echo "\:" ; echo "\;" ; echo "\="
+*****echo "\?" ; echo "\@"
+*****echo "\A" ; echo "\B" ; echo "\C"
+*****echo "\[" ; echo "\\" ; echo "\]" ; echo "\^" ; echo "\_" ; echo "\`"
+*****echo "\a" ; echo "\b" ; echo "\c"
+*****echo "\{" ; echo "\|" ; echo "\}" ; echo "\~" ; echo '\!' ; echo '\"'
+*****echo '\#' ; echo '\$' ; echo '\%' ; echo '\&'
+*****echo '\(' ; echo '\)' ; echo '\*' ; echo '\+' ; echo '\,' ; echo '\-' ; echo '\.' ; echo '\/'
+*****echo '\0' ; echo '\1' ; echo '\2'
+*****echo '\:' ;  echo '\=' ; echo '\?' ; echo '\@'
+*****echo '\A' ; echo '\B' ; echo '\C'
+*****echo '\[' ; echo '\\' ; echo '\]'
+*****echo '\^' ; echo '\_' ; echo '\`'
+*****echo '\a' ; echo '\b' ; echo '\c'
+*****echo '\{' ; echo '\|' ; echo '\}' ; echo '\~'
+*****echo "123\\456" ; echo "123\!456" ; echo "1234" ; echo "12\34"
+*****echo "1\a234" ; echo "123\"456"
+echo '\<'
+echo '\>'
+echo "\<"
+*****echo hallo 'ma\'ran'' siemons
+*****echo hallo 'ma\'ran’ siemons ;
+*****echo '\'' ; REGLE
+echo "\>" → segfault
+*****echo '1234' ; echo '12\34' ; echo '1234\' ;
+*****echo '1\a234' ; echo '\1234'
+
+ERROR QUOTE :
+
+*****echo "1234\"
+*****echo \"1234"
+*****echo hallo 'ma\"ran’ siemons
+*****echo hallo 'ma\'ran' siemons
+*****echo \'1234' ;
+
+A REGLER
+echo '\;' ; --> ERREUR QUOTE SI J EN MET PLUSIEURS A LA SUITE
+echo "\;" --> ERREUR QUOTE SI PLUSIEURS
+echo ";" --> ERREUR QUOTE ALORS QUE NON
+echo ';'
+echo \; --> seg si plusieurs
+
+
+
+
+
+
+#						echo 'test'\'test'\''lala'
+#						echo "test"\""test" "lala"
+
+#**echo "test"\"\""\"test" "lala"
+						echo "lala\nlala"
+
+						echo 'lala\nlala'
+
+echo "\1234"
+
+echo "1234" \; echo hoi → retour a la ligne a enlever
+
+echo "1234\\" → erreur quoite alors que non
+
+echo '1234\\' → manque un \
+
+echo '1234' \; echo hoi → il ne doit pas y avoir de retour chariot
+echo "123\"456"
+echo "\poep"
+Echo "123\'456" → n affiche pas le \ alors qu le devrait car entre double quote
+echo "hallo$"
+Echo \" → n affiche pas le « aors qu il devrait

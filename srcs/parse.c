@@ -167,8 +167,10 @@ char	*modif_commande_quote(char *cmd)
 void	ft_parse(char *tab, t_env *env, t_ms *ms)
 {
 	ms->pipe = find_pipe2(tab);
+	if (ms->pipe > 0) // si pas de pipe pipe sera a zero
+		ms->pipe ++; 	// si il y en a au moins un, c est qui il a une cmd en plus, pipe est alors le nb de commande
 	if (ms->pipe > 0)
-		execute_pipe(tab, ms);
+		execute_pipe(tab, env, ms);
 	else
 		execute_no_pipe(tab, env, ms);
 	//free_double_tab(tab_cmd); -> seg

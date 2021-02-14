@@ -32,8 +32,9 @@ int	main(int ac, char **av, char **envp)
 	if (buffer == NULL)
 		ft_error_malloc();
 	write(2, "$> ", 3);
+	ms.fd = 0;
 	//while (getline(&buffer, &buf_size, stdin) > 0)
-	while (get_next_line(0, &buffer) > 0)
+	while (get_next_line(ms.fd, &buffer) > 0)
 	{
 		cmd = ft_strtrim(buffer, "\n\t");
 		//mini_printf_fd(1, "EXIT avant = %d\n", exit.exit);

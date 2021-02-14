@@ -1,0 +1,31 @@
+*****echo \# ; echo \$ ; echo \% ; echo \&
+echo \'
+echo \(
+echo \)
+*****echo \* ; echo \+ ; echo \, ; echo \- ; echo \.
+echo \/
+echo \0 ; echo \1 ; echo \2
+echo \:
+echo \;
+echo \<
+echo \=
+echo \>
+*****echo \a ; echo \? ; echo \@ ; echo \A ; echo \B ; echo \C
+echo \[
+echo \\
+echo \]
+echo \^ ; echo \_ ; echo \`
+echo \a ; echo \b ; echo \c
+echo \{ ; echo \| ; echo \} ; echo \~
+
+
+
+
+
+
+
+
+
+						echo \n
+
+						echo lala\nlala

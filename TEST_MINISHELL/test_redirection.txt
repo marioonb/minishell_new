@@ -1,0 +1,14 @@
+echo > "hardesttest.txt"
+echo adding stuff >> working.txt
+echo more stuff >> working.txt
+echo > working.txt
+echo dit > test1 gaat > test2 goed > test3
+echo dit > test1 gaat > test2 goed > test3 > test4
+echo > doethet ; echo hoi >> doethet "of niet" ; echo clear > "doethet" ; echo test > working.txt ; echo > newfile.txt hardertest
+echo hallo >file1 >file2
+echo hallo >file1 >file2 maran
+echo hallo >file1 >file2 >>file3 maran siemons
+echo hallo <file1 >file2
+echo hallo >x1 >x2 >x3 ; echo hoi
+echo hoi > y1 >y2 ; cat -e
+echo hallo ; echo poep >x1 >x2

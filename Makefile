@@ -52,7 +52,7 @@ OBJ = main.o \
 		echo_utils.o \
 		execute.o
 
-FLAGS = -Wall -Werror -Wextra -fsanitize=address -g3
+FLAGS = -Wall  -Wextra -fsanitize=address -g3
 
 LIB = ./libft/libft.a
 

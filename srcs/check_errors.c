@@ -21,54 +21,6 @@
 	cpt = 0;
 	while (tab[i])
 	{
-		// AJOUT
-		cpt = 0;
-		while (tab[i] == BACK_S)
-		{
-			cpt++;
-			i++;
-		}
-		//if (tab[i] == DOUBLE_Q && (i == 0 || tab[i - 1] != BACK_S))
-		//{
-		//	quote *= -1;
-		//	while (tab[++i] && quote < 0)
-		//		if (tab[i] == DOUBLE_Q && tab[i - 1] != BACK_S)
-		//			quote *= -1;
-		//}
-		if (tab[i] == DOUBLE_Q && cpt % 2 == 0) // ICI
-		{
-			quote *= -1;
-			cpt = 0; /// AJOUT
-			while (tab[++i] && quote < 0)
-			{
-				if (tab[i] == BACK_S)
-					cpt ++;
-				else if (tab[i] == DOUBLE_Q && cpt % 2 == 0) // AJOUT ELSE IF
-					quote *= -1;
-			}
-		}
-		else if (tab[i] == SIMPLE_Q && cpt % 2 != 0) // change avec && (i == 0 || tab[i - 1] != BACK_S)
-		{
-			quote *= -1;
-			while (tab[++i] && quote < 0)
-				if (tab[i] == SIMPLE_Q)
-					quote *= -1;
-		}
-		else
-			i++;
-	}
-	return (quote);
-}*/
-
-int	check_error_quote(char *tab, int quote)
-{
-	int	i;
-	int	cpt;
-
-	i = 0;
-	cpt = 0;
-	while (tab[i])
-	{
 		cpt = 0;
 		while (tab[i] == BACK_S)
 		{
@@ -111,6 +63,7 @@ int	check_error_quote(char *tab, int quote)
 	return (quote);
 }
 
+
 int	check_error_quotes1(char **tab, t_ms *ms)
 {
 	int	i;
@@ -130,3 +83,78 @@ int	check_error_quotes1(char **tab, t_ms *ms)
 	}
 	return (1);
 }
+*/
+
+// AUTRE VERISON MARCHE MAIS PLUS DE 25 LIGNES, CELLE CI ONLIGE A UNE STRUCTURE QUOTE
+char *check_quote_end(char *tab, char c, t_ms *ms)
+{
+	int cpt;
+
+	ms->quote *= -1;
+	tab++;
+	while (*tab && ms->quote < 0)
+	{
+		cpt = 0;
+		if (*tab == BACK_S)
+		{
+			cpt++;
+			tab++;
+		}
+		if (c == SIMPLE_Q)
+			{
+				if (*tab && *tab ==  SIMPLE_Q)
+					ms->quote *= -1;
+			}
+		else if (c == DOUBLE_Q)
+			{
+				if (*tab && *tab == DOUBLE_Q && cpt % 2 == 0)
+					ms->quote *= -1;
+			}
+		tab++;
+	}
+	return(tab);
+}
+
+void	check_error_quote(char *tab, t_ms *ms)
+{
+	int	i;
+	int	cpt;
+
+	i = 0;
+	cpt = 0;
+	while (*tab)
+	{
+		cpt = 0;
+		while (*tab == BACK_S)
+		{
+			cpt++;
+			tab++;
+		}
+		if (*tab == DOUBLE_Q && cpt % 2 == 0) // ICI
+			tab = check_quote_end(tab, DOUBLE_Q, ms);
+		else if (*tab == SIMPLE_Q && cpt % 2 == 0)
+			tab = check_quote_end(tab, SIMPLE_Q, ms);
+		else if (*tab) // sinon ne marche pas avec echo \ ou echo \\ etc...
+			tab++;
+	}
+}
+int	check_error_quotes1(char **tab, t_ms *ms)
+{
+	int	i;
+	ms->quote = 1 ; // a retirer si init
+
+	i = 0;
+	while (tab[i])
+	{
+		check_error_quote(tab[i], ms);
+		if (ms->quote < 0)
+		{
+			ms->exit = ft_error(1, 2);
+			return (0);
+		}
+		i++;
+	}
+	ms->quote = 1;
+	return (1);
+}
+

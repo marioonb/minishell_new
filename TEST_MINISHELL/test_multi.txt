@@ -1,0 +1,30 @@
+export a ; exit $a
+
+#export a= ; exit $a
+
+#export a=77 ; exit $a
+
+#export % ; exit $?
+
+mkdir test_dir ; cd test_dir ; rm -rf ../test_dir ; cd . ; pwd ; cd . ; pwd ; cd .. ; pwd
+
+
+#pwd ; echo $PWD ; echo OLDPWD ; unset PWD ; echo $PWD ; echo $OLDPWD ; cd .. ; echo $OLDPWD ; pwd ; echo $OLDPWD ; cd .. ; pwd ; echo $OLDPWD
+
+				echo $PWD}
+
+
+
+#env
+
+ SHLVL=3
+ SHLVL=4
+
+ SHLVL=+23
+ SHLVL=24
+
+ SHLVL=-10
+ SHLVL=0
+
+
+

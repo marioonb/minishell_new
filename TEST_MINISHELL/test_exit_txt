@@ -1,0 +1,42 @@
+exit
+exit | echo lala
+exit ; echo lala
+exit 0
+exit 1
+exit 255
+exit 256
+exit 1000
+exit 9223372036854775807
+exit +0
+exit +1
+ex it +255
+exit +256
+exit +1000
+exit +9223372036854775807
+exit -0
+#exit -1
+#exit -255
+exit -256
+#exit -1000
+#exit -9223372036854775808
+exit --1
+exit ++1
+#exit ++1
+#exit lala
+#** exit ? --> ecrit \ au lieu de ? mais a voir apres gestion des \\
+exit @@
+#exit 9223372036854775810
+#exit -9223372036854775810
+exit $a
+
+#exit 55 55
+
+#exit +55 55
+
+#exit -55 55
+
+exit lala lala
+
+#exit 55 lala
+
+#exit lala 55

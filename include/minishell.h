@@ -40,10 +40,10 @@ typedef struct s_ms
 	pid_t	pid;
 	int		status;
 	char	**enter;
-	int		fd_in;
-	int		fd_out;
+	int		fd;
 	int		fdp[2];
 	int		exit;
+	int		quote;
 }				t_ms;
 
 // fonctions builtin
@@ -61,7 +61,8 @@ char	*find_var(char *str, char **env);
 int		builtin_cd(char **tab, t_env *env, t_ms *ms);
 
 // fonctions check_error
-int		check_error_quote(char *tab, int quote);
+//int		check_error_quote(char *tab, int quote);
+void		check_error_quote(char *tab, t_ms *ms);
 int		check_error_quotes1(char **tab, t_ms *ms);
 
 // fonction echo
@@ -83,7 +84,7 @@ void	builtin_env(char **tab, t_env *env, t_ms *ms);
 
 // fonctions execute
 int		execute_no_pipe(char *tab, t_env *env, t_ms *ms);
-int		execute_pipe(char *tab, t_ms *ms);
+int		execute_pipe(char *tab, t_env *env, t_ms *ms);
 
 // fonction exit
 int		ft_str_isdigit(char *str); //*

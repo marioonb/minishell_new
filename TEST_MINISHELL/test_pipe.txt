@@ -1,0 +1,130 @@
+echo hallo daar | echo hoi maran
+
+
+echo hallo daar | echo hoi maran
+echo | poep
+echo | cd .. | pwd
+cat working.txt | grep stuff | echo tim
+ls filedoesnotexist | grep notme | echo "TEST"
+echo hallo | echo hoi
+export testvar ; env | grep -a testvar
+
+export testvar= ; env | grep -a testvar
+
+export testvar=0 ; env | grep -a testvar
+
+#export testvar=1234567 ; env | grep -a testvar
+
+export testvar=lala ; env | grep -a testvar
+
+#export testvar=lala%lala ; env | grep -a testvar
+
+#export testvar=@lala ; env | grep -a testvar
+
+export testvar10 ; env | grep -a testvar10
+
+export testvar10= ; env | grep -a testvar10
+
+#export testvar10=10 ; env | grep -a testvar10
+
+export _testvar ; env | grep -a _testvar
+
+export _testvar= ; env | grep -a _testvar
+
+export _testvar=10 ; env | grep -a _testvar
+
+export _testvar=lala ; env | grep -a _testvar
+
+export _testvar=lala10 ; env | grep -a _testvar
+
+#export _testvar10 ; env | grep -a _testvar10
+
+#export _testvar10= ; env | grep -a _testvar10
+
+#export _testvar10=lala ; env | grep -a _testvar10
+
+export _testvar10=10; env | grep -a _testvar10
+
+export _testvar10=lala10 ; env | grep -a _testvar10
+
+export testvar=10 ; export testvar=20 ; env | grep -a testvar
+export testvar ; export | grep -a testvar
+
+#export testvar= ; export | grep -a testvar
+
+#export testvar=0 ; export | grep -a testvar
+
+export testvar=1234567 ; export | grep -a testvar
+
+export testvar=lala ; export | grep -a testvar
+
+#export testvar=lala%lala ; export | grep -a testvar
+
+export testvar=@lala ; export | grep -a testvar
+
+export testvar10 ; export | grep -a testvar10
+
+#export testvar10= ; export | grep -a testvar10
+
+#export testvar10=10 ; export | grep -a testvar10
+
+#export _testvar ; export | grep -a _testvar
+
+#export _testvar= ; export | grep -a _testvar
+
+#export _testvar=10 ; export | grep -a _testvar
+
+#export _testvar=lala ; export | grep -a _testvar
+
+#export _testvar=lala10 ; export | grep -a _testvar
+"
+
+export _testvar10 ; export | grep -a _testvar10
+
+export _testvar10= ; export | grep -a _testvar10
+
+export _testvar10=lala ; export | grep -a _testvar10
+
+export _testvar10=10; export | grep -a _testvar10
+
+#export _testvar10=lala10 ; export | grep -a _testvar10
+
+export testvar=10 ; export testvar=20 ; export | grep -a testvar
+echo hallo | echo hoi | cat
+echo hallo | echo hoi > y1 >y2 | cat -e
+
+echo hallo | echo hoi > y1 >y2 ; cat -e
+
+echo hallo | echo poep >x1 >x2
+
+echo | cd .. | pwd —>
+
+echo DOET HET NIET > test1 | cat test1
+echo hallo >x1 >x2 >x3 | echo hoi
+
+echo hallo >x1 >x2 >x3 | echo hoi
+export a | echo lala ; export
+     #2 0x104d28bef in builtin_export export.c:105
+
+export | echo lala
+
+#unset PWD | echo lala ; export
+
+cd .. | echo lala ; export
+     #1 0x10f4631b8 in builtin_cd cd.c:57
+
+#echo test | echo lala
+
+#pwd | echo lala
+
+#env | echo lala
+
+#cat bible.txt | grep testifieth
+ ./minishell | env -i
+echo -n Y; echo -n A || echo -n A && echo -n K || echo U; echo A
+true || echo i am dead;
+
+
+false && echo you cant see me
+
+false || echo i am alive
