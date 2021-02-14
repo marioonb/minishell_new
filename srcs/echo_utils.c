@@ -162,11 +162,6 @@ char	*double_quote(char *cmd, int fd, char **env, t_ms *ms)
 
 void	ft_treatment_instruct(char *cmd, int fd, char **env, t_ms *ms)
 {
-	int	x;
-
-	//printf("%d\n", exit->exit);
-	//printf("ON ENTRE ????");
-	x = 1;
 	while (*cmd)
 	{
 		if (*cmd == DOUBLE_Q)
@@ -176,21 +171,19 @@ void	ft_treatment_instruct(char *cmd, int fd, char **env, t_ms *ms)
 		else if (*cmd == DOLLS && cmd[1])
 			cmd = dolls(cmd, fd, env, ms);
 		else if (*cmd == BACK_S)
+		{
+			cmd = backslash(cmd, fd, env, 1);
+			if (cmd == NULL) // obligé si on veut mettre l erreur echo \\ a 2 mais le pb c est que si je renvoi null ca segfault
 			{
-				cmd = backslash(cmd, fd, env, 1);
-				if (cmd == NULL) // obligé si on veut mettre l erreur echo \\ a 2 mais le pb c est que si je renvoi null ca segfault
-					{
-						ms->exit = 2;
-						printf("ICI ?\n");
-						break ;
-					}
+				ms->exit = 2;
+				break ;
 			}
+		}
 		else
 		{
-			//printf("cmd c est quoi ? |%c|\n", cmd[0]);
 			ft_putchar_fd(cmd[0], fd);
 			cmd++;
 		}
-	ms->exit = 0;
-	}//printf("exit = %d", exit->exit);
+		ms->exit = 0;
+	}
 }

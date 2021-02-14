@@ -53,13 +53,11 @@ void	replace_var_export(char *bin, char *str, t_env *env)
 
 void	declare_x(t_env *env, int fd)
 {
-	//int		fd;
 	int		i;
 	char	*bin;
 	int		j;
 
 	i = 0;
-	//fd = find_fd(tab);
 	while (env->export[i])
 	{
 		j = 0;

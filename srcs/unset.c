@@ -63,6 +63,50 @@ void	change_export_supp (int i, t_env *env)
 	free_double_tab(new_export);
 }
 
+void	change_var_tab(t_env *env, char *str)
+{
+	int	i;
+
+	i = 0;
+	while (env->env[i])
+	{
+		if (ft_strncmp(str, env->env[i], ft_strlen(str)) == 0)
+		{
+			change_env_supp(i, env);
+			break ;
+		}
+		i++;
+	}
+	i = 0;
+	while (env->export[i])
+	{
+		if (ft_strncmp(str, env->export[i], ft_strlen(str)) == 0)
+		{
+			change_export_supp(i, env);
+			break ;
+		}
+		i++;
+	}
+}
+
+void	builtin_unset(char **tab, t_env *env, t_ms *ms)
+{
+	int	j;
+
+	j = 1;
+	if (tab[1])
+		check_name_var(tab[1], ms);
+	while (tab[j])
+	{
+		change_var_tab(env, tab[j]);
+		j++;
+	}
+}
+
+
+
+
+/*
 void	builtin_unset(char **tab, t_env *env, t_ms *ms)
 {
 	int	i;
@@ -74,6 +118,7 @@ void	builtin_unset(char **tab, t_env *env, t_ms *ms)
 		check_name_var(tab[1], ms);
 	while (tab[j])
 	{
+
 		while (env->env[i])
 		{
 			if (ft_strncmp(tab[j], env->env[i], ft_strlen(tab[j])) == 0)
@@ -95,4 +140,4 @@ void	builtin_unset(char **tab, t_env *env, t_ms *ms)
 		}
 		j++;
 	}
-}
+}*/

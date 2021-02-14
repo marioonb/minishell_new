@@ -179,7 +179,6 @@ char	**ft_split_space(char const *s, char c)
 	int		i;
 	char	d;
 
-	//resultat = NULL; // peut etre enleve apparemment
 	i = 0;
 	if (!s)
 		return (0);
