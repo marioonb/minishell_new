@@ -127,7 +127,6 @@ char	**ft_split_minishell(char const *s, char c)
 	int		word;
 	int		i;
 
-	resultat = NULL; // a retirer si trop de ligne
 	i = 0;
 	if (!s)
 		return (0);
@@ -142,9 +141,7 @@ char	**ft_split_minishell(char const *s, char c)
 			s++;
 		caractere = comptcaractere((char*)s, c);
 		resultat[i] = ft_substr(s, 0, caractere);
-		if (*s == '\\')
-			s++;
-		while (*s && *s != c)
+		while (caractere-- > 0)
 			s++;
 		i++;
 	}
