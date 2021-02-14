@@ -212,3 +212,33 @@ char	**ft_split_space(char const *s, char c)
 	resultat[i] = NULL;
 	return (resultat);
 }
+
+/*char	**ft_split_space(char const *s, char c)
+{
+	char	**resultat;
+	int		caractere;
+	int		word;
+	int		i;
+
+	i = 0;
+	if (!s)
+		return (0);
+	word = comptword((char*)s, c);
+	resultat = (char**)malloc(sizeof(char*) * (word + 1));
+	if (!resultat)
+		ft_error_malloc();
+	while (i < word)
+	{
+		caractere = 0;
+		while (*s && *s == c)
+			s++;
+		caractere = comptcaractere((char*)s, c);
+		resultat[i] = ft_substr(s, 0, caractere);
+		while (caractere > 0)
+			{s++;
+			caractere--; }
+		i++;
+	}
+	resultat[i] = NULL;
+	return (resultat);
+}*/

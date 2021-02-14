@@ -260,6 +260,7 @@ int open_process_pipe(char **tab_cmd, t_env *env, t_ms *ms)
 	//ms->fd = 0;
 	return(1);
 }
+
 int execute_pipe(char *tab, t_env *env, t_ms *ms)
 {
 	ms->exit = 0;

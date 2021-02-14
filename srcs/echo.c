@@ -31,6 +31,7 @@ char	*find_var_doll(char *tab, int fd, char **env)
 		ft_out(str, fd);
 	free(str_var);
 	free(str);
+	printf("tab est a %s", tab);
 	return (tab);
 }
 
@@ -84,24 +85,13 @@ int	echo_charactere(char c)
 	return (0);
 }
 
-void	builtin_echo(char **tab, char **env, t_ms *ms) // 31 lignes
+void	parse_echo(char **tab, char **env, int fd, t_ms *ms)
 {
-	int		i;
-	int		fd;
-	int		flag;
-	int		x;
+	int	i;
+	int	x;
 
-	//printf("%d\n", exit->exit);
-	//	int space;
-	//	space = 1;  // si ca a ecrit quelque chose ca reste a 1 sinon ca passe a 0;
-	x = 0;
 	i = 1;
-	flag = 0;
-	fd = find_fd(tab);
-	if (flag_n(tab[i]) == 1)
-		flag = 1;
-	if (!tab[1])
-		ms->exit = 0;
+	x = 0;
 	while (tab[i])
 	{
 		if (flag_n(tab[i]) == 1 && x != 1)
@@ -110,14 +100,33 @@ void	builtin_echo(char **tab, char **env, t_ms *ms) // 31 lignes
 			break ;
 		else
 		{
-//			space = ft_essai(tab[i], fd, env);
 			ft_treatment_instruct(tab[i], fd, env, ms);
 			x = 1;
-			if (tab[i + 1]) //&& space == 1)
+			if (tab[i + 1] && ms->space != 1) //ajout de space pour pas d espace quand rien d afficher par la premiere commade, ex : $ljk
 				ft_putstr_fd(" ", fd);
 			i++;
 		}
+
 	}
+}
+
+void	builtin_echo(char **tab, char **env, t_ms *ms)
+{
+	//int		i;
+	int		fd;
+	int		flag;
+	int		x;
+
+	ms->space = 0; // dans init plutot ? et init en debut de boucle
+	x = 0;
+	//i = 1;
+	flag = 0;
+	fd = find_fd(tab);
+	if (flag_n(tab[1]) == 1)
+		flag = 1;
+	if (!tab[1])
+		ms->exit = 0;
+	parse_echo(tab, env, fd, ms);
 	if (flag != 1)
 		ft_putstr_fd("\n", fd);
 	//exit->exit = 0;

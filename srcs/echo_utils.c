@@ -30,13 +30,11 @@ char	*simple_quote (char *cmd, int fd)
 
 char	*dolls(char *cmd, int fd, char **env, t_ms *ms)
 {
-	//printf("%d\n", exit->exit);
 	if (cmd[1] && cmd[1] == '?')
 		{
 			mini_printf_fd(fd, "%d", ms->exit);
 			cmd++;
 		}
-		//ft_putchar_fd('0', fd); // mettre la sortie plutot
 	else if (cmd[1] && echo_charactere(cmd[1]))
 		cmd = special_charactere(cmd, fd);
 	else
@@ -44,8 +42,9 @@ char	*dolls(char *cmd, int fd, char **env, t_ms *ms)
 	if (*cmd && (!ft_isalpha(*cmd) && *cmd != '_') && *cmd != DOUBLE_Q && *cmd != SIMPLE_Q)
 		cmd++;
 	else
-		cmd = find_var_doll(cmd, fd, env);
-		//printf("cmd est a %s\n", cmd);
+			cmd = find_var_doll(cmd, fd, env);
+	if(cmd[0] == '\0') // voir si ca pose pas de probleme ailleurs, mis pour que ca ne fasse pas d espace ici : echo $kjhjh salut
+		ms->space = 1;
 	return (cmd);
 }
 
@@ -185,5 +184,6 @@ void	ft_treatment_instruct(char *cmd, int fd, char **env, t_ms *ms)
 			cmd++;
 		}
 		ms->exit = 0;
+
 	}
 }

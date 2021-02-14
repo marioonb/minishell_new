@@ -44,6 +44,7 @@ typedef struct s_ms
 	int		fdp[2];
 	int		exit;
 	int		quote;
+	int		space;
 }				t_ms;
 
 // fonctions builtin
