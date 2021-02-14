@@ -116,7 +116,7 @@ char	**ft_split_space(char const *s, char c, char p)
 //  	return 0;
 //}
 
-static int	comptword(char *s, char c)
+/*static int	comptword(char *s, char c)
 {
 	int		word;
 	int		i;
@@ -210,10 +210,48 @@ char	**ft_split_space(char const *s, char c)
 		i++;
 	}
 	resultat[i] = NULL;
+	ft_read_tab_char(resultat);
 	return (resultat);
+}*/
+
+
+static char	*for_the_norm(char *s)
+{
+	char d;
+
+	d = *s;
+		s++;
+	while (*s && *s != d)
+		s++;
+	return(s);
+
 }
 
-/*char	**ft_split_space(char const *s, char c)
+static int	comptword(char *s, char c)
+{
+	int		word;
+	int		i;
+
+	word = 0;
+	i = 0;
+	while (*s != '\0')
+	{
+		if (*s == '\'' || *s == '"')
+			s = for_the_norm(s);
+		if (*s == c)
+			i = 0;
+		else if (i == 0)
+		{
+			i = 1;
+			word++;
+		}
+		if (*s != '\0')
+			s++;
+	}
+	return (word);
+}
+
+char	**ft_split_space(char const *s, char c)
 {
 	char	**resultat;
 	int		caractere;
@@ -234,11 +272,11 @@ char	**ft_split_space(char const *s, char c)
 			s++;
 		caractere = comptcaractere((char*)s, c);
 		resultat[i] = ft_substr(s, 0, caractere);
-		while (caractere > 0)
-			{s++;
-			caractere--; }
+		while (caractere-- > 0)
+			s++;
 		i++;
 	}
 	resultat[i] = NULL;
+	ft_read_tab_char(resultat);
 	return (resultat);
-}*/
+}
