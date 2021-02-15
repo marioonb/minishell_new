@@ -251,6 +251,29 @@ static int	comptword(char *s, char c)
 	return (word);
 }
 
+static int	comptcaractere(char *s, char c)
+{
+	int		i;
+	char	d;
+
+	i = 0;
+	while (s[i] != c && s[i] != '\0')
+	{
+		if (s[i] == '\'' || s[i] == '"')
+		{
+			d = s[i];
+			i++;
+			while (s[i] && s[i] != d)
+				i++;
+			if (s[i] != '\0')
+				i++;
+		}
+		else
+			i++;
+	}
+	return (i);
+}
+
 char	**ft_split_space(char const *s, char c)
 {
 	char	**resultat;
@@ -277,6 +300,6 @@ char	**ft_split_space(char const *s, char c)
 		i++;
 	}
 	resultat[i] = NULL;
-	ft_read_tab_char(resultat);
+	//ft_read_tab_char(resultat);
 	return (resultat);
 }

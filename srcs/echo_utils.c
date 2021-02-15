@@ -180,7 +180,7 @@ void	ft_treatment_instruct(char *cmd, int fd, char **env, t_ms *ms)
 		}
 		else
 		{
-			ft_putchar_fd(cmd[0], fd);
+			ft_putchar_fd(cmd[0], 1);
 			cmd++;
 		}
 		ms->exit = 0;

@@ -16,6 +16,10 @@
 #include <string.h>
 #include <signal.h>
 #include <fcntl.h>
+#include <errno.h>
+#include <signal.h>
+#include <sys/wait.h>
+#include <sys/types.h>
 
 #include "../libft/libft.h"
 
@@ -37,6 +41,7 @@ typedef struct s_env
 typedef struct s_ms
 {
 	int		pipe;
+	int		pipebef;
 	pid_t	pid;
 	int		status;
 	char	**enter;
@@ -45,6 +50,10 @@ typedef struct s_ms
 	int		exit;
 	int		quote;
 	int		space;
+	int		caca;
+	int		in;
+    int 	out;
+    int		err;
 }				t_ms;
 
 // fonctions builtin
@@ -62,8 +71,8 @@ char	*find_var(char *str, char **env);
 int		builtin_cd(char **tab, t_env *env, t_ms *ms);
 
 // fonctions check_error
-//int		check_error_quote(char *tab, int quote);
-void		check_error_quote(char *tab, t_ms *ms);
+//int	check_error_quote(char *tab, int quote);
+void	check_error_quote(char *tab, t_ms *ms);
 int		check_error_quotes1(char **tab, t_ms *ms);
 
 // fonction echo
@@ -107,7 +116,7 @@ void	ft_error_flag(char c);
 
 // fonctions parse
 void	ft_read_buffer(char *buffer, t_env *env, t_ms *ms);
-void	exec_cmd(char **cmd, t_env *env);
+void	exec_cmd_shell(char **cmd, t_env *env);
 char	*check_tab_path(char **path_split, char *bin, char *cmd);
 int		get_path(char **cmd, t_env *env);
 char	*modif_commande_quote(char *cmd);

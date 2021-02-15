@@ -34,7 +34,7 @@ void	ft_read_buffer(char *buffer, t_env *env, t_ms *ms)
 	free_double_tab(tab);
 }
 
-void	exec_cmd(char **cmd, t_env *env)
+void	exec_cmd_shell(char **cmd, t_env *env)
 {
 	pid_t	pid;
 	int		status;

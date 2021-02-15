@@ -12,6 +12,17 @@
 
 #include "./include/minishell.h"
 
+
+void init_fd(t_ms *ms)
+{
+    ms->in = dup(STDIN_FILENO);
+    ms->out = dup(STDOUT_FILENO);
+    ms->err = dup(STDERR_FILENO);
+	ms->pipebef = 0;
+	ms->pipe = 0;
+	ms->caca = 1;
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	char	*buffer;
@@ -19,6 +30,7 @@ int	main(int ac, char **av, char **envp)
 	char	*cmd;
 	t_env	env;
 	t_ms	ms;
+
 
 	//env.enter = 1;
 	ms.exit = 0;
@@ -34,8 +46,9 @@ int	main(int ac, char **av, char **envp)
 	write(2, "$> ", 3);
 	ms.fd = 0;
 	//while (getline(&buffer, &buf_size, stdin) > 0)
-	while (get_next_line(ms.fd, &buffer) > 0)
+	while (get_next_line(1, &buffer) > 0)
 	{
+		init_fd(&ms);
 		cmd = ft_strtrim(buffer, "\n\t");
 		//mini_printf_fd(1, "EXIT avant = %d\n", exit.exit);
 		ft_read_buffer(cmd, &env, &ms);
