@@ -103,6 +103,6 @@ int			ft_putchar_return(char c);
 int			ft_putstr_return(char *str);
 char		*ft_itoa_base_unsigned(unsigned int nombre, int base);
 char		*itoa_base_pointeur (void *p);
-char	**duplicate_tab_char(char **envp);
+char		**duplicate_tab_char(char **envp);
 
 #endif

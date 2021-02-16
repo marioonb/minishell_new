@@ -19,7 +19,7 @@ ft_strlcpy.c ft_strlcat.c ft_strjoin.c ft_itoa.c ft_strnstr.c ft_split.c \
 ft_substr.c ft_strtrim.c ft_atoi.c ft_isalpha.c ft_isdigit.c ft_itoa.c ft_strrchr.c \
 ft_putchar.c ft_putstr.c ft_strcpy.c ft_isnumber.c ft_power.c mini_printf.c \
 ft_putchar_fd.c ft_putstr_fd.c ft_isalnum.c mini_printf_fd.c ft_alloc.c \
-ft_read_tab_char.c \
+ft_read_tab_char.c duplicate_tab_char.c\
 
 BONUS = $(SRC) ft_lstlast_bonus.c ft_lstadd_back_bonus.c ft_lstadd_front_bonus.c\
 ft_lstnew_bonus.c ft_lstsize_bonus.c ft_lstdelone_bonus.c ft_lstclear_bonus.c \
