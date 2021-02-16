@@ -106,20 +106,17 @@ void	parse_echo(char **tab, char **env, int fd, t_ms *ms)
 				ft_putstr_fd(" ", fd);
 			i++;
 		}
-
 	}
 }
 
 void	builtin_echo(char **tab, char **env, t_ms *ms)
 {
-	//int		i;
 	int		fd;
 	int		flag;
 	int		x;
 
 	ms->space = 0; // dans init plutot ? et init en debut de boucle
 	x = 0;
-	//i = 1;
 	flag = 0;
 	fd = find_fd(tab);
 	if (flag_n(tab[1]) == 1)

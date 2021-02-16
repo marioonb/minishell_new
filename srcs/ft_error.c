@@ -37,7 +37,7 @@ int	ft_error(int a, int nexit)
 		ft_putstr_fd("error backslash", 2);
 	if (a == 4)
 		ft_putstr_fd("minishell: cd: trop d'arguments\n", 2);
-	return(nexit);
+	return (nexit);
 }
 
 void	ft_error_flag(char c)

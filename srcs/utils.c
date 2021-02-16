@@ -93,5 +93,5 @@ int	lenght_double_tab(char **tab)
 	j = 0;
 	while (tab[i] != NULL)
 		i++;
-	return(i);
+	return (i);
 }

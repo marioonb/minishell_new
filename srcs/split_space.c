@@ -214,17 +214,19 @@ char	**ft_split_space(char const *s, char c)
 	return (resultat);
 }*/
 
-
-static char	*for_the_norm(char *s)
+/*static char	*for_the_norm(char *s)
 {
-	char d;
+	char	d;
 
 	d = *s;
-		s++;
+	s++;
 	while (*s && *s != d)
+	{
+		if (*s == '\\')
+			s++;
 		s++;
-	return(s);
-
+	}
+	return (s);
 }
 
 static int	comptword(char *s, char c)
@@ -236,7 +238,7 @@ static int	comptword(char *s, char c)
 	i = 0;
 	while (*s != '\0')
 	{
-		if (*s == '\'' || *s == '"')
+		if (*s == '\'' || *s == '"' )
 			s = for_the_norm(s);
 		if (*s == c)
 			i = 0;
@@ -300,6 +302,96 @@ char	**ft_split_space(char const *s, char c)
 		i++;
 	}
 	resultat[i] = NULL;
-	//ft_read_tab_char(resultat);
+	return (resultat);
+}
+*/
+
+static int	for_the_norm(char *s, int i)
+{
+	char	d;
+
+	d = s[i];
+	i++;
+	while (s[i] && s[i] != d)
+	{
+		if (s[i] == '\\')
+			i++;
+		i++;
+	}
+	return (i);
+}
+
+static int	comptword(char *s, char c)
+{
+	int	word;
+	int	i;
+	int	j;
+
+	j = 0;
+	word = 0;
+	i = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i] == '\'' || s[i] == '"' )
+			i = for_the_norm(s, i);
+		if (s[i] == c)
+			j = 0;
+		else if (j == 0)
+		{
+			j = 1;
+			word++;
+		}
+		if (s[i] != '\0')
+			i++;
+	}
+	return (word);
+}
+
+static int	comptcaractere(char *s, char c)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] != c && s[i] != '\0')
+	{
+		if (s[i] == '\'' || s[i] == '"')
+		{
+			//if (i > 0 && s[i-1] == '\\') // ca pas mis dans compt word, a voir
+			//	i++;		// a remettre si cas trouvé et a ajoute a compt word
+			//else
+			i = for_the_norm(s, i);
+		}
+		else if (s[i] != '\0')
+			i++;
+	}
+	return (i);
+}
+
+char	**ft_split_space(char const *s, char c)
+{
+	char	**resultat;
+	int		caractere;
+	int		word;
+	int		i;
+
+	i = 0;
+	if (!s)
+		return (0);
+	word = comptword((char*)s, c);
+	resultat = (char**)malloc(sizeof(char*) * (word + 1));
+	if (!resultat)
+		return (0);
+	while (i < word)
+	{
+		caractere = 0;
+		while (*s && *s == c)
+			s++;
+		caractere = comptcaractere((char*)s, c);
+		resultat[i] = ft_substr(s, 0, caractere);
+		while (caractere-- > 0)
+			s++;
+		i++;
+	}
+	resultat[i] = NULL;
 	return (resultat);
 }

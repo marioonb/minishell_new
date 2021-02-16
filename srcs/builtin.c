@@ -58,7 +58,6 @@ int	find_pipe2(char *tab)
 			pipe++;
 		tab++;
 	}
-	//printf ("pipe est a %d dans fonction\n", pipe);
 	return (pipe);
 }
 
@@ -73,7 +72,6 @@ int	find_pipe(char **tab)
 			pipe ++;
 		tab ++;
 	}
-	//printf ("pipe est a %d dans fonction\n", pipe);
 	return (pipe);
 }
 
@@ -84,9 +82,6 @@ int	find_pipe(char **tab)
 
 void	find_builtin (char **tab, t_env *env, t_ms *ms)
 {
-	//printf("%d\n", exit->exit);
-	//env-> pipe = find_pipe(tab);
-	//printf ("pipe est a %d\n", env->pipe);
 	if (tab[0] == NULL)
 		printf("error");
 	else if (ft_strncmp(tab[0], "echo", ft_strlen(tab[0])) == 0)
@@ -165,6 +160,5 @@ int	find_fd(char **tab)
 		}
 		i++;
 	}
-	//printf("donne moi le fd = %d", fd);
 	return (fd);
 }
