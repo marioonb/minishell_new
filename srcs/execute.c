@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-void	exec_cmd(char **tab, t_env *env, t_ms *ms)
+static void	exec_cmd(char **tab, t_env *env, t_ms *ms)
 {
 	if (is_builtin(tab[0]) == 1)
 		find_builtin(tab, env, ms);
@@ -28,53 +28,7 @@ void	exec_cmd(char **tab, t_env *env, t_ms *ms)
 	}
 }
 
-int	execute_no_pipe(char *tab, t_env *env, t_ms *ms)
-{
-	char	**tab_cmd;
-
-	tab_cmd = ft_split_space(tab, SPACE);
-	ft_read_tab_char(tab_cmd);
-	if (!(check_error_quotes1(tab_cmd, ms)))
-		return (0);
-	tab_cmd[0] = modif_commande_quote(tab_cmd[0]);
-	if (is_builtin(tab_cmd[0]) == 1)
-		find_builtin(tab_cmd, env, ms);
-	else
-	{
-		if (get_path(tab_cmd, env) == 1)
-			exec_cmd_shell(tab_cmd, env);
-		else
-		{
-			ft_error(2, 127);
-			ms->exit = 2;
-		}
-	}
-	return (1);
-}
-
-// DUP = copie du fd
-// dup2(oldfd, newfd)
-// dup2() transforme newfd en une copie de oldfd,
-// fermant auparavant newfd si besoin.
-//créer un pipe avec fdp (entree et sortie), fork, dup 2
-//écriture dans le pipe
-//fermeture des pipes
-// donner l'entrée à la prochaine commande.
-
-void	reset_fd(t_ms *ms)
-{
-	dup2(ms->in, 0);
-	dup2(ms->out, 1);
-	dup2(ms->err, 2);
-}
-
-void	close_pipe(t_ms *ms)
-{
-	close(ms->fdp[0]);
-	close(ms->fdp[1]);
-}
-
-void	open_process_pipe(char **cmd, t_env *env, t_ms *ms)
+static void	open_process_pipe(char **cmd, t_env *env, t_ms *ms)
 {
 	pid_t	pid;
 
@@ -103,6 +57,40 @@ void	open_process_pipe(char **cmd, t_env *env, t_ms *ms)
 	ms->caca = dup(ms->fdp[0]);
 	close_pipe(ms);
 }
+
+int	execute_no_pipe(char *tab, t_env *env, t_ms *ms)
+{
+	char	**tab_cmd;
+
+	tab_cmd = ft_split_space(tab, SPACE);
+	ft_read_tab_char(tab_cmd);
+	if (!(check_error_quotes1(tab_cmd, ms)))
+		return (0);
+	tab_cmd[0] = modif_commande_quote(tab_cmd[0]);
+	exec_cmd(tab_cmd, env, ms);
+	//if (is_builtin(tab_cmd[0]) == 1)
+	//	find_builtin(tab_cmd, env, ms);
+	//else
+	//{
+	//	if (get_path(tab_cmd, env) == 1)
+	//		exec_cmd_shell(tab_cmd, env);
+	//	else
+	//	{
+	//		ft_error(2, 127);
+	//		ms->exit = 2;
+	//	}
+	//}
+	return (1);
+}
+
+// DUP = copie du fd
+// dup2(oldfd, newfd)
+// dup2() transforme newfd en une copie de oldfd,
+// fermant auparavant newfd si besoin.
+//créer un pipe avec fdp (entree et sortie), fork, dup 2
+//écriture dans le pipe
+//fermeture des pipes
+// donner l'entrée à la prochaine commande.
 
 int	execute_pipe(char *tab, t_env *env, t_ms *ms)
 {
@@ -179,3 +167,4 @@ int	execute_pipe(char *tab, t_env *env, t_ms *ms)
 	close(ms->fdp[0]);
     close(ms->fdp[1]);
 }*/
+

@@ -23,7 +23,7 @@
 ** 255*	code de sortie en dehors de la limite
 */
 
-int	ft_str_isdigit(char *str)
+static int	ft_str_isdigit(char *str)
 {
 	int	i;
 	int	nb;

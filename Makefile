@@ -31,7 +31,8 @@ SRC = 	main.c \
 		srcs/exit.c \
 		srcs/echo_utils.c \
 		srcs/execute.c \
-		srcs/utils_environnement_var.c
+		srcs/utils_environnement_var.c \
+		srcs/fd.c
 
 OBJ = main.o \
 		parse.o \
@@ -52,7 +53,8 @@ OBJ = main.o \
 		exit.o \
 		echo_utils.o \
 		execute.o \
-		utils_environnement_var.o
+		utils_environnement_var.o \
+		fd.o
 
 FLAGS = -Wall  -Wextra -fsanitize=address -g3
 

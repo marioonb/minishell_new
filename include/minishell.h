@@ -63,19 +63,15 @@ void	find_builtin (char **tab, t_env *env, t_ms *ms);
 void	ft_out(char *str, int fd);
 int		find_fd(char **tab);
 
-// fontions de cd
+// fontions de cd + 2 static
 char	*check_path(char **tab, t_ms *ms); //*
-int		var_lenght (char *str); //*
-char	*find_var(char *str, char **env);
 int		builtin_cd(char **tab, t_env *env, t_ms *ms);
 
-// fonctions check_error
+// fonctions check_error + 2 statics
 //int	check_error_quote(char *tab, int quote);
-void	check_error_quote(char *tab, t_ms *ms);
 int		check_error_quotes1(char **tab, t_ms *ms);
 
-// fonction echo
-int		flag_n(char *tab); //*
+// fonction echo + 2 static
 char	*special_charactere(char *cmd, int fd);
 int		echo_charactere(char c); //*
 void	builtin_echo(char **tab, char **env, t_ms *ms);
@@ -90,19 +86,14 @@ void	ft_treatment_instruct(char *cmd, int fd, char **env, t_ms *ms);
 // fonction env
 void	builtin_env(char **tab, t_env *env, t_ms *ms);
 
-// fonctions execute
+// fonctions execute + 2 static
 int		execute_no_pipe(char *tab, t_env *env, t_ms *ms);
 int		execute_pipe(char *tab, t_env *env, t_ms *ms);
-void	exec_cmd(char **tab, t_env *env, t_ms *ms);
 
-// fonction exit
-int		ft_str_isdigit(char *str); //*
+// fonction exit + 1 static
 void	builtin_exit(char **tab);
 
 // fonctions export
-char	*find_bin(char *str, char c, int a);
-int		check_caractere_name_var(char c);
-void	check_name_var(char *str, t_ms *ms);
 void	treat_var(char *str, t_env *env);
 void	builtin_export(char **tab, t_env *env, t_ms *ms);
 
@@ -140,10 +131,7 @@ void	replace_var_export(char *bin, char *str, t_env *env);
 void	declare_x(t_env *env, int fd);
 
 
-// fonctions unset
-char	**delete_env_element(int j, char **env);
-void	change_env_supp (int i, t_env *env);
-void	change_export_supp (int i, t_env *env);
+// fonctions unset + 3 static
 void	builtin_unset(char **tab, t_env *env, t_ms *ms);
 
 
@@ -151,7 +139,16 @@ void	builtin_unset(char **tab, t_env *env, t_ms *ms);
 int		search_doll(char *s);
 char	*find_var_doll(char *tab, int fd, char **env);
 
+//fonction utils_environnement_var
+char	*find_bin(char *str, char c, int a);
+int		var_lenght (char *str); //*
+char	*find_var(char *str, char **env);
+int		check_caractere_name_var(char c);
+void	check_name_var(char *str, t_ms *ms);
 
+//fonction fd
+void	reset_fd(t_ms *ms);
+void	close_pipe(t_ms *ms);
 
 //printf("pwd est %s\n", pwd);
 //printf("pwd est %d\n", (int)ft_strlen(pwd));

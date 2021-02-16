@@ -14,7 +14,7 @@
 
 // delete dans les 2 tableau
 
-char	**delete_env_element(int j, char **env)
+static char	**delete_env_element(int j, char **env)
 {
 	char	**env_new;
 	int		i;
@@ -43,7 +43,7 @@ char	**delete_env_element(int j, char **env)
 	return (env_new);
 }
 
-void	change_env_supp (int i, t_env *env)
+static void	change_env_supp (int i, t_env *env)
 {
 	char	**new_env;
 
@@ -53,7 +53,7 @@ void	change_env_supp (int i, t_env *env)
 	free_tab_char(new_env);
 }
 
-void	change_export_supp (int i, t_env *env)
+static void	change_export_supp (int i, t_env *env)
 {
 	char	**new_export;
 

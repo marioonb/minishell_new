@@ -33,7 +33,7 @@ char	*check_path(char **tab, t_ms *ms)
 	return (tab[1]);
 }
 
-void	concat_for_change(char *s1, char *s2, int size, t_env *env)
+static void	concat_for_change(char *s1, char *s2, int size, t_env *env)
 {
 	ft_strlcat(s2, s1, size);
 	treat_var(s2, env);
@@ -43,7 +43,7 @@ void	concat_for_change(char *s1, char *s2, int size, t_env *env)
 /* recherche les path oldpwd et pwd et les modifie
 */
 
-void	exec_chdir(char **tab, char *pwd, t_env *env)
+static void	exec_chdir(char **tab, char *pwd, t_env *env)
 {
 	char	*oldpwd;
 	int		lenght;

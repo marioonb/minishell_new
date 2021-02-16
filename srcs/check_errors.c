@@ -155,7 +155,7 @@ int	check_error_quotes1(char **tab, t_ms *ms)
 	return (1);
 }*/
 
-char	*check_quote_end(char *tab, char c, t_ms *ms)
+static char	*check_quote_end(char *tab, char c, t_ms *ms)
 {
 	int	cpt;
 
@@ -184,7 +184,7 @@ char	*check_quote_end(char *tab, char c, t_ms *ms)
 	return (tab);
 }
 
-void	check_error_quote(char *tab, t_ms *ms)
+static void	check_error_quote(char *tab, t_ms *ms)
 {
 	int	i;
 	int	cpt;

@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-int	flag_n(char *tab)
+static int	flag_n(char *tab)
 {
 	int		i;
 
@@ -62,7 +62,7 @@ int	echo_charactere(char c)
 	return (0);
 }
 
-void	parse_echo(char **tab, char **env, int fd, t_ms *ms)
+static void	parse_echo(char **tab, char **env, int fd, t_ms *ms)
 {
 	int	i;
 	int	x;
