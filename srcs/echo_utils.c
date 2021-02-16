@@ -47,8 +47,6 @@ char	*dolls(char *cmd, int fd, char **env, t_ms *ms)
 	return (cmd);
 }
 
-
-
 char	*backslash(char *cmd, int fd, char **env, int x)
 {
 	int	cpt;

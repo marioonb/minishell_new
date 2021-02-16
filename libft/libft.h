@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <string.h>
 # include <stdlib.h>
+# include <stdio.h>
 
 # define BUFFER_SIZE 100
 
@@ -24,6 +25,10 @@ typedef struct s_list
 	void			*content;
 	struct s_list	*next;
 }					t_list;
+
+/*
+** LIBFT
+*/
 
 void		ft_lstiter(t_list *lst, void (*f)(void *));
 t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
@@ -70,26 +75,34 @@ char		*ft_strtrim(char const *s1, char const *set);
 char		**ft_split(char const *s, char c);
 char		*ft_itoa(int n);
 char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
-char		*ft_strtrim(char const *s1, char const *set);
 char		*ft_strcpy(char *dest, char *src);
 char		*ft_strncpy(char *dest, char *src, unsigned int n);
 char		*ft_itoa_base(int nbr, int base);
-char		*ft_itoa_base_unsigned(unsigned int nombre, int base);
 char		*ft_strlowcase(char *str);
 char		*ft_strupcase(char *str);
-char		*itoa_base_pointeur (void *p);
 char		*ft_strlowcase(char *str);
-int			ft_putchar_return(char c);
-int			ft_putstr_return(char *str);
-char		*ft_strjoinfree(char const *s1, char const *s2);
 void		*ft_toomuch_read(char *memory, int i);
 char		*memorywork(char **line, char *memory);
 int			get_next_line(int fd, char **line);
-int			ft_isnumber(char *s);
 char		*ft_strstr(char *str, char *to_find);
+
+/*
+** PERSONNELLES
+*/
+
+void		ft_read_tab_char(char **tab);
+char		*ft_alloc_int(int size);
+char		*ft_alloc_char(int size);
 float		ft_power(float nb, int power);
 int			mini_printf(const char *s, ...);
 int			mini_printf_fd(int fd, const char *s, ...);
 char		*ft_strtrim_char(char const *s1, char set);
+int			ft_isnumber(char *s);
+char		*ft_strjoinfree(char const *s1, char const *s2);
+int			ft_putchar_return(char c);
+int			ft_putstr_return(char *str);
+char		*ft_itoa_base_unsigned(unsigned int nombre, int base);
+char		*itoa_base_pointeur (void *p);
+char	**duplicate_tab_char(char **envp);
 
 #endif

@@ -27,34 +27,16 @@ void	free_double_tab(char **tab)
 	tab = NULL;
 }
 
-void	ft_read_tab_char(char **tab)
-{
-	int	i;
-	int	j;
 
-	i = 0;
-	j = 0;
-	while (tab[i] != NULL)
-	{
-		while (tab[i][j] != '\0')
-		{
-			printf("|%c|", tab[i][j]);
-			j++;
-		}
-		printf("\n");
-		j = 0;
-		i++;
-	}
-}
-
-char	**duplicate_env(char **envp)
+char	**duplicate_tab_char(char **envp)
 {
 	char	**env;
 	int		ligne;
 	int		i;
 
 	env = NULL;
-	ligne = 3;
+	//ligne = 3;
+	ligne = 0;
 	while (envp[ligne] != NULL)
 		ligne++;
 	i = 0;

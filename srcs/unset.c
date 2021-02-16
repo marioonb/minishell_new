@@ -49,7 +49,7 @@ void	change_env_supp (int i, t_env *env)
 
 	new_env = delete_env_element(i, env->env);
 	free_double_tab(env->env);
-	env->env = duplicate_env(new_env);
+	env->env = duplicate_tab_char(new_env);
 	free_double_tab(new_env);
 }
 
@@ -59,7 +59,7 @@ void	change_export_supp (int i, t_env *env)
 
 	new_export = delete_env_element(i, env->export);
 	free_double_tab(env->export);
-	env->export = duplicate_env(new_export);
+	env->export = duplicate_tab_char(new_export);
 	free_double_tab(new_export);
 }
 

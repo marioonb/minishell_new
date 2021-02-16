@@ -47,7 +47,7 @@ int	is_builtin(char *cmd)
 	return (0);
 }
 
-int	find_pipe2(char *tab)
+int	find_pipe(char *tab)
 {
 	int	pipe;
 
@@ -57,20 +57,6 @@ int	find_pipe2(char *tab)
 		if (*tab == PIPE)
 			pipe++;
 		tab++;
-	}
-	return (pipe);
-}
-
-int	find_pipe(char **tab)
-{
-	int	pipe;
-
-	pipe = 0;
-	while (*tab)
-	{
-		if (*tab[0] == PIPE)
-			pipe ++;
-		tab ++;
 	}
 	return (pipe);
 }

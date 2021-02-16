@@ -58,8 +58,7 @@ typedef struct s_ms
 
 // fonctions builtin
 int		is_builtin(char *cmd);
-int		find_pipe(char **tab);
-int		find_pipe2(char *tab);
+int		find_pipe(char *tab);
 void	find_builtin (char **tab, t_env *env, t_ms *ms);
 void	ft_out(char *str, int fd);
 int		find_fd(char **tab);
@@ -95,6 +94,7 @@ void	builtin_env(char **tab, t_env *env, t_ms *ms);
 // fonctions execute
 int		execute_no_pipe(char *tab, t_env *env, t_ms *ms);
 int		execute_pipe(char *tab, t_env *env, t_ms *ms);
+void	exec_cmd(char **tab, t_env *env, t_ms *ms);
 
 // fonction exit
 int		ft_str_isdigit(char *str); //*
@@ -150,7 +150,6 @@ void	builtin_unset(char **tab, t_env *env, t_ms *ms);
 
 // fonctions utils
 void	free_double_tab(char **tab);
-void	ft_read_tab_char(char **tab);
 char	**duplicate_env(char **envp);
 int		search_doll(char *s);
 int		lenght_double_tab(char **tab);

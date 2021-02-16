@@ -38,8 +38,8 @@ int	main(int ac, char **av, char **envp)
 	(void)av;
 	buffer = NULL;
 	buf_size = 2048;
-	env.env = duplicate_env(envp);
-	env.export = duplicate_env(envp);
+	env.env = duplicate_tab_char(envp);
+	env.export = duplicate_tab_char(envp);
 	buffer = (char *)calloc(sizeof(char), buf_size);
 	if (buffer == NULL)
 		ft_error_malloc();
