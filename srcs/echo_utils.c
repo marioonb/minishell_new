@@ -145,12 +145,6 @@ char	*double_quote(char *cmd, int fd, char **env, t_ms *ms)
 	return (cmd);
 }
 
-
-
-
-
-
-
 void	ft_treatment_instruct(char *cmd, int fd, char **env, t_ms *ms)
 {
 	while (*cmd)

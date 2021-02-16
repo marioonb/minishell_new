@@ -75,7 +75,6 @@ void	check_error_quote(char *tab, t_ms *ms);
 int		check_error_quotes1(char **tab, t_ms *ms);
 
 // fonction echo
-char	*find_var_doll(char *tab, int fd, char **env);
 int		flag_n(char *tab); //*
 char	*special_charactere(char *cmd, int fd);
 int		echo_charactere(char c); //*
@@ -148,11 +147,9 @@ void	change_export_supp (int i, t_env *env);
 void	builtin_unset(char **tab, t_env *env, t_ms *ms);
 
 
-// fonctions utils
-void	free_double_tab(char **tab);
-char	**duplicate_env(char **envp);
+// fonctions utils_dolls
 int		search_doll(char *s);
-int		lenght_double_tab(char **tab);
+char	*find_var_doll(char *tab, int fd, char **env);
 
 
 

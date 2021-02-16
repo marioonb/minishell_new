@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_dolls.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbelorge <mbelorge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,44 +12,27 @@
 
 #include "../include/minishell.h"
 
-void	free_double_tab(char **tab)
+char	*find_var_doll(char *tab, int fd, char **env)
 {
-	int	i;
-
-	i = 0;
-	while (tab[i])
-	{
-		free(tab[i]);
-		tab[i] = NULL;
-		i++;
-	}
-	free(tab);
-	tab = NULL;
-}
-
-
-char	**duplicate_tab_char(char **envp)
-{
-	char	**env;
-	int		ligne;
+	char	*str_var;
 	int		i;
+	char	*str;
 
-	env = NULL;
-	//ligne = 3;
-	ligne = 0;
-	while (envp[ligne] != NULL)
-		ligne++;
+	str = NULL;
+	str_var = NULL;
 	i = 0;
-	env = malloc(sizeof(char*) * (ligne + 1));
-	if (!env)
+	str_var = malloc(sizeof(char) * ft_strlen(tab) + 1);
+	if (str_var == NULL)
 		ft_error_malloc();
-	while (i < ligne)
-	{
-		env[i] = ft_strdup(envp[i]);
-		i++;
-	}
-	env[i] = NULL;
-	return (env);
+	while (check_caractere_name_var(*tab) == 1)
+		str_var[i++] = *tab++;
+	str_var[i] = '\0';
+	if ((str = find_var(str_var, env)) != NULL)
+		ft_out(str, fd);
+	free(str_var);
+	free(str);
+	printf("tab est a %s", tab);
+	return (tab);
 }
 
 int	search_doll(char *s)
@@ -66,14 +49,4 @@ int	search_doll(char *s)
 	return (0);
 }
 
-int	lenght_double_tab(char **tab)
-{
-	int	i;
-	int	j;
 
-	i = 0;
-	j = 0;
-	while (tab[i] != NULL)
-		i++;
-	return (i);
-}

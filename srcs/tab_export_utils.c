@@ -23,9 +23,9 @@ void	change_export_add(char *tab, t_env *env)
 	char	**new_export;
 
 	new_export = replace_for_add(tab, env->export);
-	free_double_tab(env->export);
+	free_tab_char(env->export);
 	env->export = duplicate_tab_char(new_export);
-	free_double_tab(new_export);
+	free_tab_char(new_export);
 }
 
 /*

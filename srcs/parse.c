@@ -30,7 +30,7 @@ void	ft_read_buffer(char *buffer, t_env *env, t_ms *ms)
 		ft_parse(tab[i], env, ms);
 		i++;
 	}
-	free_double_tab(tab);
+	free_tab_char(tab);
 }
 
 void	exec_cmd_shell(char **cmd, t_env *env)
@@ -112,7 +112,7 @@ int	get_path(char **cmd, t_env *env)
 		free(path);
 		path = NULL;
 		bin = check_tab_path(path_split, bin, cmd[0]);
-		free_double_tab(path_split);
+		free_tab_char(path_split);
 		free(cmd[0]);
 		cmd[0] = bin;
 	}

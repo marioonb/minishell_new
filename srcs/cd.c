@@ -33,48 +33,13 @@ char	*check_path(char **tab, t_ms *ms)
 	return (tab[1]);
 }
 
-/* recherche dans une chaine si un element de env s'y trouve
-* si oui elle renvoi la ligen complete de env - le nom de varibqle jusqu'a =
-* sinon elle renvoi NULL
-*/
-
-int	var_lenght (char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] != '=' && str[i])
-		i++;
-	return (i);
-}
-
-char	*find_var(char *str, char **env)
-{
-	int	i;
-	int	lenght;
-
-	i = 0;
-	while (env[i])
-	{
-		lenght = var_lenght(env[i]);
-		//printf ("env[i] = %s pos %d\n", env[i], i);
-		//printf("lenght est a = %d\n", lenght);
-		//printf("env[i] avant boucle = %s\n", env[i]);
-		//		if (ft_strncmp(str, env[i], (int)ft_strlen(str)) == 0)
-		if (ft_strncmp(str, env[i], lenght) == 0
-			&& (int)ft_strlen(str) <= lenght)
-			return (ft_substr(env[i] + 1, lenght, ft_strlen(env[i]) - lenght));
-		i++;
-	}
-	return (NULL);
-}
-
 void	concat_for_change(char *s1, char *s2, int size, t_env *env)
 {
 	ft_strlcat(s2, s1, size);
 	treat_var(s2, env);
 	free(s2);
 }
+
 /* recherche les path oldpwd et pwd et les modifie
 */
 

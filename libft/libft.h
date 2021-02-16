@@ -104,5 +104,7 @@ int			ft_putstr_return(char *str);
 char		*ft_itoa_base_unsigned(unsigned int nombre, int base);
 char		*itoa_base_pointeur (void *p);
 char		**duplicate_tab_char(char **envp);
+void		free_tab_char(char **tab);
+int			lenght_double_tab(char **tab);
 
 #endif

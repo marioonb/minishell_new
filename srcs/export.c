@@ -12,56 +12,6 @@
 
 #include "../include/minishell.h"
 
-char	*find_bin(char *str, char c, int a)
-{
-	int		i;
-	char	*strr;
-
-	strr = NULL;
-	i = 0;
-	strr = malloc(sizeof(char) * a + 1);
-	if (strr == NULL)
-		ft_error_malloc();
-	while (str[i] && str[i] != c)
-	{
-		strr[i] = str[i];
-		i++;
-	}
-	strr[i] = '\0';
-	return (strr);
-}
-
-// voir pour la faire en une seule avec check_name_var
-
-int	check_caractere_name_var(char c)
-{
-	int	i;
-
-	i = 0;
-	if (ft_isalnum(c) || c == '_' ) // AJOUTER # pour unset, voir pour export
-		return (1);
-	else
-		return (0);
-}
-
-void	check_name_var(char *str, t_ms *ms)
-{
-	int	i;
-
-	i = 0;
-	if (ft_isdigit(str[0]))
-		ms->exit = ft_error_str(1, str, 1);
-	else
-	{
-		while (str[i] && str[i] != '=')
-		{
-			if (check_caractere_name_var(str[i]) == 0)
-				ms->exit = ft_error_str(1, str, 1);
-			i++;
-		}
-	}
-}
-
 void	treat_var(char *str, t_env *env)
 {
 	int		i;

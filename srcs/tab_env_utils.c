@@ -23,9 +23,9 @@ void	change_env_add (char *tab, t_env *env)
 	char	**new_env;
 
 	new_env = replace_for_add(tab, env->env);
-	free_double_tab(env->env);
+	free_tab_char(env->env);
 	env->env = duplicate_tab_char(new_env);
-	free_double_tab(new_env);
+	free_tab_char(new_env);
 }
 
 /*

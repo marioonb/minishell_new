@@ -17,7 +17,7 @@ SRC = 	main.c \
 		srcs/ft_error.c \
 		srcs/echo.c \
 		srcs/builtin.c \
-		srcs/utils.c \
+		srcs/utils_dolls.c \
 		srcs/check_errors.c \
 		srcs/env.c \
 		srcs/pwd.c \
@@ -30,14 +30,15 @@ SRC = 	main.c \
 		srcs/tab_export_utils.c \
 		srcs/exit.c \
 		srcs/echo_utils.c \
-		srcs/execute.c
+		srcs/execute.c \
+		srcs/utils_environnement_var.c
 
 OBJ = main.o \
 		parse.o \
 		ft_error.o \
 		echo.o \
 		builtin.o \
-		utils.o \
+		utils_dolls.o \
 		check_errors.o \
 		env.o \
 		pwd.o \
@@ -50,7 +51,8 @@ OBJ = main.o \
 		tab_export_utils.o \
 		exit.o \
 		echo_utils.o \
-		execute.o
+		execute.o \
+		utils_environnement_var.o
 
 FLAGS = -Wall  -Wextra -fsanitize=address -g3
 
