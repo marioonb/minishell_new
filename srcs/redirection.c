@@ -51,7 +51,7 @@ int search_fd(char *str, t_ms *ms)
 		ms->red ++;
 		str++;
 	}
-	if (!(caractere_red(str))) // si rien apres le chevrons c ets qui y en a qu un retournre 1
+	if (!(caractere_red(str))) // si rien apres le chevrons c'est qui y en a qu un retournre 1
 	{
 		ft_error(1, *str);
 		return(0);
