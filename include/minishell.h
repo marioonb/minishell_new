@@ -35,7 +35,6 @@ typedef struct s_env
 {
 	char	**env;
 	char	**export;
-
 }				t_env;
 
 typedef struct s_ms
@@ -54,6 +53,8 @@ typedef struct s_ms
 	int		in;
     int 	out;
     int		err;
+	int		red;
+	char	**redplus;
 }				t_ms;
 
 // fonctions builtin
@@ -61,7 +62,7 @@ int		is_builtin(char *cmd);
 int		find_pipe(char *tab);
 void	find_builtin (char **tab, t_env *env, t_ms *ms);
 void	ft_out(char *str, int fd);
-int		find_fd(char **tab);
+int		find_fd(char **tab, t_ms *ms);
 
 // fontions de cd + 2 static
 char	*check_path(char **tab, t_ms *ms); //*
@@ -102,7 +103,8 @@ void	ft_error_malloc(void);
 void	ft_error_exit (int a, char *s, int nexit);
 int		ft_error(int a, int nexit);
 int		ft_error_str(int a, char *s, int nexit);
-void	ft_error_flag(char c);
+//void	ft_error_flag(char c);
+void	ft_error_char(int a, char c);
 
 // fonctions parse
 void	ft_read_buffer(char *buffer, t_env *env, t_ms *ms);
@@ -113,7 +115,7 @@ char	*modif_commande_quote(char *cmd);
 void	ft_parse(char *tab, t_env *env, t_ms *exit);
 
 // fonction pwd
-void	builtin_pwd(char **tab, t_env *env);
+void	builtin_pwd(char **tab, t_env *env, t_ms *ms);
 
 // split_minishell && split_space
 char	**ft_split_minishell(char const *s, char c);

@@ -50,7 +50,7 @@ void	builtin_export(char **tab, t_env *env, t_ms *ms)
 	ms->exit = 0;
 	i = 1;
 	str = NULL;
-	fd = find_fd(tab);
+	fd = find_fd(tab, ms);
 	if (!tab[i] || fd != 1)
 		declare_x(env, fd);
 	else

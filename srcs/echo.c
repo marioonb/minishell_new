@@ -61,6 +61,24 @@ int	echo_charactere(char c)
 		return (1);
 	return (0);
 }
+void write_end(char **redplus, int fd, char **env, t_ms *ms)
+{
+	int	i;
+
+	i = 0;
+	//mini_printf_fd(2, "rentre dans write_end\n"); //
+	if (ms->redplus != NULL)
+	{
+		while (redplus[i])
+		{
+			ft_treatment_instruct(redplus[i], fd, env, ms);
+			//x = 1;
+			if (redplus[i + 1] && ms->space != 1) //ajout de space pour pas d espace quand rien d afficher par la premiere commade, ex : $ljk
+			ft_putstr_fd(" ", fd);
+			i++;
+		}
+	}
+}
 
 static void	parse_echo(char **tab, char **env, int fd, t_ms *ms)
 {
@@ -69,14 +87,25 @@ static void	parse_echo(char **tab, char **env, int fd, t_ms *ms)
 
 	i = 1;
 	x = 0;
+	//mini_printf_fd(2, "rentre dans parse_echo\n"); //
+	//while (tab[i])
+	//if (flag_n(tab[i]) == 1 && x != 1)
+	//		i++;
+	//mini_printf_fd(2, "tab[[i] est a %s\n", tab[i]); //
 	while (tab[i])
 	{
+		//mini_printf_fd(2, "rentre dans la boucle\n"); //
 		if (flag_n(tab[i]) == 1 && x != 1)
 			i++;
 		else if (tab[i][0] == '>')
+		{
+			//mini_printf_fd(2, "rentre dans le chevron a break\n"); //
+			write_end(ms->redplus, fd, env, ms);
 			break ;
+		}
 		else
 		{
+			//mini_printf_fd(2, "rentre pour faire les instruct\n"); //
 			ft_treatment_instruct(tab[i], fd, env, ms);
 			x = 1;
 			if (tab[i + 1] && ms->space != 1) //ajout de space pour pas d espace quand rien d afficher par la premiere commade, ex : $ljk
@@ -95,7 +124,7 @@ void	builtin_echo(char **tab, char **env, t_ms *ms)
 	ms->space = 0; // dans init plutot ? et init en debut de boucle
 	x = 0;
 	flag = 0;
-	fd = find_fd(tab);
+	fd = find_fd(tab, ms);
 	if (flag_n(tab[1]) == 1)
 		flag = 1;
 	if (!tab[1])

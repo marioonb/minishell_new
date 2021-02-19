@@ -73,7 +73,7 @@ void	find_builtin (char **tab, t_env *env, t_ms *ms)
 	else if (ft_strncmp(tab[0], "echo", ft_strlen(tab[0])) == 0)
 		builtin_echo(tab, env->env, ms);
 	else if (ft_strncmp(tab[0], "pwd", ft_strlen(tab[0])) == 0)
-		builtin_pwd(tab, env);
+		builtin_pwd(tab, env, ms);
 	else if (ft_strncmp(tab[0], "cd", ft_strlen(tab[0])) == 0)
 		builtin_cd(tab, env, ms);
 	else if (ft_strncmp(tab[0], "export", ft_strlen(tab[0])) == 0)
@@ -119,32 +119,4 @@ void	ft_out(char *str, int fd)
 	}
 }
 
-/* cherche si dans la ligne de commande complete, il y a une redirection >
-* si oui elle cherche le nom du fichier et creait ce fichier
-* renvoi le type de fd a la fonction appelante
-*/
 
-int	find_fd(char **tab)
-{
-	int		fd;
-	int		i;
-	char	*files;
-
-	files = NULL;
-	fd = 1;
-	i = 0;
-	while (tab[i])
-	{
-		if (tab[i + 1] && ft_strchr(tab[i], '>'))
-		{
-			files = malloc (sizeof(char) * ft_strlen(tab[i + 1]) + 1);
-			if (files == NULL)
-				ft_error_malloc();
-			ft_strncpy(files, tab[i + 1], ft_strlen(tab[i + 1]));
-			fd = open(files, O_CREAT | O_RDONLY | O_WRONLY | O_TRUNC, 0666 );
-			free(files); // AJOUT +++++++++++++++++++++++++++++++++++++++++++++
-		}
-		i++;
-	}
-	return (fd);
-}

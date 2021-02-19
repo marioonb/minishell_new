@@ -37,13 +37,17 @@ int	ft_error(int a, int nexit)
 		ft_putstr_fd("error backslash", 2);
 	if (a == 4)
 		ft_putstr_fd("minishell: cd: trop d'arguments\n", 2);
+	if (a == 5)
+		ft_putstr_fd("aucun fichier de redirection spécifié", 2);
 	return (nexit);
 }
 
-void	ft_error_flag(char c)
+void	ft_error_char(int a, char c)
 {
-	if (c == 'E' || c == 'e')
-		mini_printf_fd(2, "oups... le flag -%c n'est pas à gérer...", c); // ne l utilise pas pour le moment
+	//if (c == 'E' || c == 'e')
+	//	mini_printf_fd(2, "oups... le flag -%c n'est pas à gérer...", c); // ne l utilise pas pour le moment
+	if (a == 1)
+		mini_printf_fd(2, "minishell: erreur de redirection : '%c'", c);
 }
 
 int	ft_error_str(int a, char *s, int nexit)

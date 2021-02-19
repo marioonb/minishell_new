@@ -63,7 +63,7 @@ int	execute_no_pipe(char *tab, t_env *env, t_ms *ms)
 	char	**tab_cmd;
 
 	tab_cmd = ft_split_space(tab, SPACE);
-	ft_read_tab_char(tab_cmd);
+	//ft_read_tab_char(tab_cmd);
 	if (!(check_error_quotes1(tab_cmd, ms)))
 		return (0);
 	tab_cmd[0] = modif_commande_quote(tab_cmd[0]);

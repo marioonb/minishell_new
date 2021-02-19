@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-void	builtin_pwd(char **tab, t_env *env)
+void	builtin_pwd(char **tab, t_env *env, t_ms *ms)
 {
 	int		i;
 	char	*cpy;
@@ -20,7 +20,7 @@ void	builtin_pwd(char **tab, t_env *env)
 
 	cpy = NULL;
 	i = 0;
-	fd = find_fd(tab);
+	fd = find_fd(tab, ms);
 	while (env->env[i])
 	{
 		cpy = ft_strstr(env->env[i], "PWD");

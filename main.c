@@ -21,6 +21,8 @@ void init_fd(t_ms *ms)
 	ms->pipebef = 0;
 	ms->pipe = 0;
 	ms->caca = 1;
+	ms->red = 0;
+	ms->redplus = NULL;
 }
 
 int	main(int ac, char **av, char **envp)
