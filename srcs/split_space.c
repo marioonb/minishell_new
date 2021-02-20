@@ -326,7 +326,7 @@ static int	comptword(char *s, char c)
 	int	word;
 	int	i;
 
-	word = 0;
+	word = 1;
 	i = 0;
 	while (s[i] != '\0')
 	{
