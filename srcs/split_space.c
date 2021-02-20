@@ -360,6 +360,7 @@ static int	comptcaractere(char *s, char c)
 			//	i++;		// a remettre si cas trouvé et a ajoute a compt word
 			//else
 			i = for_the_norm(s, i);
+			i++;
 		}
 		else if (s[i] != '\0')
 			i++;
@@ -374,6 +375,7 @@ char	**ft_split_space(char const *s, char c)
 	int		word;
 	int		i;
 
+	printf ("il a envoye %s a split space\n", s);
 	i = 0;
 	if (!s)
 		return (0);

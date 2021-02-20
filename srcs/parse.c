@@ -156,8 +156,7 @@ char	*modif_commande_quote(char *cmd)
 	{
 		c = str[0];
 		str = ft_strtrim_char(str, c);
-		ft_strncpy(cmd, str, ft_strlen(cmd));
-		//printf("str est a %s\n", str);
+		ft_strncpy(cmd, str, ft_strlen(str)); // mis str a la fin au lieu de cmd dans ft_Strlen
 	}
 	free(str);
 	return (cmd);

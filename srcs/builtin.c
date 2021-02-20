@@ -24,8 +24,6 @@ int	is_builtin(char *cmd)
 	i = 0;
 	if (cmd == NULL)
 		return (0);
-	while (cmd && cmd[0] == ' ')
-		cmd++;
 	buil[0] = "echo";
 	buil[1] = "pwd";
 	buil[2] = "export";

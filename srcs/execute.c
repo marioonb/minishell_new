@@ -108,7 +108,7 @@ int	execute_pipe(char *tab, t_env *env, t_ms *ms)
 	while (ms->pipe > 0)
 	{
 		ms->pipe--;
-		tab_cmd[i] = ft_strtrim(tab_cmd[i], " ");// trim les espaces avant et apres, à retirer ?
+		//tab_cmd[i] = ft_strtrim(tab_cmd[i], " ");// trim les espaces avant et apres, à retirer ?
 		tab_cmd2 = ft_split_space(tab_cmd[i], ' ');
 		tab_cmd2[0] = modif_commande_quote(tab_cmd2[0]);
 		open_process_pipe(tab_cmd2, env, ms); // envoi la commade découpée

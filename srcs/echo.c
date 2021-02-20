@@ -121,5 +121,4 @@ void	builtin_echo(char **tab, char **env, t_ms *ms)
 	parse_echo(tab, env, fd, ms);
 	if (flag != 1)
 		ft_putstr_fd("\n", fd);
-	//exit->exit = 0;
 }
