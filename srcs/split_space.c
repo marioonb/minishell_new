@@ -325,21 +325,23 @@ static int	comptword(char *s, char c)
 {
 	int	word;
 	int	i;
-	int	j;
 
-	j = 0;
 	word = 0;
 	i = 0;
 	while (s[i] != '\0')
 	{
 		if (s[i] == '\'' || s[i] == '"' )
-			i = for_the_norm(s, i);
-		if (s[i] == c)
-			j = 0;
-		else if (j == 0)
 		{
-			j = 1;
+			if (i > 0 && s[i - 1] == '\\') // AJOUTE
+				i++; // AJOUTE
+			else // AJOUTE
+				i = for_the_norm(s, i);
+		}
+		else if (s[i] == c)
+		{
 			word++;
+			while (s[i] == c)
+				i++;
 		}
 		if (s[i] != '\0')
 			i++;
@@ -356,11 +358,13 @@ static int	comptcaractere(char *s, char c)
 	{
 		if (s[i] == '\'' || s[i] == '"')
 		{
-			//if (i > 0 && s[i-1] == '\\') // ca pas mis dans compt word, a voir
-			//	i++;		// a remettre si cas trouvé et a ajoute a compt word
-			//else
-			i = for_the_norm(s, i);
-			i++;
+			if (i > 0 && s[i - 1] == '\\') // ca pas mis dans compt word, a voir
+				i++; // a remettre si cas trouvé et a ajoute a compt word
+			else
+			{
+				i = for_the_norm(s, i);
+				i++;
+			}
 		}
 		else if (s[i] != '\0')
 			i++;
@@ -375,7 +379,6 @@ char	**ft_split_space(char const *s, char c)
 	int		word;
 	int		i;
 
-	printf ("il a envoye %s a split space\n", s);
 	i = 0;
 	if (!s)
 		return (0);
