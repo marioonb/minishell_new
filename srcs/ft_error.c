@@ -24,6 +24,8 @@ void	ft_error_exit (int a, char *s, int nexit)
 		mini_printf_fd(2, "exit \nminishell: exit: %s : argument numérique nécessaire\n", s);
 	if (a == 2)
 		ft_putstr_fd("exit\nminishell: exit: trop d'arguments\n", 2);
+	if (a == 3)
+		mini_printf_fd(2, "minishell: %s, Is a directory\n", s);
 	exit (nexit);
 }
 

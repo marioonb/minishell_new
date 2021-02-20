@@ -20,7 +20,7 @@
 #include <signal.h>
 #include <sys/wait.h>
 #include <sys/types.h>
-
+# include <sys/stat.h>
 #include "../libft/libft.h"
 
 #define	DOUBLE_Q '"'

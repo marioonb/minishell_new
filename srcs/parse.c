@@ -40,7 +40,7 @@ void	exec_cmd_shell(char **cmd, t_env *env)
 
 	pid = 0;
 	status = 0;
-	printf("RENTRE PAS DANS MES BUILTIN\n");
+	//printf("RENTRE PAS DANS MES BUILTIN\n");
 	pid = fork();
 	if (pid == -1)
 		perror("fork");
@@ -55,6 +55,19 @@ void	exec_cmd_shell(char **cmd, t_env *env)
 			perror("shell");
 		exit(EXIT_FAILURE);
 	}
+}
+
+int		ft_verif_path(char *bin)
+{
+	struct stat mystat;
+
+	errno = 0;
+	stat(bin, &mystat);
+	if (errno)
+		return (1);
+	if ((mystat.st_mode & S_IFMT) == S_IFDIR)
+		ft_error_str(3, bin, 126);
+	return (0);
 }
 
 /*
@@ -83,8 +96,14 @@ char	*check_tab_path(char **path_split, char *bin, char *cmd)
 		strcat(bin, path_split[i]);
 		strcat(bin, "/");
 		strcat(bin, cmd);
-		if (access(bin, F_OK) == 0) // modifier et utiliser stat
-			break ;
+		if (ft_verif_path(bin) == 0) //
+		{//
+			free(cmd);//
+			cmd = bin;//
+			break ;//
+		}//
+		//if (access(bin, F_OK) == 0) // modifier et utiliser stat
+		//	break ;
 		free(bin);
 		bin = NULL;
 		i++;
@@ -113,7 +132,7 @@ int	get_path(char **cmd, t_env *env)
 		path = NULL;
 		bin = check_tab_path(path_split, bin, cmd[0]);
 		free_tab_char(path_split);
-		free(cmd[0]);
+		//free(cmd[0]);
 		cmd[0] = bin;
 	}
 	else

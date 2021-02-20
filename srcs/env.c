@@ -25,8 +25,6 @@ void	builtin_env(char **tab, t_env *env, t_ms *ms)
 	ms->exit = 0;
 	i = 0;
 	fd = find_fd(tab, ms);
-	mini_printf_fd(1, "le fd est a %d\n", fd);
-	mini_printf_fd(1, "et tab[i] = %s", tab[1]);
 	if (tab[1] && fd == 1)
 		ms->exit = ft_error_str(2, tab[1], 127);
 	else if (ms->redplus != NULL)
