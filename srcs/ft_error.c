@@ -46,7 +46,7 @@ int	ft_error(int a, int nexit)
 	return (nexit);
 }
 
-int	ft_error_char(int a, char c)
+int	ft_error_char(int a, int nexit, char c)
 {
 	//if (c == 'E' || c == 'e')
 	//	mini_printf_fd(2, "oups... le flag -%c n'est pas à gérer...", c); // ne l utilise pas pour le moment
@@ -54,6 +54,7 @@ int	ft_error_char(int a, char c)
 		mini_printf_fd(2, "minishell: erreur de redirection : '%c'\n", c);
 	if (a == 2)
 		mini_printf_fd(2, "trop de chevron '%c'\n", c);
+	return(nexit);
 }
 
 int	ft_error_str(int a, char *s, int nexit)

@@ -76,42 +76,31 @@ void	write_end(char **redplus, int fd, char **env, t_ms *ms)
 static void	parse_echo(char **tab, char **env, int fd, t_ms *ms)
 {
 	int	i;
-	int	x;
 
 	i = 1;
-	x = 0;
-	//mini_printf_fd(2, "rentre dans parse_echo\n"); //
-	//while (tab[i])
-	//if (flag_n(tab[i]) == 1 && x != 1)
-	//		i++;
-	//mini_printf_fd(2, "tab[[i] est a %s\n", tab[i]); //
+	while (tab[i] && flag_n(tab[i]) == 1 )
+			i++;
 	while (tab[i])
 	{
-		//mini_printf_fd(2, "rentre dans la boucle\n"); //
-		if (flag_n(tab[i]) == 1 && x != 1)
-			i++;
-		else if (tab[i][0] == '>')
+		if (tab[i][0] == '>')
 		{
-			//mini_printf_fd(2, "rentre dans le chevron a break\n"); //
 			write_end(ms->redplus, fd, env, ms);
 			break ;
 		}
 		else if (tab[i][0] == '<')
 		{
-			if (tab[i][1])
+			if (!tab[i][1])
 				i++;
-			else
-				i = i + 2;
+			//i++;
 		}
 		else
 		{
-			//mini_printf_fd(2, "rentre pour faire les instruct\n"); //
 			ft_treatment_instruct(tab[i], fd, env, ms);
-			x = 1;
 			if (tab[i + 1] && ms->space != 1) //ajout de space pour pas d espace quand rien d afficher par la premiere commade, ex : $ljk
 				ft_putstr_fd(" ", fd);
-			i++;
+			//i++;
 		}
+		i++; // au lieu des 2 i++ d avant
 	}
 }
 

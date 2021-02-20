@@ -61,7 +61,7 @@ int	search_fd(char *str, t_ms *ms, char c)
 	}
 	if (!(caractere_red(str))) // si rien apres le chevrons c'est qui y en a qu un retournre 1
 	{
-		ms->exit = ft_error_char(1, *str);
+		ms->exit = ft_error_char(1, 2, *str);
 		return (0);
 	}
 	fd = open_files(str, ms, c); // redirection <
@@ -125,7 +125,7 @@ int	ft_redirection(char **tab, char type, t_ms *ms, int *i)
 	{
 		if ((ms->red > 1 && type == '<') || (ms->red > 2 && type == '>'))
 		{
-			ms->exit = ft_error_char(2, type);
+			ms->exit = ft_error_char(2, 2, type);
 			return (0);
 		}
 		*i = *i + 1;
