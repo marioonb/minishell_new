@@ -1,4 +1,4 @@
-void caractere (char c)
+/*void caractere (char c)
 {
 
 if (c = 33 || (c >=35 && c <= 37) || (c >= 42 && c <= 47) ||
@@ -14,5 +14,4 @@ else if (c == 34 || c == 39 || c == 96 || c == 124)
 else if (c == 38)
 		printf("\ncreait un truc");
 }
-
-
+*/

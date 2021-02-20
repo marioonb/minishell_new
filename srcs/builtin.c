@@ -37,11 +37,11 @@ int	is_builtin(char *cmd)
 	while (buil[i] && cmd)
 	{
 		if (!ft_strncmp(buil[i], cmd, ft_strlen(buil[i])))
-		{ // voir a enlever pour la norme
+		{
 			if (ft_strlen (cmd) > ft_strlen(buil[i]))
 				return (0);
 			return (1);
-		} // voir a enlever pour la norme
+		}
 		i++;
 	}
 	return (0);
@@ -118,5 +118,3 @@ void	ft_out(char *str, int fd)
 		}
 	}
 }
-
-

@@ -48,5 +48,3 @@ int	search_doll(char *s)
 	}
 	return (0);
 }
-
-

@@ -171,7 +171,7 @@ static char	*check_quote_end(char *tab, char c, t_ms *ms)
 		}
 		if (c == SIMPLE_Q)
 		{
-			if (*tab && *tab ==  SIMPLE_Q)
+			if (*tab && *tab == SIMPLE_Q)
 				ms->quote *= -1;
 		}
 		else if (c == DOUBLE_Q)
@@ -207,6 +207,7 @@ static void	check_error_quote(char *tab, t_ms *ms)
 			tab++;
 	}
 }
+
 int	check_error_quotes1(char **tab, t_ms *ms)
 {
 	int	i;

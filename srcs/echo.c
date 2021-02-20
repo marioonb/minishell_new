@@ -41,11 +41,7 @@ char	*special_charactere(char *cmd, int fd)
 			cmd++;
 			ft_putchar_fd('0', fd);
 		}
-		else if (cmd[1] == '=' || cmd[1] == '%' || cmd[1] == BACK_S) // AJOUT DERNIER INS sinon marche pas : bash-3.2$ echo hallo$\USER
-//hallo$USER
-//bash-3.2$ echo hallo$\$USER
-//hallo$$USER
-//bash-3.2$
+		else if (cmd[1] == '=' || cmd[1] == '%' || cmd[1] == BACK_S) // AJOUT DERNIER INS sinon marche pas : TEST X
 			ft_putchar_fd(DOLLS, fd);
 	}
 	return (cmd);
@@ -53,15 +49,12 @@ char	*special_charactere(char *cmd, int fd)
 
 int	echo_charactere(char c)
 {
-	if (c == '#' || c == '%' || c == '=' || c == BACK_S) // AJOUT DERNIER INS sinon marche pas : bash-3.2$ echo hallo$\USER
-//hallo$USER
-//bash-3.2$ echo hallo$\$USER
-//hallo$$USER
-//bash-3.2$
+	if (c == '#' || c == '%' || c == '=' || c == BACK_S) // AJOUT DERNIER INS sinon marche pas : TEST X
 		return (1);
 	return (0);
 }
-void write_end(char **redplus, int fd, char **env, t_ms *ms)
+
+void	write_end(char **redplus, int fd, char **env, t_ms *ms)
 {
 	int	i;
 
@@ -74,7 +67,7 @@ void write_end(char **redplus, int fd, char **env, t_ms *ms)
 			ft_treatment_instruct(redplus[i], fd, env, ms);
 			//x = 1;
 			if (redplus[i + 1] && ms->space != 1) //ajout de space pour pas d espace quand rien d afficher par la premiere commade, ex : $ljk
-			ft_putstr_fd(" ", fd);
+				ft_putstr_fd(" ", fd);
 			i++;
 		}
 	}
@@ -102,6 +95,13 @@ static void	parse_echo(char **tab, char **env, int fd, t_ms *ms)
 			//mini_printf_fd(2, "rentre dans le chevron a break\n"); //
 			write_end(ms->redplus, fd, env, ms);
 			break ;
+		}
+		else if (tab[i][0] == '<')
+		{
+			if (tab[i][1])
+				i++;
+			else
+				i = i + 2;
 		}
 		else
 		{

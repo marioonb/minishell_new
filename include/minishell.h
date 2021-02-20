@@ -104,7 +104,7 @@ void	ft_error_exit (int a, char *s, int nexit);
 int		ft_error(int a, int nexit);
 int		ft_error_str(int a, char *s, int nexit);
 //void	ft_error_flag(char c);
-void	ft_error_char(int a, char c);
+int		ft_error_char(int a, char c);
 
 // fonctions parse
 void	ft_read_buffer(char *buffer, t_env *env, t_ms *ms);

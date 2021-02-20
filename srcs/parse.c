@@ -57,9 +57,9 @@ void	exec_cmd_shell(char **cmd, t_env *env)
 	}
 }
 
-int		ft_verif_path(char *bin)
+int	ft_verif_path(char *bin)
 {
-	struct stat mystat;
+	struct stat	mystat;
 
 	errno = 0;
 	stat(bin, &mystat);
@@ -96,14 +96,12 @@ char	*check_tab_path(char **path_split, char *bin, char *cmd)
 		strcat(bin, path_split[i]);
 		strcat(bin, "/");
 		strcat(bin, cmd);
-		if (ft_verif_path(bin) == 0) //
-		{//
-			free(cmd);//
-			cmd = bin;//
-			break ;//
-		}//
-		//if (access(bin, F_OK) == 0) // modifier et utiliser stat
-		//	break ;
+		if (ft_verif_path(bin) == 0)
+		{
+			free(cmd);
+			cmd = bin;
+			break ;
+		}
 		free(bin);
 		bin = NULL;
 		i++;

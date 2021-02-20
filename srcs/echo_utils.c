@@ -97,7 +97,6 @@ char	*backslash(char *cmd, int fd, char **env, int x)
 // SI PROBLEME REMETTRE LA FONCTION PLUS BAS 16/02, FOMCTION DECOUPEE POUR LA NORME
 void	double_quote2(char *str, int fd, char **env, t_ms *ms)
 {
-
 	while (*str)
 	{
 		if (*str == DOLLS && str[1])
@@ -120,6 +119,7 @@ void	double_quote2(char *str, int fd, char **env, t_ms *ms)
 }
 
 // SI PROBLEME, REMETTRE LA FONCTION PLUS BAS 16/02
+
 char	*double_quote(char *cmd, int fd, char **env, t_ms *ms)
 {
 	char	*str;
@@ -172,7 +172,6 @@ void	ft_treatment_instruct(char *cmd, int fd, char **env, t_ms *ms)
 		ms->exit = 0;
 	}
 }
-
 
 /* MARCHAIT, A METTRE A LA PLACE DE DOUBLE QUOTE ET DOUBLE QUOTE 2
 char	*double_quote(char *cmd, int fd, char **env, t_ms *ms)

@@ -28,6 +28,10 @@ static void	exec_cmd(char **tab, t_env *env, t_ms *ms)
 	}
 }
 
+// a la fin ms->caca = dup(ms->fdp[0]);
+// on stoque le fd d'entrée (lecture) du processus pere dans lequel
+// il y a tout ce qu'a écrit le fils. on va pouvoir le filer à (1)
+
 static void	open_process_pipe(char **cmd, t_env *env, t_ms *ms)
 {
 	pid_t	pid;
@@ -52,8 +56,6 @@ static void	open_process_pipe(char **cmd, t_env *env, t_ms *ms)
 	waitpid(-1, &pid, 0);
 	if (WIFEXITED(pid))
 		ms->exit = WEXITSTATUS(pid);
-	// on stoque le fd d'entrée (lecture) du processus pere dans lequel
-	// il y a tout ce qu'a écrit le fils. on va pouvoir le filer à (1)
 	ms->caca = dup(ms->fdp[0]);
 	close_pipe(ms);
 }
@@ -106,8 +108,7 @@ int	execute_pipe(char *tab, t_env *env, t_ms *ms)
 	while (ms->pipe > 0)
 	{
 		ms->pipe--;
-		// trim les espaces avant et apres, à retirer ?
-		tab_cmd[i] = ft_strtrim(tab_cmd[i], " ");
+		tab_cmd[i] = ft_strtrim(tab_cmd[i], " ");// trim les espaces avant et apres, à retirer ?
 		tab_cmd2 = ft_split_space(tab_cmd[i], ' ');
 		tab_cmd2[0] = modif_commande_quote(tab_cmd2[0]);
 		open_process_pipe(tab_cmd2, env, ms); // envoi la commade découpée
@@ -167,4 +168,3 @@ int	execute_pipe(char *tab, t_env *env, t_ms *ms)
 	close(ms->fdp[0]);
     close(ms->fdp[1]);
 }*/
-
