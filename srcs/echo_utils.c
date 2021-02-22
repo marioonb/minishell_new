@@ -142,6 +142,7 @@ char	*double_quote(char *cmd, int fd, char **env, t_ms *ms)
 	cmd++;
 	str = ft_substr(str, 0, i);
 	double_quote2(str, fd, env, ms);
+	free(str);
 	return (cmd);
 }
 
