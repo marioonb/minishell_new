@@ -57,6 +57,7 @@ int	main(int ac, char **av, char **envp)
 		//mini_printf_fd(1, "EXIT apres = %d\n", exit.exit);
 		write(2, "$> ", 2);
 		free(cmd);
+		free(buffer);
 	}
 	free(buffer);
 	//printf("fin");
