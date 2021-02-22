@@ -33,7 +33,7 @@ void	ft_error_exit (int a, char *s, int nexit)
 int	ft_error(int a, int nexit)
 {
 	if (a == 1)
-		ft_putstr_fd(""RED" erreur de quotes"SET"\n", 2);
+		ft_putstr_fd(""RED"erreur de quotes"SET"\n", 2);
 	//if (a == 2)
 	//	ft_putstr_fd(""RED"command not found"SET"\n", 2);
 	if (a == 3)

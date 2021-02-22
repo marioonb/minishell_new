@@ -68,23 +68,10 @@ int	execute_no_pipe(char *tab, t_env *env, t_ms *ms)
 	char	**tab_cmd;
 
 	tab_cmd = ft_split_space(tab, SPACE);
-	//ft_read_tab_char(tab_cmd);
 	if (!(check_error_quotes1(tab_cmd, ms)))
 		return (0);
 	tab_cmd[0] = modif_commande_quote(tab_cmd[0]);
 	exec_cmd(tab_cmd, env, ms);
-	//if (is_builtin(tab_cmd[0]) == 1)
-	//	find_builtin(tab_cmd, env, ms);
-	//else
-	//{
-	//	if (get_path(tab_cmd, env) == 1)
-	//		exec_cmd_shell(tab_cmd, env);
-	//	else
-	//	{
-	//		ft_error(2, 127);
-	//		ms->exit = 2;
-	//	}
-	//}
 	free_tab_char(tab_cmd);
 	return (1);
 }

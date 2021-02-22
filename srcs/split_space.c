@@ -306,7 +306,7 @@ char	**ft_split_space(char const *s, char c)
 }
 */
 
-static int	for_the_norm(char *s, int i)
+static int	for_the_norm(char *s, int i, int a)
 {
 	char	d;
 
@@ -318,6 +318,8 @@ static int	for_the_norm(char *s, int i)
 			i++;
 		i++;
 	}
+	if (s[i] && s[i] == '"' && a == 1)
+		i++;
 	return (i);
 }
 
@@ -335,7 +337,7 @@ static int	comptword(char *s, char c)
 			if (i > 0 && s[i - 1] == '\\') // AJOUTE
 				i++; // AJOUTE
 			else // AJOUTE
-				i = for_the_norm(s, i);
+				i = for_the_norm(s, i, 2);
 		}
 		else if (s[i] == c)
 		{
@@ -361,10 +363,7 @@ static int	comptcaractere(char *s, char c)
 			if (i > 0 && s[i - 1] == '\\') // ca pas mis dans compt word, a voir
 				i++; // a remettre si cas trouvé et a ajoute a compt word
 			else
-			{
-				i = for_the_norm(s, i);
-				i++;
-			}
+				i = for_the_norm(s, i, 1);
 		}
 		else if (s[i] != '\0')
 			i++;
