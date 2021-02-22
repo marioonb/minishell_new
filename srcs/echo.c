@@ -59,7 +59,6 @@ void	write_end(char **redplus, int fd, char **env, t_ms *ms)
 	int	i;
 
 	i = 0;
-	//mini_printf_fd(2, "rentre dans write_end\n"); //
 	if (ms->redplus != NULL)
 	{
 		while (redplus[i])
@@ -91,16 +90,14 @@ static void	parse_echo(char **tab, char **env, int fd, t_ms *ms)
 		{
 			if (!tab[i][1])
 				i++;
-			//i++;
 		}
 		else
 		{
 			ft_treatment_instruct(tab[i], fd, env, ms);
 			if (tab[i + 1] && ms->space != 1) //ajout de space pour pas d espace quand rien d afficher par la premiere commade, ex : $ljk
 				ft_putstr_fd(" ", fd);
-			//i++;
 		}
-		i++; // au lieu des 2 i++ d avant
+		i++;
 	}
 }
 

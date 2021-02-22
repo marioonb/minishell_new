@@ -89,7 +89,7 @@ char	*backslash(char *cmd, int fd, char **env, int x)
 	else if (*cmd && cpt % 2 != 0)
 	{
 		ft_putchar_fd(*cmd, fd);
-		cmd++; // a remettre ??
+		cmd++;
 	}
 	return (cmd);
 }

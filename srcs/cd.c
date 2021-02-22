@@ -11,7 +11,9 @@
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
 // mettre exit a 0 ?
+
 char	*check_path(char **tab, t_ms *ms)
 {
 	int	i;
@@ -68,7 +70,9 @@ static void	exec_chdir(char **tab, char *pwd, t_env *env)
 	free(pwd);
 	free(oldpwd);
 }
-/* recherche les path oldpwd et pwd et les modifie
+
+/*
+** recherche les path oldpwd et pwd et les modifie
 */
 
 /*static void	exec_chdir(char **tab, char *pwd, t_env *env)
@@ -114,5 +118,5 @@ int	builtin_cd(char **tab, t_env *env, t_ms *ms)
 		exec_chdir(tab, pwd, env);
 	else
 		ms->exit = ft_error_str(3, tab[1], 1);
-	return (1); ////
+	return (1);
 }

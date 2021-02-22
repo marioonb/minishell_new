@@ -212,7 +212,7 @@ int	check_error_quotes1(char **tab, t_ms *ms)
 {
 	int	i;
 
-	ms->quote = 1; // a retirer si init
+	//ms->quote = 1; // a retirer si init
 	i = 0;
 	while (tab[i])
 	{

@@ -22,16 +22,20 @@ void init_fd(t_ms *ms)
 	ms->caca = 1;
 	ms->red = 0;
 	ms->redplus = NULL;
+	ms->quote = 1;
 }
 
-void	sighandler(int sig_num, t_ms *ms)
+// faire une globale pour exit, car on peut rien envoyer en parametre
+
+void	sighandler(int sig_num)
 {
 	if (sig_num == SIGINT)
 	{
 		printf("\n");
-		ms->exit = 1;
+		//ms->exit = 1;
 		mini_printf_fd(2, "" PINK "%s" SET"", "minishell $> ");
 	}
+	return ;
 }
 
 // voir pour retirer buff size, gnl protégé
@@ -39,7 +43,6 @@ void	sighandler(int sig_num, t_ms *ms)
 int	main(int ac, char **av, char **envp)
 {
 	char	*buffer;
-	//size_t	buf_size;
 	char	*cmd;
 	t_env	env;
 	t_ms	ms;
@@ -48,7 +51,6 @@ int	main(int ac, char **av, char **envp)
 	(void)ac;
 	(void)av;
 	buffer = NULL;
-	//buf_size = 2;
 	env.env = duplicate_tab_char(envp);
 	env.export = duplicate_tab_char(envp);
 	buffer = (char *)calloc(sizeof(char), 15);
@@ -56,8 +58,8 @@ int	main(int ac, char **av, char **envp)
 		ft_error_malloc();
 	mini_printf_fd(2, "" PINK "%s" SET"", "minishell $> ");
 	ms.fd = 0;
-	//signal(SIGQUIT, sighandler);
-	//signal(SIGINT, sighandler);
+	signal(SIGQUIT, sighandler);
+	signal(SIGINT, sighandler);
 	//while (getline(&buffer, &buf_size, stdin) > 0)
 	while (get_next_line(1, &buffer) > 0)
 	{

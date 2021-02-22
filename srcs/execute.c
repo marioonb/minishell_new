@@ -93,7 +93,8 @@ int	execute_pipe(char *tab, t_env *env, t_ms *ms)
 
 	i = 0;
 	ms->exit = 0;
-	tab_cmd = ft_split_minishell(tab, PIPE);
+	//tab_cmd = ft_split_minishell(tab, PIPE);
+	tab_cmd = ft_split_space(tab, PIPE);
 	if (!(check_error_quotes1(tab_cmd, ms)))
 		return (0);
 	while (ms->pipe > 0)
@@ -102,7 +103,7 @@ int	execute_pipe(char *tab, t_env *env, t_ms *ms)
 		//tab_cmd[i] = ft_strtrim(tab_cmd[i], " ");// trim les espaces avant et apres, à retirer ?
 		tab_cmd2 = ft_split_space(tab_cmd[i], ' ');
 		tab_cmd2[0] = modif_commande_quote(tab_cmd2[0]);
-		open_process_pipe(tab_cmd2, env, ms); // envoi la commade découpée
+		open_process_pipe(tab_cmd2, env, ms); // envoi la commande découpée
 		free_tab_char(tab_cmd2); // free cette commade decoupee, a voir si pas free dans exec_cmd
 		tab_cmd2 = NULL;
 		ms->pipebef++;
