@@ -60,8 +60,8 @@ int	main(int ac, char **av, char **envp)
 		free(buffer);
 	}
 	free(buffer);
-	//printf("fin");
-	//exit (1);
+	free_tab_char(env.env);
+	free_tab_char(env.export);
 	//system("leaks ./minishell");
 	return(0);
 }
