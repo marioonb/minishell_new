@@ -12,7 +12,6 @@
 
 #include "./include/minishell.h"
 
-
 void init_fd(t_ms *ms)
 {
     ms->in = dup(STDIN_FILENO);
@@ -25,6 +24,16 @@ void init_fd(t_ms *ms)
 	ms->redplus = NULL;
 }
 
+void    sighandler(int sig_num, t_ms *ms)
+{
+    printf("\b\b  \b\b");
+    if (sig_num == SIGINT)
+    {
+        printf("\n");
+    	ms->exit = 1;
+        write(2, "$> ", 2);
+    }
+}
 // voir pour retirer buff size, gnl protégé
 
 int	main(int ac, char **av, char **envp)
@@ -47,8 +56,10 @@ int	main(int ac, char **av, char **envp)
 	buffer = (char *)calloc(sizeof(char), buf_size);
 	if (buffer == NULL)
 		ft_error_malloc();
-	write(2, "$> ", 3);
+	mini_printf_fd(2, "" PINK "%s" SET"", "minishell $> ");
 	ms.fd = 0;
+	//signal(SIGQUIT, sighandler);
+	//signal(SIGINT, sighandler);
 	//while (getline(&buffer, &buf_size, stdin) > 0)
 	while (get_next_line(1, &buffer) > 0)
 	{
@@ -56,8 +67,8 @@ int	main(int ac, char **av, char **envp)
 		cmd = ft_strtrim(buffer, "\n\t");
 		//mini_printf_fd(1, "EXIT avant = %d\n", exit.exit);
 		ft_read_buffer(cmd, &env, &ms);
-		//mini_printf_fd(1, "EXIT apres = %d\n", exit.exit);
-		write(2, "$> ", 2);
+		//mini_printf_fd(1, "EXIT apres = %d\n", exit.exit);aje
+		mini_printf_fd(2, "" PINK "%s" SET"", "minishell $> ");
 		free(cmd);
 		free(buffer);
 	}

@@ -30,6 +30,9 @@
 #define	ACCENT '`'
 #define	PIPE '|'
 #define	SPACE ' '
+#define PINK "\033[35;01m"
+#define RED "\033[31;01m"
+#define SET "\033[00m"
 
 typedef struct s_env
 {

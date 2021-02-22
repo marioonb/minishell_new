@@ -20,29 +20,31 @@ void	ft_error_malloc(void)
 
 void	ft_error_exit (int a, char *s, int nexit)
 {
+	ft_putstr_fd("exit\n", 2);
 	if (a == 1)
-		mini_printf_fd(2, "exit \nminishell: exit: %s : argument numérique nécessaire\n", s);
+		mini_printf_fd(2, ""RED"minishell: exit: %s : argument numérique nécessaire"SET"\n", s);
 	if (a == 2)
-		ft_putstr_fd("exit\nminishell: exit: trop d'arguments\n", 2);
+		ft_putstr_fd(""RED"minishell: exit: trop d'arguments"SET"\n", 2);
 	if (a == 3)
-		mini_printf_fd(2, "minishell: %s, Is a directory\n", s);
+		mini_printf_fd(2, ""RED"minishell: %s, Is a directory\n"SET"", s);
 	exit (nexit);
 }
 
 int	ft_error(int a, int nexit)
 {
 	if (a == 1)
-		ft_putstr_fd("erreur de quotes\n", 2);
+		//ft_putstr_fd(""PINK" erreur de quotes"SET"\n", 2);
+		ft_putstr_fd(""RED" erreur de quotes"SET"\n", 2);
 	if (a == 2)
-		ft_putstr_fd("command not found\n", 2);
+		ft_putstr_fd(""RED"command not found"SET"\n", 2);
 	if (a == 3)
 		ft_putstr_fd("error backslash", 2);
 	if (a == 4)
-		ft_putstr_fd("minishell: cd: trop d'arguments\n", 2);
+		ft_putstr_fd(""RED"minishell: cd: trop d'arguments"SET"\n", 2);
 	if (a == 5)
-		ft_putstr_fd("aucun fichier de redirection spécifié", 2);
+		ft_putstr_fd(""RED"aucun fichier de redirection spécifié"SET"\n", 2);
 	if (a == 6)
-		ft_putstr_fd("plusieur < a ne pas gerer", 2);
+		ft_putstr_fd(""PINK"plusieur < a ne pas gerer"SET"\n", 2);
 	return (nexit);
 }
 
@@ -51,19 +53,19 @@ int	ft_error_char(int a, int nexit, char c)
 	//if (c == 'E' || c == 'e')
 	//	mini_printf_fd(2, "oups... le flag -%c n'est pas à gérer...", c); // ne l utilise pas pour le moment
 	if (a == 1)
-		mini_printf_fd(2, "minishell: erreur de redirection : '%c'\n", c);
+		mini_printf_fd(2, ""RED"minishell: erreur de redirection : '%c'"SET"\n", c);
 	if (a == 2)
-		mini_printf_fd(2, "trop de chevron '%c'\n", c);
+		mini_printf_fd(2, ""RED"trop de chevron '%c'"SET"\n", c);
 	return(nexit);
 }
 
 int	ft_error_str(int a, char *s, int nexit)
 {
 	if (a == 1)
-		mini_printf_fd(2, "export: « %s » : identifiant non valable\n", s);
+		mini_printf_fd(2, ""RED"export: « %s » : identifiant non valable"SET"\n", s);
 	if (a == 2)
-		mini_printf_fd(2, "env: «%s»: Aucun fichier ou dossier de ce type\n", s);
+		mini_printf_fd(2, ""RED"env: «%s»: Aucun fichier ou dossier de ce type"SET"\n", s);
 	if (a == 3)
-		mini_printf_fd(2, "minishell: cd: %s: Aucun fichier ou dossier de ce type\n", s);
+		mini_printf_fd(2, ""RED"minishell: cd: %s: Aucun fichier ou dossier de ce type"SET"\n", s);
 	return (nexit);
 }
