@@ -14,6 +14,9 @@
 
 static void	exec_cmd(char **tab, t_env *env, t_ms *ms)
 {
+	char *cpy;
+
+	cpy = tab[0]; //  pour renvoyer dans l'erreur car get_path supprime
 	if (is_builtin(tab[0]) == 1)
 		find_builtin(tab, env, ms);
 	else
@@ -22,7 +25,7 @@ static void	exec_cmd(char **tab, t_env *env, t_ms *ms)
 			exec_cmd_shell(tab, env);
 		else
 		{
-			ft_error(2, 127);
+			ft_error_str(4, cpy, 127);
 			ms->exit = 2;
 		}
 	}
