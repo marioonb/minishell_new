@@ -25,6 +25,8 @@ void init_fd(t_ms *ms)
 	ms->redplus = NULL;
 }
 
+// voir pour retirer buff size, gnl protégé
+
 int	main(int ac, char **av, char **envp)
 {
 	char	*buffer;
@@ -62,6 +64,7 @@ int	main(int ac, char **av, char **envp)
 	free(buffer);
 	free_tab_char(env.env);
 	free_tab_char(env.export);
+	free(ms.redplus);
 	//system("leaks ./minishell");
 	return(0);
 }

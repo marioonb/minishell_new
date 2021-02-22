@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
+// mettre exit a 0 ?
 char	*check_path(char **tab, t_ms *ms)
 {
 	int	i;
