@@ -33,17 +33,45 @@ char	*check_path(char **tab, t_ms *ms)
 	return (tab[1]);
 }
 
-static void	concat_for_change(char *s1, char *s2, int size, t_env *env)
+static void	concat_for_change(char *s1, char *var, int size, t_env *env)
 {
-	ft_strlcat(s2, s1, size);
-	treat_var(s2, env);
-	free(s2);
+	char	*copy;
+
+	copy = NULL;
+	copy = malloc(sizeof(char) * (size));
+	if (copy == NULL)
+		ft_error_malloc();
+	ft_strncpy(copy, var, ft_strlen(var) + 1);
+	ft_strlcat(copy, s1, size);
+	treat_var(copy, env);
+	free(copy);
 }
 
+static void	exec_chdir(char **tab, char *pwd, t_env *env)
+{
+	char	*oldpwd;
+	int		lenght;
+	char	*pwd2;
+	char	*oldpwd2;
+
+	oldpwd2 = NULL;
+	oldpwd = NULL;
+	pwd2 = NULL;
+	if (!tab[1])
+		pwd = find_var("HOME", env->env);
+	lenght = 4 + ft_strlen(pwd) + 1;
+	pwd2 = malloc(sizeof(char) * (lenght));
+	concat_for_change(pwd, "PWD=", lenght, env);
+	oldpwd = find_var("PWD", env->env);
+	lenght = 7 + ft_strlen(oldpwd) + 1;
+	concat_for_change(oldpwd, oldpwd2, lenght, env);
+	free(pwd);
+	free(oldpwd);
+}
 /* recherche les path oldpwd et pwd et les modifie
 */
 
-static void	exec_chdir(char **tab, char *pwd, t_env *env)
+/*static void	exec_chdir(char **tab, char *pwd, t_env *env)
 {
 	char	*oldpwd;
 	int		lenght;
@@ -68,7 +96,7 @@ static void	exec_chdir(char **tab, char *pwd, t_env *env)
 		ft_error_malloc();
 	ft_strncpy(oldpwd2, "OLDPWD=", 8);
 	concat_for_change(oldpwd, oldpwd2, lenght, env);
-}
+}*/
 
 //void	builtin_cd(char **tab, t_env *env)
 
