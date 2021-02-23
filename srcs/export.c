@@ -47,7 +47,7 @@ void	builtin_export(char **tab, t_env *env, t_ms *ms)
 	int		i;
 	int		fd;
 
-	ms->exit = 0;
+	g_exit = 0;
 	i = 1;
 	str = NULL;
 	fd = find_fd(tab, ms);
@@ -58,7 +58,7 @@ void	builtin_export(char **tab, t_env *env, t_ms *ms)
 		while (tab[i])
 		{
 			str = ft_strdup(tab[i]);
-			check_name_var(str, ms);
+			check_name_var(str);
 			treat_var (str, env);
 			i++;
 		}

@@ -31,7 +31,7 @@ char	*dolls(char *cmd, int fd, char **env, t_ms *ms)
 {
 	if (cmd[1] && cmd[1] == '?')
 	{
-		mini_printf_fd(fd, "%d", ms->exit);
+		mini_printf_fd(fd, "%d", g_exit);
 		cmd++;
 	}
 	else if (cmd[1] && echo_charactere(cmd[1]))
@@ -106,7 +106,7 @@ void	double_quote2(char *str, int fd, char **env, t_ms *ms)
 			str = backslash(str, fd, env, 2);
 			if (str == NULL) //je peux pas renvoyer null avec la fonction backslash car sinon ca segfault
 			{
-				ms->exit = 2;
+				g_exit = 2;
 				break ;
 			}
 		}
@@ -161,7 +161,7 @@ void	ft_treatment_instruct(char *cmd, int fd, char **env, t_ms *ms)
 			cmd = backslash(cmd, fd, env, 1);
 			if (cmd == NULL) // obligé si on veut mettre l erreur echo \\ a 2 mais le pb c est que si je renvoi null ca segfault
 			{
-				ms->exit = 2;
+				g_exit = 2;
 				break ;
 			}
 		}
@@ -170,7 +170,7 @@ void	ft_treatment_instruct(char *cmd, int fd, char **env, t_ms *ms)
 			ft_putchar_fd(cmd[0], fd);
 			cmd++;
 		}
-		ms->exit = 0;
+		g_exit = 0;
 	}
 }
 

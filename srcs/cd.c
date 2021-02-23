@@ -14,14 +14,14 @@
 
 // mettre exit a 0 ?
 
-char	*check_path(char **tab, t_ms *ms)
+char	*check_path(char **tab)
 {
 	int	i;
 
 	i = 0;
 	if (tab[2])
 	{
-		ms->exit = ft_error(4, 1);
+		g_exit = ft_error(4, 1);
 		return (NULL);
 	}
 	if (tab[1][i] == '.')
@@ -53,20 +53,15 @@ static void	exec_chdir(char **tab, char *pwd, t_env *env)
 {
 	char	*oldpwd;
 	int		lenght;
-	char	*pwd2;
-	char	*oldpwd2;
 
-	oldpwd2 = NULL;
 	oldpwd = NULL;
-	pwd2 = NULL;
 	if (!tab[1])
 		pwd = find_var("HOME", env->env);
 	lenght = 4 + ft_strlen(pwd) + 1;
-	pwd2 = malloc(sizeof(char) * (lenght));
 	concat_for_change(pwd, "PWD=", lenght, env);
 	oldpwd = find_var("PWD", env->env);
 	lenght = 7 + ft_strlen(oldpwd) + 1;
-	concat_for_change(oldpwd, oldpwd2, lenght, env);
+	concat_for_change(oldpwd, "OLDPWD=", lenght, env);
 	free(pwd);
 	free(oldpwd);
 }
@@ -104,19 +99,19 @@ static void	exec_chdir(char **tab, char *pwd, t_env *env)
 
 //void	builtin_cd(char **tab, t_env *env)
 
-int	builtin_cd(char **tab, t_env *env, t_ms *ms)
+int	builtin_cd(char **tab, t_env *env)
 {
 	char	*pwd;
 
 	pwd = NULL;
-	ms->exit = 0;
+	g_exit = 0;
 	if (tab[1])
-		pwd = check_path(tab, ms);
+		pwd = check_path(tab);
 	if (tab[1] && pwd == NULL)
 		return (0);
 	if (chdir(tab[1]) == 0 || !tab[1])
 		exec_chdir(tab, pwd, env);
 	else
-		ms->exit = ft_error_str(3, tab[1], 1);
+		g_exit = ft_error_str(3, tab[1], 1);
 	return (1);
 }

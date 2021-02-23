@@ -50,7 +50,6 @@ void	builtin_exit(char **tab)
 	int	nexit;
 
 	nexit = 0;
-	ft_read_tab_char(tab);
 	if (!tab[1])
 	{
 		ft_putstr_fd("exit\n", 1);

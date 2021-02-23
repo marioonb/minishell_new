@@ -219,7 +219,7 @@ int	check_error_quotes1(char **tab, t_ms *ms)
 		check_error_quote(tab[i], ms);
 		if (ms->quote < 0)
 		{
-			ms->exit = ft_error(1, 2);
+			g_exit = ft_error(1, 2);
 			return (0);
 		}
 		i++;

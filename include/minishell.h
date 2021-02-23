@@ -51,7 +51,6 @@ typedef struct s_ms
 	char	**enter;
 	int		fd;
 	int		fdp[2];
-	int		exit;
 	int		quote;
 	int		space;
 	int		caca;
@@ -62,6 +61,8 @@ typedef struct s_ms
 	char	**redplus;
 }				t_ms;
 
+int		g_exit;
+
 // fonctions builtin
 int		is_builtin(char *cmd);
 int		find_pipe(char *tab);
@@ -70,8 +71,8 @@ void	ft_out(char *str, int fd);
 int		find_fd(char **tab, t_ms *ms);
 
 // fontions de cd + 2 static
-char	*check_path(char **tab, t_ms *ms); //*
-int		builtin_cd(char **tab, t_env *env, t_ms *ms);
+char	*check_path(char **tab); //*
+int		builtin_cd(char **tab, t_env *env);
 
 // fonctions check_error + 2 statics
 //int	check_error_quote(char *tab, int quote);
@@ -139,7 +140,7 @@ void	declare_x(t_env *env, int fd);
 
 
 // fonctions unset + 3 static
-void	builtin_unset(char **tab, t_env *env, t_ms *ms);
+void	builtin_unset(char **tab, t_env *env);
 
 
 // fonctions utils_dolls
@@ -151,7 +152,7 @@ char	*find_bin(char *str, char c, int a);
 int		var_lenght (char *str); //*
 char	*find_var(char *str, char **env);
 int		check_caractere_name_var(char c);
-void	check_name_var(char *str, t_ms *ms);
+void	check_name_var(char *str);
 
 //fonction fd
 void	reset_fd(t_ms *ms);

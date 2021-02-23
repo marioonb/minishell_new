@@ -114,7 +114,7 @@ void	builtin_echo(char **tab, char **env, t_ms *ms)
 	if (flag_n(tab[1]) == 1)
 		flag = 1;
 	if (!tab[1])
-		ms->exit = 0;
+		g_exit = 0;
 	parse_echo(tab, env, fd, ms);
 	if (flag != 1)
 		ft_putstr_fd("\n", fd);

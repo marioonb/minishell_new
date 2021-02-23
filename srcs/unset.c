@@ -89,13 +89,13 @@ void	change_var_tab(t_env *env, char *str)
 	}
 }
 
-void	builtin_unset(char **tab, t_env *env, t_ms *ms)
+void	builtin_unset(char **tab, t_env *env)
 {
 	int	j;
 
 	j = 1;
 	if (tab[1])
-		check_name_var(tab[1], ms);
+		check_name_var(tab[1]);
 	while (tab[j])
 	{
 		change_var_tab(env, tab[j]);

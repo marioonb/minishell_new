@@ -24,9 +24,9 @@ int	open_files(char *s, t_ms *ms, char type)
 		ft_error_malloc();
 	ft_strncpy(files, s, ft_strlen(s));
 	if (ms->red > 2 && type == '>')
-		ms->exit = ft_error(7, 2);
+		g_exit = ft_error(7, 2);
 	if (ms->red > 1 && type == '<')
-		ms->exit = ft_error(6, 2);
+		g_exit = ft_error(6, 2);
 	if (ms->red == 1 && type == '>')
 		fd = open(files, O_CREAT | O_RDONLY | O_WRONLY | O_TRUNC, 0666 );
 	if (ms->red == 2 && type == '>')
@@ -61,7 +61,7 @@ int	search_fd(char *str, t_ms *ms, char c)
 	}
 	if (!(caractere_red(str))) // si rien apres le chevrons c'est qui y en a qu un retournre 1
 	{
-		ms->exit = ft_error_char(1, 2, *str);
+		g_exit = ft_error_char(1, 2, *str);
 		return (0);
 	}
 	fd = open_files(str, ms, c); // redirection <
@@ -125,7 +125,7 @@ int	ft_redirection(char **tab, char type, t_ms *ms, int *i)
 	{
 		if ((ms->red > 1 && type == '<') || (ms->red > 2 && type == '>'))
 		{
-			ms->exit = ft_error_char(2, 2, type);
+			g_exit = ft_error_char(2, 2, type);
 			return (0);
 		}
 		*i = *i + 1;
@@ -133,7 +133,7 @@ int	ft_redirection(char **tab, char type, t_ms *ms, int *i)
 			fd = open_files(tab[*i], ms, type);
 		else
 		{
-			ms->exit = ft_error(5, 2);
+			g_exit = ft_error(5, 2);
 			return (-1);
 		}
 	}

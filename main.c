@@ -32,7 +32,7 @@ void	sighandler(int sig_num)
 	if (sig_num == SIGINT)
 	{
 		printf("\n");
-		//ms->exit = 1;
+		g_exit = 130;
 		mini_printf_fd(2, "" PINK "%s" SET"", "minishell $> ");
 	}
 	return ;
@@ -47,7 +47,7 @@ int	main(int ac, char **av, char **envp)
 	t_env	env;
 	t_ms	ms;
 
-	ms.exit = 0;
+	g_exit = 0;
 	(void)ac;
 	(void)av;
 	buffer = NULL;

@@ -73,11 +73,11 @@ void	find_builtin (char **tab, t_env *env, t_ms *ms)
 	else if (ft_strncmp(tab[0], "pwd", ft_strlen(tab[0])) == 0)
 		builtin_pwd(tab, env, ms);
 	else if (ft_strncmp(tab[0], "cd", ft_strlen(tab[0])) == 0)
-		builtin_cd(tab, env, ms);
+		builtin_cd(tab, env);
 	else if (ft_strncmp(tab[0], "export", ft_strlen(tab[0])) == 0)
 		builtin_export(tab, env, ms);
 	else if (ft_strncmp(tab[0], "unset", ft_strlen(tab[0])) == 0)
-		builtin_unset(tab, env, ms);
+		builtin_unset(tab, env);
 	else if (ft_strncmp(tab[0], "env", ft_strlen(tab[0])) == 0)
 		builtin_env(tab, env, ms);
 	else if (ft_strncmp(tab[0], "exit", ft_strlen(tab[0])) == 0)

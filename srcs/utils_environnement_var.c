@@ -80,19 +80,19 @@ int	check_caractere_name_var(char c)
 		return (0);
 }
 
-void	check_name_var(char *str, t_ms *ms)
+void	check_name_var(char *str)
 {
 	int	i;
 
 	i = 0;
 	if (ft_isdigit(str[0]))
-		ms->exit = ft_error_str(1, str, 1);
+		g_exit = ft_error_str(1, str, 1);
 	else
 	{
 		while (str[i] && str[i] != '=')
 		{
 			if (check_caractere_name_var(str[i]) == 0)
-				ms->exit = ft_error_str(1, str, 1);
+				g_exit = ft_error_str(1, str, 1);
 			i++;
 		}
 	}

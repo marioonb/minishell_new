@@ -26,7 +26,7 @@ static void	exec_cmd(char **tab, t_env *env, t_ms *ms)
 		else
 		{
 			ft_error_str(4, cpy, 127);
-			ms->exit = 2;
+			g_exit = 2;
 		}
 	}
 }
@@ -58,7 +58,7 @@ static void	open_process_pipe(char **cmd, t_env *env, t_ms *ms)
 	}
 	waitpid(-1, &pid, 0);
 	if (WIFEXITED(pid))
-		ms->exit = WEXITSTATUS(pid);
+		g_exit = WEXITSTATUS(pid);
 	ms->caca = dup(ms->fdp[0]);
 	close_pipe(ms);
 }
@@ -72,7 +72,7 @@ int	execute_no_pipe(char *tab, t_env *env, t_ms *ms)
 		return (0);
 	tab_cmd[0] = modif_commande_quote(tab_cmd[0]);
 	exec_cmd(tab_cmd, env, ms);
-	free_tab_char(tab_cmd);
+	//free_tab_char(tab_cmd); --> SEGFAULT
 	return (1);
 }
 
@@ -92,7 +92,7 @@ int	execute_pipe(char *tab, t_env *env, t_ms *ms)
 	int		i;
 
 	i = 0;
-	ms->exit = 0;
+	g_exit = 0;
 	//tab_cmd = ft_split_minishell(tab, PIPE);
 	tab_cmd = ft_split_space(tab, PIPE);
 	if (!(check_error_quotes1(tab_cmd, ms)))

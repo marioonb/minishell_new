@@ -22,13 +22,13 @@ void	builtin_env(char **tab, t_env *env, t_ms *ms)
 	int	fd;
 	int	i;
 
-	ms->exit = 0;
+	g_exit = 0;
 	i = 0;
 	fd = find_fd(tab, ms);
 	if (tab[1] && fd == 1)
-		ms->exit = ft_error_str(2, tab[1], 127);
+		g_exit = ft_error_str(2, tab[1], 127);
 	else if (ms->redplus != NULL)
-		ms->exit = ft_error_str(2, ms->redplus[0], 127);
+		g_exit = ft_error_str(2, ms->redplus[0], 127);
 	else
 	{
 		while (env->env[i])
