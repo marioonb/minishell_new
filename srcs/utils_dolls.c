@@ -31,7 +31,6 @@ char	*find_var_doll(char *tab, int fd, char **env)
 		ft_out(str, fd);
 	free(str_var);
 	free(str);
-	printf("tab est a %s", tab);
 	return (tab);
 }
 

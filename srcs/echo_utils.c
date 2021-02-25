@@ -63,15 +63,15 @@ char	*backslash(char *cmd, int fd, char **env, int x)
 	if ((*cmd && (*cmd != DOLLS && *cmd != DOUBLE_Q && *cmd != ACCENT))
 		&& x == 2)
 		cpt2 = cpt2 + (cpt % 2);
+	//	if (!*cmd && cpt % 2 != 0) // si je fait exit-> exit = error, je devrai emporter exit et jai deja 4 param dans la fonction
+	//{
+	//	ft_error(3, 0); // voir sinon pour envoye l exit, en elevant une autre variable... ou en la mettant en globale, et du coup retirer la condition dans le dernier else if
+	//	return (NULL); // permet de recuperer la valeur null et mettre mexit a 2 mais avant si je remvoi null je segfault
+	//}
 	while (cpt2 > 0)
 	{
 		ft_putchar_fd(BACK_S, fd);
 		cpt2--;
-	}
-	if (!*cmd && cpt % 2 != 0) // si je fait exit-> exit = error, je devrai emporter exit et jai deja 4 param dans la fonction
-	{
-		ft_error(3, 0); // voir sinon pour envoye l exit, en elevant une autre variable... ou en la mettant en globale, et du coup retirer la condition dans le dernier else if
-		return (NULL); // permet de recuperer la valeur null et mettre mexit a 2 mais avant si je remvoi null je segfault
 	}
 	if (*cmd && *cmd == DOLLS)
 	{
@@ -104,11 +104,12 @@ void	double_quote2(char *str, int fd, char **env, t_ms *ms)
 		else if (*str == BACK_S)
 		{
 			str = backslash(str, fd, env, 2);
-			if (str == NULL) //je peux pas renvoyer null avec la fonction backslash car sinon ca segfault
-			{
-				g_exit = 2;
-				break ;
-			}
+			//if (str == NULL) //je peux pas renvoyer null avec la fonction backslash car sinon ca segfault
+			//{
+				//ft_error(1,1);
+			//	g_exit = 2;
+			//	break ;
+			//}
 		}
 		else
 		{
@@ -159,11 +160,12 @@ void	ft_treatment_instruct(char *cmd, int fd, char **env, t_ms *ms)
 		else if (*cmd == BACK_S)
 		{
 			cmd = backslash(cmd, fd, env, 1);
-			if (cmd == NULL) // obligé si on veut mettre l erreur echo \\ a 2 mais le pb c est que si je renvoi null ca segfault
-			{
-				g_exit = 2;
-				break ;
-			}
+			//if (cmd == NULL) // obligé si on veut mettre l erreur echo \\ a 2 mais le pb c est que si je renvoi null ca segfault
+			//{
+			//	ft_error(1,1);
+			//	g_exit = 2;
+			//	break ;
+			//}
 		}
 		else
 		{

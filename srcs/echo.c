@@ -101,6 +101,38 @@ static void	parse_echo(char **tab, char **env, int fd, t_ms *ms)
 	}
 }
 
+int check_back(char **tab)
+{
+	int i;
+	int j;
+
+	int cpt = 0;
+	i = 0;
+	while (tab[i])
+	{
+		j = 0;
+		while (tab[i][j])
+		{
+			if (tab[i][j] == BACK_S)
+			{
+				while (tab[i][j] && tab[i][j] == BACK_S)
+				{
+					cpt++;
+					j++;
+				}
+				if (!tab[i+1] && !tab[i][j] && cpt % 2 != 0)
+				{
+					g_exit = ft_error(3, 2);
+					return(0);
+				}
+			}
+			if(tab[i][j])
+				j++;
+		}
+		i++;
+	}return(1);
+}
+
 void	builtin_echo(char **tab, char **env, t_ms *ms)
 {
 	int		fd;
@@ -115,7 +147,10 @@ void	builtin_echo(char **tab, char **env, t_ms *ms)
 		flag = 1;
 	if (!tab[1])
 		g_exit = 0;
-	parse_echo(tab, env, fd, ms);
+	if (check_back(tab))
+	{
+		parse_echo(tab, env, fd, ms);
+	}
 	if (flag != 1)
 		ft_putstr_fd("\n", fd);
 }

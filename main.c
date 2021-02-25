@@ -61,7 +61,7 @@ int	main(int ac, char **av, char **envp)
 	signal(SIGQUIT, sighandler);
 	signal(SIGINT, sighandler);
 	//while (getline(&buffer, &buf_size, stdin) > 0)
-	while (get_next_line(1, &buffer) > 0)
+	while (get_next_line(0, &buffer) > 0)
 	{
 		init_fd(&ms);
 		cmd = ft_strtrim(buffer, "\n\t");

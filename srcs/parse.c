@@ -23,8 +23,9 @@ void	ft_read_buffer(char *buffer, t_env *env, t_ms *ms)
 	int		i;
 
 	i = 0;
-	//tab = ft_split_minishell(buffer, ';');
-	tab = ft_split_space(buffer, ';');
+	tab = ft_split_minishell(buffer, ';');
+	//tab = ft_split_space(buffer, ';');
+	//ft_read_tab_char(tab);
 	while (tab[i])
 	{
 		ft_parse(tab[i], env, ms);

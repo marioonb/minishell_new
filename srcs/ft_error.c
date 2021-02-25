@@ -37,7 +37,7 @@ int	ft_error(int a, int nexit)
 	//if (a == 2)
 	//	ft_putstr_fd(""RED"command not found"SET"\n", 2);
 	if (a == 3)
-		ft_putstr_fd("error backslash", 2);
+		ft_putstr_fd(""RED"error backslash"SET"", 2);
 	if (a == 4)
 		ft_putstr_fd(""RED"minishell: cd: trop d'arguments"SET"\n", 2);
 	if (a == 5)
