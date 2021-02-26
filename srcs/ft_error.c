@@ -27,6 +27,8 @@ void	ft_error_exit (int a, char *s, int nexit)
 		ft_putstr_fd(""RED"minishell: exit: trop d'arguments"SET"\n", 2);
 	if (a == 3)
 		mini_printf_fd(2, ""RED"minishell: %s, Is a directory\n"SET"", s);
+	if (a == 4)
+		mini_printf_fd(2, ""RED"xx%s"SET"", s);
 	exit (nexit);
 }
 
@@ -34,8 +36,8 @@ int	ft_error(int a, int nexit)
 {
 	if (a == 1)
 		ft_putstr_fd(""RED"erreur de quotes"SET"\n", 2);
-	//if (a == 2)
-	//	ft_putstr_fd(""RED"command not found"SET"\n", 2);
+	if (a == 2)
+		ft_putstr_fd(""RED"minishell: erreur de syntaxe près du symbole inattendu « ; » or « ; »"SET"\n", 2);
 	if (a == 3)
 		ft_putstr_fd(""RED"error backslash"SET"", 2);
 	if (a == 4)

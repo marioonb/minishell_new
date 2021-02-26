@@ -62,12 +62,7 @@ char	*backslash(char *cmd, int fd, char **env, int x)
 	cpt2 = cpt / 2;
 	if ((*cmd && (*cmd != DOLLS && *cmd != DOUBLE_Q && *cmd != ACCENT))
 		&& x == 2)
-		cpt2 = cpt2 + (cpt % 2);
-	//	if (!*cmd && cpt % 2 != 0) // si je fait exit-> exit = error, je devrai emporter exit et jai deja 4 param dans la fonction
-	//{
-	//	ft_error(3, 0); // voir sinon pour envoye l exit, en elevant une autre variable... ou en la mettant en globale, et du coup retirer la condition dans le dernier else if
-	//	return (NULL); // permet de recuperer la valeur null et mettre mexit a 2 mais avant si je remvoi null je segfault
-	//}
+		cpt2 = cpt2 + (cpt % 2); // truc av
 	while (cpt2 > 0)
 	{
 		ft_putchar_fd(BACK_S, fd);
@@ -101,16 +96,8 @@ void	double_quote2(char *str, int fd, char **env, t_ms *ms)
 	{
 		if (*str == DOLLS && str[1])
 			str = dolls(str, fd, env, ms);
-		else if (*str == BACK_S)
-		{
+		else if (*str == BACK_S) // truc av
 			str = backslash(str, fd, env, 2);
-			//if (str == NULL) //je peux pas renvoyer null avec la fonction backslash car sinon ca segfault
-			//{
-				//ft_error(1,1);
-			//	g_exit = 2;
-			//	break ;
-			//}
-		}
 		else
 		{
 			ft_putchar_fd(*str, fd);

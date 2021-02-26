@@ -179,7 +179,8 @@ static char	*check_quote_end(char *tab, char c, t_ms *ms)
 			if (*tab && *tab == DOUBLE_Q && cpt % 2 == 0)
 				ms->quote *= -1;
 		}
-		tab++;
+		if (*tab)
+			tab++;
 	}
 	return (tab);
 }

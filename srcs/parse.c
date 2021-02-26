@@ -17,21 +17,40 @@
 *et separe chaque commande en double tableau de char
 */
 
+int	empty(char *s)
+{
+	int cpt;
+
+	cpt = 0;
+	while (*s)
+	{
+		if (*s != ' ' && *s != ';' && *s != '|')
+			return(1);
+		if (*s == ';' || *s == '|')
+			cpt++;
+		s++;
+	}
+	if (cpt > 0)
+		g_exit = ft_error(2, 2);
+	return(0);
+}
+
 void	ft_read_buffer(char *buffer, t_env *env, t_ms *ms)
 {
-	char	**tab;
+	char	**tab = NULL;
 	int		i;
 
 	i = 0;
-	tab = ft_split_minishell(buffer, ';');
-	//tab = ft_split_space(buffer, ';');
-	//ft_read_tab_char(tab);
-	while (tab[i])
+
+	if (empty(buffer))
 	{
-		ft_parse(tab[i], env, ms);
-		i++;
-	}
-	free_tab_char(tab);
+		tab = ft_split_space(buffer, ';');
+		while (tab[i])
+		{
+			ft_parse(tab[i], env, ms);
+			i++;
+		}
+	free_tab_char(tab);}
 }
 
 void	exec_cmd_shell(char **cmd, t_env *env)
@@ -41,7 +60,10 @@ void	exec_cmd_shell(char **cmd, t_env *env)
 
 	pid = 0;
 	status = 0;
+	mini_printf_fd(2, "cmd[0] est a dddd%s\n", cmd[0]);
 	//printf("RENTRE PAS DANS MES BUILTIN\n");
+	if (cmd[0] == NULL)
+		exit(1);
 	pid = fork();
 	if (pid == -1)
 		perror("fork");
@@ -52,6 +74,7 @@ void	exec_cmd_shell(char **cmd, t_env *env)
 	}
 	else
 	{
+		//printf("cmd[0] 22 est a %s", cmd[0]);
 		if (execve(cmd[0], cmd, env->env) == -1)
 			perror("shell");
 		exit(EXIT_FAILURE);
@@ -66,8 +89,6 @@ int	ft_verif_path(char *bin)
 	stat(bin, &mystat);
 	if (errno)
 		return (1);
-	if ((mystat.st_mode & S_IFMT) == S_IFDIR)
-		ft_error_str(3, bin, 126);
 	return (0);
 }
 
@@ -97,12 +118,8 @@ char	*check_tab_path(char **path_split, char *bin, char *cmd)
 		strcat(bin, path_split[i]);
 		strcat(bin, "/");
 		strcat(bin, cmd);
-		if (ft_verif_path(bin) == 0)
-		{
-			free(cmd);
-			cmd = bin;
+		if (ft_verif_path(bin) != 1)
 			break ;
-		}
 		free(bin);
 		bin = NULL;
 		i++;
@@ -116,11 +133,12 @@ int	get_path(char **cmd, t_env *env)
 	char	*bin;
 	char	**path_split;
 
+printf("commande de 0 est a [%s]xxxxxxx\n", cmd[0]);
 	path = NULL;
 	bin = NULL;
 	path_split = NULL;
-	if (!cmd[0])
-		return (0);
+	if (!(ft_isalpha(cmd[0][0])))
+		return(0);
 	if (cmd[0][0] != '/' && strncmp(cmd[0], "./", 2) != 0)
 	{
 		path = find_var("PATH", env->env);
@@ -131,7 +149,6 @@ int	get_path(char **cmd, t_env *env)
 		path = NULL;
 		bin = check_tab_path(path_split, bin, cmd[0]);
 		free_tab_char(path_split);
-		//free(cmd[0]);
 		cmd[0] = bin;
 	}
 	else
@@ -139,11 +156,29 @@ int	get_path(char **cmd, t_env *env)
 		free(path);
 		path = NULL;
 	}
-	if (bin == NULL)
+	mini_printf_fd(2, "ICI");
+		if (bin == NULL)
 		return (0);
 	else
 		return (1);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 char	*modif_commande_quote(char *cmd)
 {
@@ -162,23 +197,6 @@ char	*modif_commande_quote(char *cmd)
 	free(str);
 	return (cmd);
 }
-
-/*int	ft_parse(char *tab, t_env *env, t_exit *exit)
-{
-	char	**tab_cmd;
-
-	tab_cmd = ft_split_space(tab, SPACE);
-	if (!(check_error_quotes1(tab_cmd, exit)))
-		return (0);
-	tab_cmd[0] = modif_commande_quote(tab_cmd[0]);
-	env->pipe = find_pipe(tab_cmd);
-	if (env->pipe > 0)
-		execute_pipe();
-	else
-		execute_no_pipe(tab_cmd, env, exit);
-	return (1);
-	//free_double_tab(tab_cmd); -> seg
-}*/
 
 void	ft_parse(char *tab, t_env *env, t_ms *ms)
 {

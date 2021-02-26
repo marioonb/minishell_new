@@ -9,7 +9,7 @@
 /*   Updated: 2021/02/05 18:58:33 by mbelorge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -117,6 +117,7 @@ void	ft_read_buffer(char *buffer, t_env *env, t_ms *ms);
 void	exec_cmd_shell(char **cmd, t_env *env);
 char	*check_tab_path(char **path_split, char *bin, char *cmd);
 int		get_path(char **cmd, t_env *env);
+//bool	get_path(char **cmd, t_env *env);
 char	*modif_commande_quote(char *cmd);
 void	ft_parse(char *tab, t_env *env, t_ms *exit);
 
@@ -158,6 +159,7 @@ void	check_name_var(char *str);
 void	reset_fd(t_ms *ms);
 void	close_pipe(t_ms *ms);
 
+int		check_back(char **tab);
 //printf("pwd est %s\n", pwd);
 //printf("pwd est %d\n", (int)ft_strlen(pwd));
 //printf("lenght est donc a %d\n", lenght);

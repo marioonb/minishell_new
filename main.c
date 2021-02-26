@@ -60,7 +60,7 @@ int	main(int ac, char **av, char **envp)
 	ms.fd = 0;
 	signal(SIGQUIT, sighandler);
 	signal(SIGINT, sighandler);
-	//while (getline(&buffer, &buf_size, stdin) > 0)
+	//while (getline(&buffer, &buuf_size, stdin) > 0)
 	while (get_next_line(0, &buffer) > 0)
 	{
 		init_fd(&ms);
@@ -68,7 +68,7 @@ int	main(int ac, char **av, char **envp)
 		ft_read_buffer(cmd, &env, &ms);
 		mini_printf_fd(2, "" PINK "%s" SET"", "minishell $> ");
 		free(cmd);
-		free(buffer);
+		//free(buffer);
 	}
 	free(buffer);
 	free_tab_char(env.env);

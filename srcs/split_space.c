@@ -306,19 +306,41 @@ char	**ft_split_space(char const *s, char c)
 }
 */
 
-static int	for_the_norm(char *s, int i, int a)
+static int	for_the_norm(char *s, int i)
 {
 	char	d;
 
 	d = s[i];
-	i++;
-	while (s[i] && s[i] != d)
+
+	if (i > 0 && s[i - 1] == '\\') // ca pas mis dans compt word, a voir
+				i++; // a remettre si cas trouvé et a ajoute a compt word
+	else
 	{
-		if (s[i] == '\\')
-			i++;
 		i++;
+		while (s[i] && s[i] != d)
+		{
+			if (s[i] == '\\') // while au lieu de if
+				i++;
+			if (s[i]) // ajout
+			i++;
+		}
+		if (s[i] && s[i] == d) // avant on mettais si a = 1 et on envoyait 1 dans word et 2 dans caractere
+			i++;
 	}
-	if (s[i] && s[i] == '"' && a == 1)
+		return (i);
+}
+
+int split_back(char *s, int i, char c)
+{
+
+int cpt = 0;
+
+	while (s[i] == BACK_S)
+	{
+		i++;
+		cpt++;
+	}
+	if (s[i] && s[i] == c && cpt%2 != 0)
 		i++;
 	return (i);
 }
@@ -327,18 +349,17 @@ static int	comptword(char *s, char c)
 {
 	int	word;
 	int	i;
+//int j;
 
+//j = 0;
 	word = 1;
 	i = 0;
 	while (s[i] != '\0')
 	{
 		if (s[i] == '\'' || s[i] == '"' )
-		{
-			if (i > 0 && s[i - 1] == '\\') // AJOUTE
-				i++; // AJOUTE
-			else // AJOUTE
-				i = for_the_norm(s, i, 2);
-		}
+				i = for_the_norm(s, i);
+		else if (s[i] == BACK_S)
+			i = split_back(s, i, c);
 		else if (s[i] == c)
 		{
 			while (s[i] == c)
@@ -346,7 +367,14 @@ static int	comptword(char *s, char c)
 			if (s[i] != '\0')
 				word++;
 		}
-		if (s[i] != '\0')
+		//else if (s[i] == c) //
+		//	j = 0;
+		//else if (j == 0)
+		//{
+		//	j = 1;
+		//	word++;
+		//}
+		else if (s[i] != '\0')
 			i++;
 	}
 	return (word);
@@ -360,12 +388,9 @@ static int	comptcaractere(char *s, char c)
 	while (s[i] != c && s[i] != '\0')
 	{
 		if (s[i] == '\'' || s[i] == '"')
-		{
-			if (i > 0 && s[i - 1] == '\\') // ca pas mis dans compt word, a voir
-				i++; // a remettre si cas trouvé et a ajoute a compt word
-			else
-				i = for_the_norm(s, i, 1);
-		}
+				i = for_the_norm(s, i); //1
+		else if (s[i] == BACK_S && c != ' ')
+			i = split_back(s, i, c);
 		else if (s[i] != '\0')
 			i++;
 	}
