@@ -60,7 +60,7 @@ void	exec_cmd_shell(char **cmd, t_env *env)
 
 	pid = 0;
 	status = 0;
-	mini_printf_fd(2, "cmd[0] est a dddd%s\n", cmd[0]);
+	//mini_printf_fd(2, "cmd[0] est a dddd%s\n", cmd[0]);
 	//printf("RENTRE PAS DANS MES BUILTIN\n");
 	if (cmd[0] == NULL)
 		exit(1);
@@ -133,7 +133,7 @@ int	get_path(char **cmd, t_env *env)
 	char	*bin;
 	char	**path_split;
 
-printf("commande de 0 est a [%s]xxxxxxx\n", cmd[0]);
+//printf("commande de 0 est a [%s]xxxxxxx\n", cmd[0]);
 	path = NULL;
 	bin = NULL;
 	path_split = NULL;
@@ -156,7 +156,7 @@ printf("commande de 0 est a [%s]xxxxxxx\n", cmd[0]);
 		free(path);
 		path = NULL;
 	}
-	mini_printf_fd(2, "ICI");
+	//mini_printf_fd(2, "ICI");
 		if (bin == NULL)
 		return (0);
 	else

@@ -45,17 +45,54 @@ int	is_builtin(char *cmd)
 	return (0);
 }
 
+int pipe_back(char *s, int i, char c)
+{
+
+int cpt = 0;
+
+	while (s[i] == BACK_S)
+	{
+		i++;
+		cpt++;
+	}
+	if (s[i] && s[i] == c && cpt%2 != 0)
+		i++;
+	return (i);
+}
+
+int only_space(char *tab, int i)
+{
+	while (tab[i])
+	{
+		if (tab[i] != ' ')
+			return(1);
+		i++;
+	}
+	return(0);
+}
+
 int	find_pipe(char *tab)
 {
 	int	pipe;
+	int i;
 
+	i = 0;
 	pipe = 0;
-	while (*tab)
+	while (tab[i])
 	{
-		if (*tab == PIPE)
-			pipe++;
-		tab++;
+		if (tab[i] == BACK_S)
+			i = pipe_back(tab, i, PIPE);
+		if (tab[i] && tab[i]== PIPE)
+		{
+			if (!tab[i+1] || only_space(tab, i))
+				g_exit = ft_error(3 ,2);
+			else
+				pipe++;
+		}
+		if (tab[i])
+		i++;
 	}
+	printf("%d pipe\n", pipe);
 	return (pipe);
 }
 

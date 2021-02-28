@@ -103,7 +103,7 @@ int	execute_pipe(char *tab, t_env *env, t_ms *ms)
 		ms->pipe--;
 		//tab_cmd[i] = ft_strtrim(tab_cmd[i], " ");// trim les espaces avant et apres, à retirer ?
 		tab_cmd2 = ft_split_space(tab_cmd[i], ' ');
-		//ft_read_tab_char(tab_cmd2);
+		ft_read_tab_char(tab_cmd2);
 		tab_cmd2[0] = modif_commande_quote(tab_cmd2[0]);
 		open_process_pipe(tab_cmd2, env, ms); // envoi la commande découpée
 		free_tab_char(tab_cmd2); // free cette commade decoupee, a voir si pas free dans exec_cmd
