@@ -72,18 +72,74 @@ void	write_end(char **redplus, int fd, char **env, t_ms *ms)
 	}
 }
 
+int red_back(char *s, int i, char c)
+{
+	int cpt = 0;
+
+	while (s[i] == BACK_S)
+	{
+		i++;
+		cpt++;
+	}
+	//if (s[i] && (s[i] == '>' || s[i] == '<') && cpt%2 != 0)
+	if (s[i] && s[i] == c && cpt%2 != 0)
+		i++;
+	return (i);
+}
+
+char *find_deb(char *str, char c)
+{
+	int i;
+	char *res;
+
+	res = malloc(sizeof(char) * ft_strlen(str));
+	i = 0;
+	while (str[i] != c)
+	{
+			res[i] =  str[i];
+			i++;
+	}
+	res[i] = '\0';
+	//mini_printf_fd(2, "res = %s", res);
+	return (res);
+}
+
+int no_back(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == BACK_S)
+			i = red_back(str, i, '>');
+		if (str[i] == '>')
+			return(1);
+		if (str[i])
+			i++;
+	}
+	return(0);
+
+
+}
+
 static void	parse_echo(char **tab, char **env, int fd, t_ms *ms)
 {
 	int	i;
+	char *str;
 
 	i = 1;
 	while (tab[i] && flag_n(tab[i]) == 1 )
 			i++;
 	while (tab[i])
 	{
-		if (tab[i][0] == '>')
+		//if (tab[i][0] == '>')
+		if (strchr(tab[i], '>') && no_back(tab[i]))//
 		{
-			write_end(ms->redplus, fd, env, ms);
+			str = find_deb(tab[i], '>');//
+			ft_treatment_instruct(str, fd, env, ms);//
+			if (ms->redplus)//
+				write_end(ms->redplus, fd, env, ms);
 			break ;
 		}
 		else if (tab[i][0] == '<')

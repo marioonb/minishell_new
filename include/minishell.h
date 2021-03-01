@@ -165,4 +165,5 @@ int		check_back(char **tab);
 //printf("lenght est donc a %d\n", lenght);
 //printf("juste pour la compil %c\n", tab[1][1]);
 
-
+int		red_back(char *s, int i, char c);
+int no_back(char *str);

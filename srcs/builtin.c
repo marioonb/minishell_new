@@ -92,7 +92,7 @@ int	find_pipe(char *tab)
 		if (tab[i])
 		i++;
 	}
-	printf("%d pipe\n", pipe);
+	//printf("%d pipe\n", pipe);
 	return (pipe);
 }
 
