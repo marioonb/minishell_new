@@ -39,7 +39,7 @@ int	ft_error(int a, int nexit)
 	if (a == 2)
 		ft_putstr_fd(""RED"minishell: erreur de syntaxe près du symbole inattendu « ; » or « ; »"SET"\n", 2);
 	if (a == 3)
-		ft_putstr_fd(""RED"error backslash"SET"", 2);
+		ft_putstr_fd(""RED"error backslash"SET"\n", 2);
 	if (a == 4)
 		ft_putstr_fd(""RED"minishell: cd: trop d'arguments"SET"\n", 2);
 	if (a == 5)
@@ -70,5 +70,11 @@ int	ft_error_str(int a, char *s, int nexit)
 		mini_printf_fd(2, ""RED"minishell: cd: %s: Aucun fichier ou dossier de ce type"SET"\n", s);
 	if (a == 4)
 		mini_printf_fd(2, ""RED"%s : command not found"SET"\n", s);
+	if (a == 5)
+		mini_printf_fd(2, ""RED"minishell: %s : est un dossier"SET"\n", s);
+	if (a == 6)
+		mini_printf_fd(2, ""RED"minishell: %s : Permission non accordée"SET"\n", s);
+	if (a == 7)
+		mini_printf_fd(2, ""RED"minishell: %s : Aucun fichier ou dossier de ce type"SET"\n", s);
 	return (nexit);
 }

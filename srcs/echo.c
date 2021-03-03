@@ -150,8 +150,12 @@ static void	parse_echo(char **tab, char **env, int fd, t_ms *ms)
 		else
 		{
 			ft_treatment_instruct(tab[i], fd, env, ms);
-			if (tab[i + 1] && ms->space != 1) //ajout de space pour pas d espace quand rien d afficher par la premiere commade, ex : $ljk
+			//mini_printf_fd(2, "\n1%s\n", tab[i]);
+			if (tab[i + 1] && ms->space != 1 && !only_space(tab[i + 1], 0)) //ajout de space pour pas d espace quand rien d afficher par la premiere commade, ex : $ljk
+			{
+				//mini_printf_fd(2, "\n2|%s|\n", tab[i+1]);
 				ft_putstr_fd(" ", fd);
+				}
 		}
 		i++;
 	}
@@ -195,12 +199,16 @@ void	builtin_echo(char **tab, char **env, t_ms *ms)
 	int		flag;
 	int		x;
 
+	//ft_putstr_fd("RENTRE ECHO", 2);
 	ms->space = 0; // dans init plutot ? et init en debut de boucle
 	x = 0;
 	flag = 0;
 	fd = find_fd(tab, ms);
 	if (flag_n(tab[1]) == 1)
-		flag = 1;
+		{
+			ms->flag = 1;
+			flag = 1;
+		}
 	if (!tab[1])
 		g_exit = 0;
 	if (check_back(tab))

@@ -354,6 +354,8 @@ static int	comptword(char *s, char c)
 //j = 0;
 	word = 1;
 	i = 0;
+	while (s[i] == c)
+		i++;
 	while (s[i] != '\0')
 	{
 		if (s[i] == '\'' || s[i] == '"' )

@@ -65,12 +65,12 @@ void	declare_x(t_env *env, int fd)
 			j++;
 		ft_putstr_fd("declare -x ", fd);
 		bin = find_bin(env->export[i], '=', j);
-		ft_putstr_fd(bin, fd);
+		//ft_putstr_fd(bin, fd);
 		if ((int)ft_strlen(env->export[i]) > (int)ft_strlen(bin))
 		{
 			ft_putstr_fd("=\"", fd);
-			ft_out(ft_substr(env->export[i], (int)ft_strlen(bin) + 1,
-				(int)ft_strlen(env->export[i])), fd);
+			mini_printf_fd(fd, "%s", env->export[i], (int)ft_strlen(bin) + 1,
+				(int)ft_strlen(env->export[i]));
 			ft_putchar_fd('"', fd);
 		}
 		write(fd, "\n", 1);

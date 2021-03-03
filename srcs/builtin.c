@@ -65,10 +65,10 @@ int only_space(char *tab, int i)
 	while (tab[i])
 	{
 		if (tab[i] != ' ')
-			return(1);
+			return(0); // 0
 		i++;
 	}
-	return(0);
+	return(1); // echange entre 0 et un
 }
 
 int	find_pipe(char *tab)
@@ -78,14 +78,20 @@ int	find_pipe(char *tab)
 
 	i = 0;
 	pipe = 0;
+	//mini_printf_fd(2, "tab est a %s\n", tab);
 	while (tab[i])
 	{
 		if (tab[i] == BACK_S)
 			i = pipe_back(tab, i, PIPE);
 		if (tab[i] && tab[i]== PIPE)
 		{
-			if (!tab[i+1] || only_space(tab, i))
-				g_exit = ft_error(3 ,2);
+			//mini_printf_fd(2, "je test avec tab[i] a %c", tab[i]);
+			if (!tab[i+1] || only_space(tab, i + 1)) // i+1
+				{
+					g_exit = ft_error(3 ,2);
+					return(-1);
+					//break ;
+				}
 			else
 				pipe++;
 		}

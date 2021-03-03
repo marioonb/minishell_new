@@ -14,7 +14,7 @@
 
 // mettre exit a 0 ?
 
-char	*check_path(char **tab)
+char	*check_path(char **tab, char **env)
 {
 	int	i;
 
@@ -27,10 +27,19 @@ char	*check_path(char **tab)
 	if (tab[1][i] == '.')
 		while (tab[1][i] == '.')
 			i++;
+	mini_printf_fd(2, "%d", i);
 	if (!tab[1][i])
 	{
 		if (i == 2)
-			return ("JE NE SAIS PAS");
+		{
+			//ft_putstr_fd("deux point\n", 2);
+			return (find_var("OLDPWD", env));
+		}
+		else if (i == 1)
+		{
+			//ft_putstr_fd("rien\n", 2);
+			return(NULL);
+		}
 	}
 	return (tab[1]);
 }
@@ -49,14 +58,12 @@ static void	concat_for_change(char *s1, char *var, int size, t_env *env)
 	free(copy);
 }
 
-static void	exec_chdir(char **tab, char *pwd, t_env *env)
+static void	exec_chdir(char *pwd, t_env *env)
 {
 	char	*oldpwd;
 	int		lenght;
 
 	oldpwd = NULL;
-	if (!tab[1])
-		pwd = find_var("HOME", env->env);
 	lenght = 4 + ft_strlen(pwd) + 1;
 	concat_for_change(pwd, "PWD=", lenght, env);
 	oldpwd = find_var("PWD", env->env);
@@ -105,12 +112,20 @@ int	builtin_cd(char **tab, t_env *env)
 
 	pwd = NULL;
 	g_exit = 0;
+	if (!tab[1])
+	{
+		//ft_putstr_fd("retour au home\n", 2);
+		pwd = find_var("HOME", env->env);
+		if (chdir(pwd) == 0)
+		exec_chdir(pwd, env);
+		return(0);
+	}
 	if (tab[1])
-		pwd = check_path(tab);
+		pwd = check_path(tab, env->env);
 	if (tab[1] && pwd == NULL)
 		return (0);
-	if (chdir(tab[1]) == 0 || !tab[1])
-		exec_chdir(tab, pwd, env);
+	if (chdir(tab[1]) == 0)
+		exec_chdir(pwd, env);
 	else
 		g_exit = ft_error_str(3, tab[1], 1);
 	return (1);

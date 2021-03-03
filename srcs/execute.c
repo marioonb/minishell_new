@@ -16,18 +16,18 @@ static void	exec_cmd(char **tab, t_env *env, t_ms *ms)
 {
 	char *cpy;
 
+	//ft_putstr_fd("ICI\n", 2);
+	//ft_read_tab_char(tab);
 	cpy = tab[0]; //  pour renvoyer dans l'erreur car get_path supprime
 	if (is_builtin(tab[0]) == 1)
 		find_builtin(tab, env, ms);
 	else
 	{
-		if (get_path(tab, env) == 1)
+		int x = get_path(tab, env);
+		if (x == 1)
 			exec_cmd_shell(tab, env);
-		else
-		{
-			ft_error_str(4, cpy, 127);
-			g_exit = 2;
-		}
+		else if(x != -1)
+			g_exit = ft_error_str(4, cpy, 127);
 	}
 }
 
@@ -103,7 +103,7 @@ int	execute_pipe(char *tab, t_env *env, t_ms *ms)
 		ms->pipe--;
 		//tab_cmd[i] = ft_strtrim(tab_cmd[i], " ");// trim les espaces avant et apres, à retirer ?
 		tab_cmd2 = ft_split_space(tab_cmd[i], ' ');
-		ft_read_tab_char(tab_cmd2);
+		//ft_read_tab_char(tab_cmd2);
 		tab_cmd2[0] = modif_commande_quote(tab_cmd2[0]);
 		open_process_pipe(tab_cmd2, env, ms); // envoi la commande découpée
 		free_tab_char(tab_cmd2); // free cette commade decoupee, a voir si pas free dans exec_cmd

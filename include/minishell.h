@@ -50,6 +50,7 @@ typedef struct s_ms
 	int		status;
 	char	**enter;
 	int		fd;
+	int		flag;
 	int		fdp[2];
 	int		quote;
 	int		space;
@@ -71,7 +72,7 @@ void	ft_out(char *str, int fd);
 int		find_fd(char **tab, t_ms *ms);
 
 // fontions de cd + 2 static
-char	*check_path(char **tab); //*
+char	*check_path(char **tab, char **env); //*
 int		builtin_cd(char **tab, t_env *env);
 
 // fonctions check_error + 2 statics
@@ -167,3 +168,4 @@ int		check_back(char **tab);
 
 int		red_back(char *s, int i, char c);
 int no_back(char *str);
+int only_space(char *tab, int i);

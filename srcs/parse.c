@@ -45,6 +45,7 @@ void	ft_read_buffer(char *buffer, t_env *env, t_ms *ms)
 	if (empty(buffer))
 	{
 		tab = ft_split_space(buffer, ';');
+		//ft_read_tab_char(tab);
 		while (tab[i])
 		{
 			ft_parse(tab[i], env, ms);
@@ -60,8 +61,7 @@ void	exec_cmd_shell(char **cmd, t_env *env)
 
 	pid = 0;
 	status = 0;
-	//mini_printf_fd(2, "cmd[0] est a dddd%s\n", cmd[0]);
-	//printf("RENTRE PAS DANS MES BUILTIN\n");
+
 	if (cmd[0] == NULL)
 		exit(1);
 	pid = fork();
@@ -74,21 +74,31 @@ void	exec_cmd_shell(char **cmd, t_env *env)
 	}
 	else
 	{
-		//printf("cmd[0] 22 est a %s", cmd[0]);
+
 		if (execve(cmd[0], cmd, env->env) == -1)
 			perror("shell");
 		exit(EXIT_FAILURE);
 	}
 }
 
-int	ft_verif_path(char *bin)
+int	ft_verif_path(char *bin, int type)
 {
 	struct stat	mystat;
-
+	//ft_putstr_fd("ICI2\n", 2);
 	errno = 0;
 	stat(bin, &mystat);
+		if (errno == 2 && type == 1)
+		g_exit = ft_error_str(7, bin, 127);
 	if (errno)
 		return (1);
+
+	if ((mystat.st_mode & S_IFMT) == S_IFDIR) // s_ifdir -> repertoire
+		g_exit = ft_error_str(5, bin, 126);
+	if ((mystat.st_mode & S_IFMT) == S_IFREG) // s_ifreg -> fichier ordinnaire
+	{
+		if ((mystat.st_mode & S_IXUSR) == 0) // s_ixusr -> proprietaire droit d execution
+			g_exit = ft_error_str(6, bin, 126);
+	}
 	return (0);
 }
 
@@ -115,11 +125,16 @@ char	*check_tab_path(char **path_split, char *bin, char *cmd)
 		bin = (char *)calloc(sizeof(char), (strlen(path_split[i]) + 1 + strlen(cmd) + 1));
 		if (bin == NULL)
 			ft_error_malloc();
+		//mini_printf_fd(2, "bin est a %s\n", bin);
 		strcat(bin, path_split[i]);
 		strcat(bin, "/");
 		strcat(bin, cmd);
-		if (ft_verif_path(bin) != 1)
+		//mini_printf_fd(2, "il est ensuite a %s\n", bin);
+		if (ft_verif_path(bin, 2) != 1)
+		{
+
 			break ;
+		}
 		free(bin);
 		bin = NULL;
 		i++;
@@ -132,16 +147,25 @@ int	get_path(char **cmd, t_env *env)
 	char	*path;
 	char	*bin;
 	char	**path_split;
-
 //printf("commande de 0 est a [%s]xxxxxxx\n", cmd[0]);
+
 	path = NULL;
 	bin = NULL;
 	path_split = NULL;
-	if (!(ft_isalpha(cmd[0][0])))
-		return(0);
-	if (cmd[0][0] != '/' && strncmp(cmd[0], "./", 2) != 0)
+	//ft_read_tab_char(cmd);
+	//if (!(ft_isalpha(cmd[0][0])))
+	//	return(0);
+		//mini_printf_fd(2, "bin est %s\n", "ff");
+	if (ft_strncmp(cmd[0], "./", 2) == 0 || cmd[0][0] == '/')
 	{
+		ft_verif_path(cmd[0], 1);
+		return(-1);
+	}
+	else if (cmd[0][0] != '/' && ft_strncmp(cmd[0], "./", 2) != 0)
+	{
+		//mini_printf_fd(2, "bin est %s\n", "ff");
 		path = find_var("PATH", env->env);
+		//mini_printf_fd(2, "PATH EST A %s\n", path);
 		if (path == NULL)
 			return (0);
 		path_split = ft_split(path, ':');
@@ -156,12 +180,14 @@ int	get_path(char **cmd, t_env *env)
 		free(path);
 		path = NULL;
 	}
+
 	//mini_printf_fd(2, "ICI");
 		if (bin == NULL)
 		return (0);
 	else
 		return (1);
 }
+
 
 
 
@@ -201,11 +227,14 @@ char	*modif_commande_quote(char *cmd)
 void	ft_parse(char *tab, t_env *env, t_ms *ms)
 {
 	ms->pipe = find_pipe(tab);
+	//mini_printf_fd(2, "pipe est a %d", ms->pipe);
 	if (ms->pipe > 0) // si pas de pipe pipe sera a zero
 		ms->pipe++; // si il y en a au moins un, c est qui il a une cmd en plus, pipe est alors le nb de commande
+	//mini_printf_fd(2, "pipe est a %d", ms->pipe);
 	if (ms->pipe > 0)
 		execute_pipe(tab, env, ms);
-	else
+	else if (ms->pipe == 0)
 		execute_no_pipe(tab, env, ms);
+	//mini_printf_fd(2, "pipe est a %d", ms->pipe);
 	//free_double_tab(tab_cmd); -> seg
 }

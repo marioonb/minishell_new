@@ -23,6 +23,7 @@ void init_fd(t_ms *ms)
 	ms->red = 0;
 	ms->redplus = NULL;
 	ms->quote = 1;
+	ms->flag = 0;
 }
 
 // faire une globale pour exit, car on peut rien envoyer en parametre
