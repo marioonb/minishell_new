@@ -63,6 +63,7 @@ typedef struct s_ms
 }				t_ms;
 
 int		g_exit;
+int		g_write;
 
 // fonctions builtin
 int		is_builtin(char *cmd);

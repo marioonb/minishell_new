@@ -29,6 +29,7 @@ char	*simple_quote (char *cmd, int fd)
 
 char	*dolls(char *cmd, int fd, char **env, t_ms *ms)
 {
+	g_write = 1;
 	if (cmd[1] && cmd[1] == '?')
 	{
 		mini_printf_fd(fd, "%d", g_exit);
@@ -39,10 +40,12 @@ char	*dolls(char *cmd, int fd, char **env, t_ms *ms)
 	else
 		cmd ++;
 	if (*cmd && (!ft_isalpha(*cmd) && *cmd != '_') && *cmd != DOUBLE_Q && *cmd != SIMPLE_Q)
-		cmd++;
+		{cmd++;
+		g_write = 0;}
 	else
 		cmd = find_var_doll(cmd, fd, env);
-	if (cmd[0] == '\0') // voir si ca pose pas de probleme ailleurs, mis pour que ca ne fasse pas d espace ici : echo $kjhjh salut
+		//mini_printf_fd(2, "cmd = %s \n", cmd);
+	if (cmd[0] == '\0' && g_write == 0) // voir si ca pose pas de probleme ailleurs, mis pour que ca ne fasse pas d espace ici : echo $kjhjh salut
 		ms->space = 1;
 	return (cmd);
 }

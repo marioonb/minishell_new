@@ -319,7 +319,7 @@ static int	for_the_norm(char *s, int i)
 		i++;
 		while (s[i] && s[i] != d)
 		{
-			if (s[i] == '\\') // while au lieu de if
+			if (s[i] == '\\' && d != SIMPLE_Q) // while au lieu de if
 				i++;
 			if (s[i]) // ajout
 			i++;

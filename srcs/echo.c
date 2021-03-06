@@ -151,6 +151,7 @@ static void	parse_echo(char **tab, char **env, int fd, t_ms *ms)
 		{
 			ft_treatment_instruct(tab[i], fd, env, ms);
 			//mini_printf_fd(2, "\n1%s\n", tab[i]);
+			//mini_printf_fd(2, "space %d", ms->space);
 			if (tab[i + 1] && ms->space != 1 && !only_space(tab[i + 1], 0)) //ajout de space pour pas d espace quand rien d afficher par la premiere commade, ex : $ljk
 			{
 				//mini_printf_fd(2, "\n2|%s|\n", tab[i+1]);

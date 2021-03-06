@@ -28,7 +28,9 @@ char	*find_var_doll(char *tab, int fd, char **env)
 		str_var[i++] = *tab++;
 	str_var[i] = '\0';
 	if ((str = find_var(str_var, env)) != NULL)
-		ft_out(str, fd);
+			ft_out(str, fd);
+	else
+		g_write = 0;
 	free(str_var);
 	free(str);
 	return (tab);

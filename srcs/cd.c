@@ -27,13 +27,14 @@ char	*check_path(char **tab, char **env)
 	if (tab[1][i] == '.')
 		while (tab[1][i] == '.')
 			i++;
-	mini_printf_fd(2, "%d", i);
+	//mini_printf_fd(2, "%d", i);
 	if (!tab[1][i])
 	{
 		if (i == 2)
 		{
 			//ft_putstr_fd("deux point\n", 2);
-			return (find_var("OLDPWD", env));
+			//return (find_var("OLDPWD", env));
+			return(tab[1]);
 		}
 		else if (i == 1)
 		{
@@ -58,17 +59,31 @@ static void	concat_for_change(char *s1, char *var, int size, t_env *env)
 	free(copy);
 }
 
-static void	exec_chdir(char *pwd, t_env *env)
+static void	exec_chdir(t_env *env)
 {
 	char	*oldpwd;
 	int		lenght;
+	int		lenght2 = 0;
+	char	*pwd;
 
 	oldpwd = NULL;
+	pwd = NULL;
+	pwd = getcwd(pwd, 0);
+
+	if (pwd == NULL)
+		pwd = strdup("/");
+	//mini_printf_fd(2, "PWD %s\n", pwd);
 	lenght = 4 + ft_strlen(pwd) + 1;
-	concat_for_change(pwd, "PWD=", lenght, env);
 	oldpwd = find_var("PWD", env->env);
-	lenght = 7 + ft_strlen(oldpwd) + 1;
-	concat_for_change(oldpwd, "OLDPWD=", lenght, env);
+	if (oldpwd == NULL)
+		oldpwd = strdup("/");
+	lenght2 = 7 + ft_strlen(oldpwd) + 1;
+	//mini_printf_fd(2, "avant pwd est a %s\n", pwd);
+	//mini_printf_fd(2, "avant oldpwd est a %s\n", oldpwd);
+	concat_for_change(pwd, "PWD=", lenght, env);
+	concat_for_change(oldpwd, "OLDPWD=", lenght2, env);
+	//mini_printf_fd(2, "apres pwd est a %s\n", find_var("PWD", env->env));
+	//mini_printf_fd(2, "apres oldpwd est a %s\n", find_var("OLDPWD", env->env));
 	free(pwd);
 	free(oldpwd);
 }
@@ -105,6 +120,33 @@ static void	exec_chdir(char *pwd, t_env *env)
 }*/
 
 //void	builtin_cd(char **tab, t_env *env)
+char *ft_home (char *tab, t_env *env)
+{
+	char *path;
+	char *path2;
+
+	//mini_printf_fd(2, "T-> %s\n", tab);
+	tab++;
+	//mini_printf_fd(2, "T-> %s\n", tab);
+	path = find_var("HOME", env->env);
+	//mini_printf_fd(2, "P-> %s\n", path);
+	if (*tab != '/')
+	{
+		ft_strlcat(path, "/", ft_strlen(path + 1));
+		//mini_printf_fd(2, "P-> %s\n", path);
+	}
+	if (*tab)
+	{
+		//mini_printf_fd(2, "T-> %s\n", tab);
+		//mini_printf_fd(2, "P-> %s\n", path);
+		path2 = ft_strjoinfree(path, tab);
+		//mini_printf_fd(2, "T-> %s\n", path2);
+		return(path2);
+	}
+	//mini_printf_fd(2, "path est a %s\n", path);
+	return(path);
+}
+
 
 int	builtin_cd(char **tab, t_env *env)
 {
@@ -112,20 +154,23 @@ int	builtin_cd(char **tab, t_env *env)
 
 	pwd = NULL;
 	g_exit = 0;
-	if (!tab[1])
+	if (tab[1] && tab[2])
 	{
-		//ft_putstr_fd("retour au home\n", 2);
-		pwd = find_var("HOME", env->env);
+		g_exit = ft_error(4, 1);
+		return (0);
+	}
+	if (!tab[1] || (tab[1] && tab[1][0] == '~'))
+	{
+		if (tab[1] && tab[1][0] == '~')
+			pwd = ft_home(tab[1], env);
+		else
+			pwd = find_var("HOME", env->env);
 		if (chdir(pwd) == 0)
-		exec_chdir(pwd, env);
+		exec_chdir(env);
 		return(0);
 	}
-	if (tab[1])
-		pwd = check_path(tab, env->env);
-	if (tab[1] && pwd == NULL)
-		return (0);
 	if (chdir(tab[1]) == 0)
-		exec_chdir(pwd, env);
+		exec_chdir(env);
 	else
 		g_exit = ft_error_str(3, tab[1], 1);
 	return (1);
