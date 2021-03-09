@@ -58,7 +58,6 @@ void	builtin_export(char **tab, t_env *env, t_ms *ms)
 		while (tab[i])
 		{
 			str = ft_strdup(tab[i]);
-			//mini_printf_fd(2, "************str = %s\n", str);
 			check_name_var(str);
 			treat_var (str, env);
 			i++;

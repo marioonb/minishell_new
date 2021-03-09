@@ -27,8 +27,6 @@ void	ft_error_exit (int a, char *s, int nexit)
 		ft_putstr_fd(""RED"minishell: exit: trop d'arguments"SET"\n", 2);
 	if (a == 3)
 		mini_printf_fd(2, ""RED"minishell: %s, Is a directory\n"SET"", s);
-	//if (a == 4)
-	//	mini_printf_fd(2, ""RED"xx%s"SET"", s);
 	exit (nexit);
 }
 

@@ -48,11 +48,9 @@ int	caractere_red(char *c) // ajoute de | \ ;
 
 int	search_fd(char *str, t_ms *ms, char c)
 {
-	int	i;
 	int	fd;
 
 	fd = 1;
-	i = 0;
 	ms->red = 0;
 	while (*str != c)
 		str++;
@@ -75,43 +73,21 @@ int	search_fd(char *str, t_ms *ms, char c)
 * renvoi le type de fd a la fonction appelante
 */
 
-/*int	only_chevron(char *str, t_ms *ms, char c)
-{
-	int	i;
-
-	i = 0;
-	ms->red = 0;
-	while (*str != c && *str != BACK_S)//
-		str++;//
-	while (*str == c)
-	{
-		ms->red++;
-		str++;
-	}
-	if (!*str)
-		return (1);
-	return (0);
-}*/
-
 int	only_chevron(char *str, t_ms *ms, char c)
 {
 	int	i;
 
 	i = 0;
-	//mini_printf_fd(2, "%s debut de fct\n", str);
 	ms->red = 0;
 	while (str[i] != c && str[i] != BACK_S)//
 		i++;//
-	//mini_printf_fd(2, "%s apres bcl 1\n", str);
 	if (str[i] == '\\')
 		i = red_back(str, i, '>');
-	//mini_printf_fd(2, "%s apres bcl 2", str);
 	while (str[i] == c)
 	{
 		ms->red++;
 		i++;
 	}
-	//mini_printf_fd(2, "%s fin\n", str);
 	if (!str[i])
 		return (1);
 	return (0);
@@ -183,10 +159,8 @@ int	find_fd(char **tab, t_ms *ms)
 	i = 0;
 	while (tab[i])
 	{
-		//if (tab[i] && ft_strchr(tab[i], '<'))
 		if (tab[i] && ft_strchr(tab[i], '<') && no_back(tab[i]))
 			fd = ft_redirection(tab, '<', ms, &i);
-		//else if (tab[i] && ft_strchr(tab[i], '>')
 		else if (tab[i] && ft_strchr(tab[i], '>') && no_back(tab[i]))
 		{
 			fd = ft_redirection(tab, '>', ms, &i);

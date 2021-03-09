@@ -73,7 +73,7 @@ void	ft_out(char *str, int fd);
 int		find_fd(char **tab, t_ms *ms);
 
 // fontions de cd + 2 static
-char	*check_path(char **tab, char **env); //*
+char	*check_path(char **tab); //*
 int		builtin_cd(char **tab, t_env *env);
 
 // fonctions check_error + 2 statics

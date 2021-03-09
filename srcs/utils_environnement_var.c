@@ -71,9 +71,6 @@ char	*find_bin(char *str, char c, int a)
 
 int	check_caractere_name_var(char c)
 {
-	int	i;
-
-	i = 0;
 	if (ft_isalnum(c) || c == '_' ) // AJOUTER # pour unset, voir pour export
 		return (1);
 	else

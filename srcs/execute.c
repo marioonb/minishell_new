@@ -16,8 +16,6 @@ static void	exec_cmd(char **tab, t_env *env, t_ms *ms)
 {
 	char *cpy;
 
-	//ft_putstr_fd("ICI\n", 2);
-	//ft_read_tab_char(tab);
 	cpy = tab[0]; //  pour renvoyer dans l'erreur car get_path supprime
 	if (is_builtin(tab[0]) == 1)
 		find_builtin(tab, env, ms);
@@ -68,12 +66,11 @@ int	execute_no_pipe(char *tab, t_env *env, t_ms *ms)
 	char	**tab_cmd;
 
 	tab_cmd = ft_split_space(tab, SPACE);
-	//ft_read_tab_char(tab_cmd);
 	if (!(check_error_quotes1(tab_cmd, ms)))
 		return (0);
 	tab_cmd[0] = modif_commande_quote(tab_cmd[0]);
 	exec_cmd(tab_cmd, env, ms);
-	//free_tab_char(tab_cmd); --> SEGFAULT
+	free_tab_char(tab_cmd); //--> SEGFAULT
 	return (1);
 }
 
@@ -103,7 +100,6 @@ int	execute_pipe(char *tab, t_env *env, t_ms *ms)
 		ms->pipe--;
 		//tab_cmd[i] = ft_strtrim(tab_cmd[i], " ");// trim les espaces avant et apres, à retirer ?
 		tab_cmd2 = ft_split_space(tab_cmd[i], ' ');
-		//ft_read_tab_char(tab_cmd2);
 		tab_cmd2[0] = modif_commande_quote(tab_cmd2[0]);
 		open_process_pipe(tab_cmd2, env, ms); // envoi la commande découpée
 		free_tab_char(tab_cmd2); // free cette commade decoupee, a voir si pas free dans exec_cmd
@@ -116,49 +112,3 @@ int	execute_pipe(char *tab, t_env *env, t_ms *ms)
 	ms->pipe = 0;
 	return (1);
 }
-
-/*void	open_process_pipe(char **cmd, t_env *env, t_ms *ms)
-{
-
-    pid_t		pid;
-
-    pipe(ms->fdp);
-    pid = fork();
-	pid = fork();
-
-	if (pid > 0)
-	{
-		waitpid(-1, &pid, 0);
-		//kill(pid, SIGTERM);
-	}
-	else
-	{
-		if(ms->pipebef > 0)
-		{
-			dup2(ms->caca, 0);
-			close(ms->caca);
-		}
-		if (ms->pipe > 0)
-			dup2(ms->fdp[1], 1);
-		if (is_builtin(cmd[0]) == 1)
-			find_builtin(cmd, env, ms);
-		else
-		{
-			if (get_path(cmd, env) == 1)
-				exec_cmd(cmd, env);
-			else
-			{
-				ft_error(2, 127);
-				ms->exit = 2;
-			}
-		}
-		close(ms->fdp[0]);
-		close(ms->fdp[1]);
-		exit(errno);
-	}
-	if (WIFEXITED(pid))
-        ms->exit = WEXITSTATUS(pid);
-	ms->caca = dup(ms->fdp[0]);
-	close(ms->fdp[0]);
-    close(ms->fdp[1]);
-}*/

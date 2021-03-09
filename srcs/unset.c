@@ -102,39 +102,3 @@ void	builtin_unset(char **tab, t_env *env)
 		j++;
 	}
 }
-
-/*
-void	builtin_unset(char **tab, t_env *env, t_ms *ms)
-{
-	int	i;
-	int	j;
-
-	j = 1;
-	i = 0;
-	if (tab[1])
-		check_name_var(tab[1], ms);
-	while (tab[j])
-	{
-
-		while (env->env[i])
-		{
-			if (ft_strncmp(tab[j], env->env[i], ft_strlen(tab[j])) == 0)
-			{
-				change_env_supp(i, env);
-				break ;
-			}
-			i++;
-		}
-		i = 0;
-		while (env->export[i])
-		{
-			if (ft_strncmp(tab[j], env->export[i], ft_strlen(tab[j])) == 0)
-			{
-				change_export_supp(i, env);
-				break ;
-			}
-			i++;
-		}
-		j++;
-	}
-}*/

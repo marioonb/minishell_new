@@ -45,7 +45,6 @@ void	ft_read_buffer(char *buffer, t_env *env, t_ms *ms)
 	if (empty(buffer))
 	{
 		tab = ft_split_space(buffer, ';');
-		//ft_read_tab_char(tab);
 		while (tab[i])
 		{
 			ft_parse(tab[i], env, ms);
@@ -74,7 +73,6 @@ void	exec_cmd_shell(char **cmd, t_env *env)
 	}
 	else
 	{
-
 		if (execve(cmd[0], cmd, env->env) == -1)
 			perror("shell");
 		exit(EXIT_FAILURE);
@@ -84,7 +82,6 @@ void	exec_cmd_shell(char **cmd, t_env *env)
 int	ft_verif_path(char *bin, int type)
 {
 	struct stat	mystat;
-	//ft_putstr_fd("ICI2\n", 2);
 	errno = 0;
 	stat(bin, &mystat);
 		if (errno == 2 && type == 1)
@@ -125,16 +122,11 @@ char	*check_tab_path(char **path_split, char *bin, char *cmd)
 		bin = (char *)calloc(sizeof(char), (strlen(path_split[i]) + 1 + strlen(cmd) + 1));
 		if (bin == NULL)
 			ft_error_malloc();
-		//mini_printf_fd(2, "bin est a %s\n", bin);
 		strcat(bin, path_split[i]);
 		strcat(bin, "/");
 		strcat(bin, cmd);
-		//mini_printf_fd(2, "il est ensuite a %s\n", bin);
 		if (ft_verif_path(bin, 2) != 1)
-		{
-
 			break ;
-		}
 		free(bin);
 		bin = NULL;
 		i++;
@@ -147,15 +139,10 @@ int	get_path(char **cmd, t_env *env)
 	char	*path;
 	char	*bin;
 	char	**path_split;
-//printf("commande de 0 est a [%s]xxxxxxx\n", cmd[0]);
 
 	path = NULL;
 	bin = NULL;
 	path_split = NULL;
-	//ft_read_tab_char(cmd);
-	//if (!(ft_isalpha(cmd[0][0])))
-	//	return(0);
-		//mini_printf_fd(2, "bin est %s\n", "ff");
 	if (ft_strncmp(cmd[0], "./", 2) == 0 || cmd[0][0] == '/')
 	{
 		ft_verif_path(cmd[0], 1);
@@ -163,9 +150,7 @@ int	get_path(char **cmd, t_env *env)
 	}
 	else if (cmd[0][0] != '/' && ft_strncmp(cmd[0], "./", 2) != 0)
 	{
-		//mini_printf_fd(2, "bin est %s\n", "ff");
 		path = find_var("PATH", env->env);
-		//mini_printf_fd(2, "PATH EST A %s\n", path);
 		if (path == NULL)
 			return (0);
 		path_split = ft_split(path, ':');
@@ -180,31 +165,11 @@ int	get_path(char **cmd, t_env *env)
 		free(path);
 		path = NULL;
 	}
-
-	//mini_printf_fd(2, "ICI");
-		if (bin == NULL)
+	if (bin == NULL)
 		return (0);
 	else
 		return (1);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 char	*modif_commande_quote(char *cmd)
 {
@@ -227,14 +192,11 @@ char	*modif_commande_quote(char *cmd)
 void	ft_parse(char *tab, t_env *env, t_ms *ms)
 {
 	ms->pipe = find_pipe(tab);
-	//mini_printf_fd(2, "pipe est a %d", ms->pipe);
 	if (ms->pipe > 0) // si pas de pipe pipe sera a zero
 		ms->pipe++; // si il y en a au moins un, c est qui il a une cmd en plus, pipe est alors le nb de commande
-	//mini_printf_fd(2, "pipe est a %d", ms->pipe);
 	if (ms->pipe > 0)
 		execute_pipe(tab, env, ms);
 	else if (ms->pipe == 0)
 		execute_no_pipe(tab, env, ms);
-	//mini_printf_fd(2, "pipe est a %d", ms->pipe);
 	//free_double_tab(tab_cmd); -> seg
 }

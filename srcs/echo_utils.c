@@ -14,9 +14,6 @@
 
 char	*simple_quote (char *cmd, int fd)
 {
-	int	i;
-
-	i = 0;
 	cmd++;
 	while (*cmd && *cmd != SIMPLE_Q)
 	{
@@ -44,7 +41,6 @@ char	*dolls(char *cmd, int fd, char **env, t_ms *ms)
 		g_write = 0;}
 	else
 		cmd = find_var_doll(cmd, fd, env);
-		//mini_printf_fd(2, "cmd = %s \n", cmd);
 	if (cmd[0] == '\0' && g_write == 0) // voir si ca pose pas de probleme ailleurs, mis pour que ca ne fasse pas d espace ici : echo $kjhjh salut
 		ms->space = 1;
 	return (cmd);
@@ -65,7 +61,7 @@ char	*backslash(char *cmd, int fd, char **env, int x)
 	cpt2 = cpt / 2;
 	if ((*cmd && (*cmd != DOLLS && *cmd != DOUBLE_Q && *cmd != ACCENT))
 		&& x == 2)
-		cpt2 = cpt2 + (cpt % 2); // truc av
+		cpt2 = cpt2 + (cpt % 2);
 	while (cpt2 > 0)
 	{
 		ft_putchar_fd(BACK_S, fd);
@@ -99,7 +95,7 @@ void	double_quote2(char *str, int fd, char **env, t_ms *ms)
 	{
 		if (*str == DOLLS && str[1])
 			str = dolls(str, fd, env, ms);
-		else if (*str == BACK_S) // truc av
+		else if (*str == BACK_S)
 			str = backslash(str, fd, env, 2);
 		else
 		{
@@ -108,8 +104,6 @@ void	double_quote2(char *str, int fd, char **env, t_ms *ms)
 		}
 	}
 }
-
-// SI PROBLEME, REMETTRE LA FONCTION PLUS BAS 16/02
 
 char	*double_quote(char *cmd, int fd, char **env, t_ms *ms)
 {
@@ -148,15 +142,7 @@ void	ft_treatment_instruct(char *cmd, int fd, char **env, t_ms *ms)
 		else if (*cmd == DOLLS && cmd[1])
 			cmd = dolls(cmd, fd, env, ms);
 		else if (*cmd == BACK_S)
-		{
 			cmd = backslash(cmd, fd, env, 1);
-			//if (cmd == NULL) // obligé si on veut mettre l erreur echo \\ a 2 mais le pb c est que si je renvoi null ca segfault
-			//{
-			//	ft_error(1,1);
-			//	g_exit = 2;
-			//	break ;
-			//}
-		}
 		else
 		{
 			ft_putchar_fd(cmd[0], fd);
@@ -165,47 +151,3 @@ void	ft_treatment_instruct(char *cmd, int fd, char **env, t_ms *ms)
 		g_exit = 0;
 	}
 }
-
-/* MARCHAIT, A METTRE A LA PLACE DE DOUBLE QUOTE ET DOUBLE QUOTE 2
-char	*double_quote(char *cmd, int fd, char **env, t_ms *ms)
-{
-	char	*str;
-	int		i;
-
-	str = NULL;
-	i = 0;
-	cmd++;
-	str = ft_strdup(cmd);
-	while (*cmd && *cmd != DOUBLE_Q)
-	{
-		if (*cmd == BACK_S)
-		{
-			cmd++;
-			i++;
-		}
-		i++;
-		cmd++;
-	}
-	cmd++;
-	str = ft_substr(str, 0, i);
-	while (*str)
-	{
-		if (*str == DOLLS && str[1])
-			str = dolls(str, fd, env, ms);
-		else if (*str == BACK_S)
-		{
-			str = backslash(str, fd, env, 2);
-			if (str == NULL) //je peux pas renvoyer null avec la fonction backslash car sinon ca segfault
-			{
-				ms->exit = 2;
-				break ;
-			}
-		}
-		else
-		{
-			ft_putchar_fd(*str, fd);
-			str++;
-		}
-	}
-	return (cmd);
-}*/

@@ -25,13 +25,6 @@
 
 static int	ft_str_isdigit(char *str)
 {
-	int	i;
-	int	nb;
-	int	space;
-
-	i = 0;
-	nb = 0;
-	space = 0;
 	if (*str == '-' || str[0] == '+')
 		str++;
 	if (!*str)

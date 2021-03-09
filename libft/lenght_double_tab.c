@@ -15,10 +15,8 @@
 int	lenght_double_tab(char **tab)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	j = 0;
 	while (tab[i] != NULL)
 		i++;
 	return (i);
