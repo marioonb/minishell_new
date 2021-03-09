@@ -39,6 +39,11 @@ void	sighandler(int sig_num)
 	return ;
 }
 
+void ft_shlvl(t_env *env)
+{
+ replace_var_env("SHLVL", "SHLVL=2", env);
+ replace_var_export("SHLVL", "SHLVL=2", env);
+}
 // voir pour retirer buff size, gnl protégé
 
 int	main(int ac, char **av, char **envp)
@@ -54,6 +59,7 @@ int	main(int ac, char **av, char **envp)
 	buffer = NULL;
 	env.env = duplicate_tab_char(envp);
 	env.export = duplicate_tab_char(envp);
+	ft_shlvl(&env);
 	buffer = (char *)calloc(sizeof(char), 15);
 	if (buffer == NULL)
 		ft_error_malloc();
