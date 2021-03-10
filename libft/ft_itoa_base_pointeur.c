@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static char	*change_base(unsigned long adr, const char *base)
+static char			*change_base(unsigned long adr, const char *base)
 {
 	int				i;
 	int				j;
@@ -41,7 +41,7 @@ static char	*change_base(unsigned long adr, const char *base)
 	return (resultat);
 }
 
-char	*itoa_base_pointeur(void *p)
+char				*itoa_base_pointeur(void *p)
 {
 	unsigned long	adr;
 	char const		*base;

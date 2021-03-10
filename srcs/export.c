@@ -16,18 +16,24 @@ void	treat_var(char *str, t_env *env)
 {
 	int		i;
 	char	*bin;
+	char	*cpy;
 
+	cpy = NULL;
 	i = 0;
 	while (str[i] != '=' && str[i])
 		i++;
-	if (i < (int)ft_strlen(str)) //&& strchr(str; '='))
+	if (i < (int)ft_strlen(str))
 	{
 		bin = find_bin(str, '=', i);
-		if (find_var(bin, env->env) != NULL)
+		cpy = find_var(bin, env->env);
+		if (cpy != NULL)
 			replace_var_env(bin, str, env);
 		else
 			change_env_add(str, env);
-		if (find_var(bin, env->export) != NULL)
+		free(cpy);
+		cpy = NULL;
+		cpy = find_var(bin, env->export);
+		if (cpy != NULL)
 			replace_var_export(bin, str, env);
 		else
 			change_export_add(str, env);
@@ -35,10 +41,12 @@ void	treat_var(char *str, t_env *env)
 	else
 	{
 		bin = find_bin(str, '\0', i);
-		if (!(find_var(bin, env->export) != NULL))
+		cpy = find_var(bin, env->export);
+		if (cpy == NULL)
 			change_export_add(str, env);
 	}
 	free(bin);
+	free(cpy);
 }
 
 void	builtin_export(char **tab, t_env *env, t_ms *ms)
@@ -59,9 +67,9 @@ void	builtin_export(char **tab, t_env *env, t_ms *ms)
 		{
 			str = ft_strdup(tab[i]);
 			check_name_var(str);
-			treat_var (str, env);
+			treat_var(str, env);
 			i++;
+			free(str);
 		}
 	}
-	free(str);
 }

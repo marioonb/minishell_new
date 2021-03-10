@@ -12,11 +12,9 @@
 
 #include "../include/minishell.h"
 
-// mettre exit a 0 ?
-
-char	*check_path(char **tab)
+char		*check_path(char **tab)
 {
-	int	i;
+	int		i;
 
 	i = 0;
 	if (tab[2])
@@ -30,9 +28,9 @@ char	*check_path(char **tab)
 	if (!tab[1][i])
 	{
 		if (i == 2)
-			return(tab[1]);
+			return (tab[1]);
 		else if (i == 1)
-			return(NULL);
+			return (NULL);
 	}
 	return (tab[1]);
 }
@@ -55,19 +53,19 @@ static void	exec_chdir(t_env *env)
 {
 	char	*oldpwd;
 	int		lenght;
-	int		lenght2 = 0;
+	int		lenght2;
 	char	*pwd;
 
 	oldpwd = NULL;
 	pwd = NULL;
+	lenght2 = 0;
 	pwd = getcwd(pwd, 0);
-
 	if (pwd == NULL)
-		pwd = strdup("/");
+		pwd = ft_strdup("/");
 	lenght = 4 + ft_strlen(pwd) + 1;
 	oldpwd = find_var("PWD", env->env);
 	if (oldpwd == NULL)
-		oldpwd = strdup("/");
+		oldpwd = ft_strdup("/");
 	lenght2 = 7 + ft_strlen(oldpwd) + 1;
 	concat_for_change(pwd, "PWD=", lenght, env);
 	concat_for_change(oldpwd, "OLDPWD=", lenght2, env);
@@ -79,10 +77,10 @@ static void	exec_chdir(t_env *env)
 ** recherche les path oldpwd et pwd et les modifie
 */
 
-char *ft_home (char *tab, t_env *env)
+char		*ft_home(char *tab, t_env *env)
 {
-	char *path;
-	char *path2;
+	char	*path;
+	char	*path2;
 
 	tab++;
 	path = find_var("HOME", env->env);
@@ -91,13 +89,12 @@ char *ft_home (char *tab, t_env *env)
 	if (*tab)
 	{
 		path2 = ft_strjoinfree(path, tab);
-		return(path2);
+		return (path2);
 	}
-	return(path);
+	return (path);
 }
 
-
-int	builtin_cd(char **tab, t_env *env)
+int			builtin_cd(char **tab, t_env *env)
 {
 	char	*pwd;
 
@@ -115,8 +112,9 @@ int	builtin_cd(char **tab, t_env *env)
 		else
 			pwd = find_var("HOME", env->env);
 		if (chdir(pwd) == 0)
-		exec_chdir(env);
-		return(0);
+			exec_chdir(env);
+		free(pwd);
+		return (0);
 	}
 	if (chdir(tab[1]) == 0)
 		exec_chdir(env);

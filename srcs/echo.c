@@ -93,48 +93,47 @@ char *find_deb(char *str, char c)
 	i = 0;
 	while (str[i] != c)
 	{
-			res[i] =  str[i];
-			i++;
+		res[i] =  str[i];
+		i++;
 	}
 	res[i] = '\0';
 	return (res);
 }
 
-int no_back(char *str)
+int		no_back(char *str, char c)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
 	{
 		if (str[i] == BACK_S)
-			i = red_back(str, i, '>');
-		if (str[i] == '>')
-			return(1);
+			i = red_back(str, i, c);
+		if (str[i] == c)
+			return (1);
 		if (str[i])
 			i++;
 	}
-	return(0);
-
-
-}
+	return (0);
+}	
 
 static void	parse_echo(char **tab, char **env, int fd, t_ms *ms)
 {
-	int	i;
-	char *str;
+	int		i;
+	char	*str;
 
 	i = 1;
-	while (tab[i] && flag_n(tab[i]) == 1 )
-			i++;
+	while (tab[i] && flag_n(tab[i]) == 1)
+		i++;
 	while (tab[i])
 	{
-		if (strchr(tab[i], '>') && no_back(tab[i]))
+		if (ft_strchr(tab[i], '>') && no_back(tab[i], '>'))
 		{
 			str = find_deb(tab[i], '>');
 			ft_treatment_instruct(str, fd, env, ms);
 			if (ms->redplus)
 				write_end(ms->redplus, fd, env, ms);
+			free(str);
 			break ;
 		}
 		else if (tab[i][0] == '<')
@@ -149,15 +148,15 @@ static void	parse_echo(char **tab, char **env, int fd, t_ms *ms)
 				ft_putstr_fd(" ", fd);
 		}
 		i++;
-	}
+	} 
 }
 
-int check_back(char **tab)
+int		check_back(char **tab)
 {
 	int i;
 	int j;
-
-	int cpt = 0;
+	int cpt;
+	cpt = 0;
 	i = 0;
 	while (tab[i])
 	{
@@ -171,17 +170,18 @@ int check_back(char **tab)
 					cpt++;
 					j++;
 				}
-				if (!tab[i+1] && !tab[i][j] && cpt % 2 != 0)
+				if (!tab[i + 1] && !tab[i][j] && cpt % 2 != 0)
 				{
 					g_exit = ft_error(3, 2);
-					return(0);
+					return (0);
 				}
 			}
-			if(tab[i][j])
+			if (tab[i][j])
 				j++;
 		}
 		i++;
-	}return(1);
+	}
+	return (1);
 }
 
 void	builtin_echo(char **tab, char **env, t_ms *ms)
@@ -193,10 +193,10 @@ void	builtin_echo(char **tab, char **env, t_ms *ms)
 	flag = 0;
 	fd = find_fd(tab, ms);
 	if (flag_n(tab[1]) == 1)
-		{
-			ms->flag = 1;
-			flag = 1;
-		}
+	{
+		ms->flag = 1;
+		flag = 1;
+	}
 	if (!tab[1])
 		g_exit = 0;
 	if (check_back(tab))

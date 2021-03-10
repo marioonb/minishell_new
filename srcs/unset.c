@@ -12,8 +12,6 @@
 
 #include "../include/minishell.h"
 
-// delete dans les 2 tableau
-
 static char	**delete_env_element(int j, char **env)
 {
 	char	**env_new;
@@ -43,7 +41,7 @@ static char	**delete_env_element(int j, char **env)
 	return (env_new);
 }
 
-static void	change_env_supp (int i, t_env *env)
+static void	change_env_supp(int i, t_env *env)
 {
 	char	**new_env;
 
@@ -53,7 +51,7 @@ static void	change_env_supp (int i, t_env *env)
 	free_tab_char(new_env);
 }
 
-static void	change_export_supp (int i, t_env *env)
+static void	change_export_supp(int i, t_env *env)
 {
 	char	**new_export;
 
@@ -63,9 +61,9 @@ static void	change_export_supp (int i, t_env *env)
 	free_tab_char(new_export);
 }
 
-void	change_var_tab(t_env *env, char *str)
+void		change_var_tab(t_env *env, char *str)
 {
-	int	i;
+	int		i;
 
 	i = 0;
 	while (env->env[i])
@@ -89,9 +87,9 @@ void	change_var_tab(t_env *env, char *str)
 	}
 }
 
-void	builtin_unset(char **tab, t_env *env)
+void		builtin_unset(char **tab, t_env *env)
 {
-	int	j;
+	int		j;
 
 	j = 1;
 	if (tab[1])

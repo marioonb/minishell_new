@@ -11,21 +11,16 @@
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-#include <stdbool.h>
+
 static void	exec_cmd(char **tab, t_env *env, t_ms *ms)
 {
-	char *cpy;
-
-	cpy = tab[0]; //  pour renvoyer dans l'erreur car get_path supprime
 	if (is_builtin(tab[0]) == 1)
 		find_builtin(tab, env, ms);
 	else
 	{
-		int x = get_path(tab, env);
-		if (x == 1)
+		if (get_path(tab, env))
 			exec_cmd_shell(tab, env);
-		else if(x != -1)
-			g_exit = ft_error_str(4, cpy, 127);
+		free_tab_char(tab);
 	}
 }
 
@@ -61,29 +56,32 @@ static void	open_process_pipe(char **cmd, t_env *env, t_ms *ms)
 	close_pipe(ms);
 }
 
-int	execute_no_pipe(char *tab, t_env *env, t_ms *ms)
+int			execute_no_pipe(char *tab, t_env *env, t_ms *ms)
 {
 	char	**tab_cmd;
 
+	tab_cmd = NULL;
 	tab_cmd = ft_split_space(tab, SPACE);
 	if (!(check_error_quotes1(tab_cmd, ms)))
 		return (0);
 	tab_cmd[0] = modif_commande_quote(tab_cmd[0]);
 	exec_cmd(tab_cmd, env, ms);
-	free_tab_char(tab_cmd); //--> SEGFAULT
+	//free_tab_char(tab_cmd); //--> SEGFAULT
 	return (1);
 }
 
-// DUP = copie du fd
-// dup2(oldfd, newfd)
-// dup2() transforme newfd en une copie de oldfd,
-// fermant auparavant newfd si besoin.
-//créer un pipe avec fdp (entree et sortie), fork, dup 2
-//écriture dans le pipe
-//fermeture des pipes
-// donner l'entrée à la prochaine commande.
+/*
+** DUP = copie du fd
+** dup2(oldfd, newfd)
+** dup2() transforme newfd en une copie de oldfd,
+** fermant auparavant newfd si besoin.
+** créer un pipe avec fdp (entree et sortie), fork, dup 2
+** écriture dans le pipe
+** fermeture des pipes
+** donner l'entrée à la prochaine commande.
+*/
 
-int	execute_pipe(char *tab, t_env *env, t_ms *ms)
+int			execute_pipe(char *tab, t_env *env, t_ms *ms)
 {
 	char	**tab_cmd;
 	char	**tab_cmd2;
@@ -98,16 +96,15 @@ int	execute_pipe(char *tab, t_env *env, t_ms *ms)
 	while (ms->pipe > 0)
 	{
 		ms->pipe--;
-		//tab_cmd[i] = ft_strtrim(tab_cmd[i], " ");// trim les espaces avant et apres, à retirer ?
+		//tab_cmd[i] = ft_strtrim(tab_cmd[i], " ");
 		tab_cmd2 = ft_split_space(tab_cmd[i], ' ');
 		tab_cmd2[0] = modif_commande_quote(tab_cmd2[0]);
-		open_process_pipe(tab_cmd2, env, ms); // envoi la commande découpée
-		free_tab_char(tab_cmd2); // free cette commade decoupee, a voir si pas free dans exec_cmd
+		open_process_pipe(tab_cmd2, env, ms);
+		free_tab_char(tab_cmd2);
 		tab_cmd2 = NULL;
 		ms->pipebef++;
 		i++;
 	}
-	free(tab_cmd);
 	reset_fd(ms);
 	ms->pipe = 0;
 	return (1);

@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fd.c                                               :+:      :+:    :+:   */
+/*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbelorge <mbelorge@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbelorge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/16 11:12:31 by mbelorge          #+#    #+#             */
-/*   Updated: 2021/02/16 18:58:33 by mbelorge         ###   ########.fr       */
+/*   Created: 2019/09/05 16:28:31 by mbelorge          #+#    #+#             */
+/*   Updated: 2019/09/07 23:31:43 by mbelorge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
-
-void	reset_fd(t_ms *ms)
+char	*ft_strcat(char *dest, char *src)
 {
-	dup2(ms->in, 0);
-	dup2(ms->out, 1);
-	dup2(ms->err, 2);
-}
+	int i;
+	int j;
 
-void	close_pipe(t_ms *ms)
-{
-	close(ms->fdp[0]);
-	close(ms->fdp[1]);
+	i = 0;
+	j = 0;
+	while (dest[i] != '\0')
+		i++;
+	while (src[j])
+	{
+		dest[i + j] = src[j];
+		j++;
+	}
+	dest[i + j] = '\0';
+	return (dest);
 }

@@ -12,11 +12,13 @@
 
 #include "../include/minishell.h"
 
-/* fonction qui prend une string et qui verifie si un des termes de nos buildin y est present
-* (ex : echo, pwd etc...) renvoi 1 si oui et 0 sinon
+/*
+** fonction qui prend une string et qui verifie si un des termes de nos buildin
+** y est present
+** (ex : echo, pwd etc...) renvoi 1 si oui et 0 sinon
 */
 
-int	is_builtin(char *cmd)
+int			is_builtin(char *cmd)
 {
 	int		i;
 	char	*buil[8];
@@ -36,7 +38,7 @@ int	is_builtin(char *cmd)
 	{
 		if (!ft_strncmp(buil[i], cmd, ft_strlen(buil[i])))
 		{
-			if (ft_strlen (cmd) > ft_strlen(buil[i]))
+			if (ft_strlen(cmd) > ft_strlen(buil[i]))
 				return (0);
 			return (1);
 		}
@@ -45,36 +47,36 @@ int	is_builtin(char *cmd)
 	return (0);
 }
 
-int pipe_back(char *s, int i, char c)
+int			pipe_back(char *s, int i, char c)
 {
+	int		cpt;
 
-int cpt = 0;
-
+	cpt = 0;
 	while (s[i] == BACK_S)
 	{
 		i++;
 		cpt++;
 	}
-	if (s[i] && s[i] == c && cpt%2 != 0)
+	if (s[i] && s[i] == c && cpt % 2 != 0)
 		i++;
 	return (i);
 }
 
-int only_space(char *tab, int i)
+int			only_space(char *tab, int i)
 {
 	while (tab[i])
 	{
 		if (tab[i] != ' ')
-			return(0);
+			return (0);
 		i++;
 	}
-	return(1);
+	return (1);
 }
 
-int	find_pipe(char *tab)
+int			find_pipe(char *tab)
 {
-	int	pipe;
-	int i;
+	int		pipe;
+	int		i;
 
 	i = 0;
 	pipe = 0;
@@ -82,29 +84,31 @@ int	find_pipe(char *tab)
 	{
 		if (tab[i] == BACK_S)
 			i = pipe_back(tab, i, PIPE);
-		if (tab[i] && tab[i]== PIPE)
+		if (tab[i] && tab[i] == PIPE)
 		{
-			if (!tab[i+1] || only_space(tab, i + 1))
-				{
-					g_exit = ft_error(3 ,2);
-					return(-1);
-					//break ;
-				}
+			if (!tab[i + 1] || only_space(tab, i + 1))
+			{
+				g_exit = ft_error(3, 2);
+				return (-1);
+			}
 			else
 				pipe++;
 		}
 		if (tab[i])
-		i++;
+			i++;
 	}
 	return (pipe);
 }
 
-/* cherche a quoi correspond tab[0], c est a dire la premiere instruction de la commande
-* appel la fonction qui permet de traiter le builtin de la commande
-* ne peux etre appelé que si la commade fait partie des commandes qu il fauut coder
+/*
+** cherche a quoi correspond tab[0],
+** c est a dire la premiere instruction de la commande
+** appel la fonction qui permet de traiter le builtin de la commande
+** ne peux etre appelé que si la commade fait partie des commandes
+** qu il fauut coder
 */
 
-void	find_builtin (char **tab, t_env *env, t_ms *ms)
+void		find_builtin(char **tab, t_env *env, t_ms *ms)
 {
 	if (tab[0] == NULL)
 		printf("error");
@@ -121,19 +125,25 @@ void	find_builtin (char **tab, t_env *env, t_ms *ms)
 	else if (ft_strncmp(tab[0], "env", ft_strlen(tab[0])) == 0)
 		builtin_env(tab, env, ms);
 	else if (ft_strncmp(tab[0], "exit", ft_strlen(tab[0])) == 0)
+	{
+		free_tab_char(env->env);
+		free_tab_char(env->export);
 		builtin_exit(tab);
+	}
+	free_tab_char(tab);
 }
 
-/* permet l'affichage
-* prend en compte le fd pour savoir ou la sortie doit se faire
-* ecrit sur la sortie precisé
+/*
+** permet l'affichage
+** prend en compte le fd pour savoir ou la sortie doit se faire
+** ecrit sur la sortie precisé
 */
 
-void	ft_out(char *str, int fd)
+void		ft_out(char *str, int fd)
 {
-	int	i;
-	int	nb;
-	int	compt;
+	int		i;
+	int		nb;
+	int		compt;
 
 	i = 0;
 	nb = 0;
@@ -143,10 +153,10 @@ void	ft_out(char *str, int fd)
 		if (str[i] == '\\')
 		{
 			while (str[i++] == '\\')
-				compt ++;
+				compt++;
 			nb = compt / 2;
 			while (nb-- > 0)
-				write (fd, "\\", 1);
+				write(fd, "\\", 1);
 			i = i - 1;
 		}
 		else

@@ -37,7 +37,7 @@ static int	comptword(char *s, char c)
 
 static int	comptcaractere(char *s, char c)
 {
-	int	i;
+	int		i;
 
 	i = 0;
 	while (s[i] != c && s[i] != '\0')
@@ -45,7 +45,7 @@ static int	comptcaractere(char *s, char c)
 	return (i);
 }
 
-char	**ft_split(char const *s, char c)
+char		**ft_split(char const *s, char c)
 {
 	char	**resultat;
 	int		caractere;

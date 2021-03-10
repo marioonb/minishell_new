@@ -38,7 +38,7 @@ static void	ft_conversiontype(char *str, va_list *arg, int fd)
 		num = va_arg(*arg, int);
 		n = ft_itoa(num);
 		ft_putstr_fd(n, fd);
-		free(s);
+		free(n);
 	}
 }
 
@@ -59,7 +59,7 @@ static void	ft_printfrun(char *str, va_list *arg, int fd)
 	}
 }
 
-int	mini_printf_fd(int fd, const char *s, ...)
+int			mini_printf_fd(int fd, const char *s, ...)
 {
 	char	*str;
 	va_list	arg;

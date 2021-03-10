@@ -24,7 +24,7 @@ static int	sizenum(int n)
 	return (i);
 }
 
-char	*ft_itoa(int n)
+char		*ft_itoa(int n)
 {
 	char	*chaine;
 	int		nombre;

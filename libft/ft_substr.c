@@ -25,7 +25,7 @@ static size_t	ft_length(char const *s, unsigned int star, size_t len)
 	return (i);
 }
 
-char	*ft_substr(char const *s, unsigned int star, size_t len)
+char			*ft_substr(char const *s, unsigned int star, size_t len)
 {
 	char		*resultat;
 	size_t		i;

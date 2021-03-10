@@ -14,11 +14,12 @@
 
 /*
 ** la fonction est appelé pour changer le tableau env
-** elle appelle une fonction pour creer un tableau avec la ligne supplementaire a ajouter
+** elle appelle une fonction pour creer un tableau
+** avec la ligne supplementaire a ajouter
 ** elle appel une focntion pour le dupliquer et le mettre dans la structure
 */
 
-void	change_env_add (char *tab, t_env *env)
+void		change_env_add(char *tab, t_env *env)
 {
 	char	**new_env;
 
@@ -34,20 +35,24 @@ void	change_env_add (char *tab, t_env *env)
 ** elle remplace la ligne avec la nouvelle variable
 */
 
-void	replace_var_env(char *bin, char *str, t_env *env)
+void		replace_var_env(char *bin, char *str, t_env *env)
 {
-	int	i;
+	int		i;
 
 	i = 0;
 	while (env->env[i])
 	{
-		if (strncmp(bin, env->env[i], ft_strlen(bin)) == 0)
+		if (ft_strncmp(bin, env->env[i], ft_strlen(bin)) == 0)
+		{
+			free(env->env[i]);
+			env->env[i] = NULL;
 			env->env[i] = ft_strdup(str);
+		}
 		i++;
 	}
 }
 
-char	**replace_for_add(char *str, char **env)
+char		**replace_for_add(char *str, char **env)
 {
 	char	**env_new;
 	int		ligne;

@@ -14,7 +14,7 @@
 
 static int	cherchecaractere(const char *s, int c)
 {
-	int	i;
+	int		i;
 
 	i = 1;
 	while (s[i])
@@ -26,7 +26,7 @@ static int	cherchecaractere(const char *s, int c)
 	return (0);
 }
 
-char	*ft_strrchr(const char *s, int c)
+char		*ft_strrchr(const char *s, int c)
 {
 	while (*s)
 	{

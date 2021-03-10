@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-char	*find_var_doll(char *tab, int fd, char **env)
+char		*find_var_doll(char *tab, int fd, char **env)
 {
 	char	*str_var;
 	int		i;
@@ -28,7 +28,7 @@ char	*find_var_doll(char *tab, int fd, char **env)
 		str_var[i++] = *tab++;
 	str_var[i] = '\0';
 	if ((str = find_var(str_var, env)) != NULL)
-			ft_out(str, fd);
+		ft_out(str, fd);
 	else
 		g_write = 0;
 	free(str_var);
@@ -36,9 +36,9 @@ char	*find_var_doll(char *tab, int fd, char **env)
 	return (tab);
 }
 
-int	search_doll(char *s)
+int			search_doll(char *s)
 {
-	int	i;
+	int		i;
 
 	i = 0;
 	while (s[i])

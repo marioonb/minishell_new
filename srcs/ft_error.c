@@ -14,28 +14,29 @@
 
 void	ft_error_malloc(void)
 {
-	printf ("erreur malloc");
-	exit (EXIT_FAILURE);
+	putstr_fd("erreur malloc", 2);
+	exit(EXIT_FAILURE);
 }
 
-void	ft_error_exit (int a, char *s, int nexit)
+void	ft_error_exit(int a, char *s, int nexit)
 {
 	ft_putstr_fd("exit\n", 2);
 	if (a == 1)
-		mini_printf_fd(2, ""RED"minishell: exit: %s : argument numérique nécessaire"SET"\n", s);
+		mini_printf_fd(2, ""RED"minishell: exit: %s : numeric argument required"SET"\n", s);
 	if (a == 2)
-		ft_putstr_fd(""RED"minishell: exit: trop d'arguments"SET"\n", 2);
+		ft_putstr_fd(""RED"minishell: exit: too many arguments"SET"\n", 2);
 	if (a == 3)
 		mini_printf_fd(2, ""RED"minishell: %s, Is a directory\n"SET"", s);
-	exit (nexit);
+	exit(nexit);
 }
 
-int	ft_error(int a, int nexit)
+int		ft_error(int a, int nexit)
 {
 	if (a == 1)
 		ft_putstr_fd(""RED"erreur de quotes"SET"\n", 2);
 	if (a == 2)
-		ft_putstr_fd(""RED"minishell: erreur de syntaxe près du symbole inattendu « ; » or « ; »"SET"\n", 2);
+		ft_putstr_fd(
+		""RED"minishell: erreur de syntaxe près du symbole inattendu « ; » or « ; »"SET"\n", 2);
 	if (a == 3)
 		ft_putstr_fd(""RED"error backslash"SET"\n", 2);
 	if (a == 4)
@@ -47,32 +48,34 @@ int	ft_error(int a, int nexit)
 	return (nexit);
 }
 
-int	ft_error_char(int a, int nexit, char c)
+int		ft_error_char(int a, int nexit, char c)
 {
-	//if (c == 'E' || c == 'e')
-	//	mini_printf_fd(2, "oups... le flag -%c n'est pas à gérer...", c); // ne l utilise pas pour le moment
 	if (a == 1)
 		mini_printf_fd(2, ""RED"minishell: erreur de redirection : '%c'"SET"\n", c);
 	if (a == 2)
-		mini_printf_fd(2, ""RED"trop de chevron '%c'"SET"\n", c);
-	return(nexit);
+		mini_printf_fd(2, ""RED"parse error near '%c'"SET"\n", c);
+	return (nexit);
 }
 
-int	ft_error_str(int a, char *s, int nexit)
+int		ft_error_str(int a, char *s, int nexit)
 {
 	if (a == 1)
 		mini_printf_fd(2, ""RED"export: « %s » : identifiant non valable"SET"\n", s);
 	if (a == 2)
 		mini_printf_fd(2, ""RED"env: «%s»: Aucun fichier ou dossier de ce type"SET"\n", s);
 	if (a == 3)
-		mini_printf_fd(2, ""RED"minishell: cd: %s: Aucun fichier ou dossier de ce type"SET"\n", s);
+		mini_printf_fd(2,
+		""RED"minishell: cd: %s: no such file or directory: %s"SET"\n", s);
 	if (a == 4)
 		mini_printf_fd(2, ""RED"%s : command not found"SET"\n", s);
 	if (a == 5)
-		mini_printf_fd(2, ""RED"minishell: %s : est un dossier"SET"\n", s);
+		mini_printf_fd(2,
+		""RED"minishell: %s : est un dossier"SET"\n", s);
 	if (a == 6)
-		mini_printf_fd(2, ""RED"minishell: %s : Permission non accordée"SET"\n", s);
+		mini_printf_fd(2,
+		""RED"minishell: %s : Permission non accordée"SET"\n", s);
 	if (a == 7)
-		mini_printf_fd(2, ""RED"minishell: %s : Aucun fichier ou dossier de ce type"SET"\n", s);
+		mini_printf_fd(2,
+		""RED"minishell: %s : Aucun fichier ou dossier de ce type"SET"\n", s);
 	return (nexit);
 }

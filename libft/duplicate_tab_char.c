@@ -19,14 +19,13 @@ char	**duplicate_tab_char(char **envp)
 	int		i;
 
 	env = NULL;
-	//ligne = 3;
 	ligne = 0;
 	while (envp[ligne] != NULL)
 		ligne++;
 	i = 0;
 	env = malloc(sizeof(char*) * (ligne + 1));
 	if (!env)
-		return(0);
+		return (0);
 	while (i < ligne)
 	{
 		env[i] = ft_strdup(envp[i]);

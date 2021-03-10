@@ -59,7 +59,7 @@ static void	ft_printfrun(char *str, va_list *arg)
 	}
 }
 
-int	mini_printf(const char *s, ...)
+int			mini_printf(const char *s, ...)
 {
 	char	*str;
 	va_list	arg;

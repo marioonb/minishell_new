@@ -20,7 +20,7 @@ static int	convertletter(int nb)
 		return (nb + '0');
 }
 
-char	*ft_itoa_base(int value, int base)
+char		*ft_itoa_base(int value, int base)
 {
 	int		i;
 	char	*str;

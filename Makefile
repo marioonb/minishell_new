@@ -58,7 +58,7 @@ OBJ = main.o \
 		fd.o \
 		redirection.o
 
-FLAGS = -Wall -Wextra -fsanitize=address -g3
+FLAGS = -Wall -Wextra -g3
 
 LIB = ./libft/libft.a
 

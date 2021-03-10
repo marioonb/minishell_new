@@ -29,8 +29,6 @@ char	*ft_strtrim_char(char const *s1, char set)
 	j--;
 	if (s1[i] == set)
 		i++;
-	//if (i == ft_strlen(s1))
-	//	return (ft_calloc(1, sizeof(char)));
 	if (s1[j] == set)
 		j--;
 	str = ft_calloc(sizeof(char) * (j - i + 2), 2);

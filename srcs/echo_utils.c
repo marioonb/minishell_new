@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-char	*simple_quote (char *cmd, int fd)
+char	*simple_quote(char *cmd, int fd)
 {
 	cmd++;
 	while (*cmd && *cmd != SIMPLE_Q)
@@ -35,10 +35,13 @@ char	*dolls(char *cmd, int fd, char **env, t_ms *ms)
 	else if (cmd[1] && echo_charactere(cmd[1]))
 		cmd = special_charactere(cmd, fd);
 	else
-		cmd ++;
-	if (*cmd && (!ft_isalpha(*cmd) && *cmd != '_') && *cmd != DOUBLE_Q && *cmd != SIMPLE_Q)
-		{cmd++;
-		g_write = 0;}
+		cmd++;
+	if (*cmd && (!ft_isalpha(*cmd) && *cmd != '_') && *cmd != DOUBLE_Q &&
+		*cmd != SIMPLE_Q)
+	{
+		cmd++;
+		g_write = 0;
+	}
 	else
 		cmd = find_var_doll(cmd, fd, env);
 	if (cmd[0] == '\0' && g_write == 0) // voir si ca pose pas de probleme ailleurs, mis pour que ca ne fasse pas d espace ici : echo $kjhjh salut
@@ -88,7 +91,6 @@ char	*backslash(char *cmd, int fd, char **env, int x)
 	return (cmd);
 }
 
-// SI PROBLEME REMETTRE LA FONCTION PLUS BAS 16/02, FOMCTION DECOUPEE POUR LA NORME
 void	double_quote2(char *str, int fd, char **env, t_ms *ms)
 {
 	while (*str)
@@ -138,7 +140,7 @@ void	ft_treatment_instruct(char *cmd, int fd, char **env, t_ms *ms)
 		if (*cmd == DOUBLE_Q)
 			cmd = double_quote(cmd, fd, env, ms);
 		else if (*cmd == SIMPLE_Q)
-			cmd = simple_quote (cmd, fd);
+			cmd = simple_quote(cmd, fd);
 		else if (*cmd == DOLLS && cmd[1])
 			cmd = dolls(cmd, fd, env, ms);
 		else if (*cmd == BACK_S)

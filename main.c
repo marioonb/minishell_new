@@ -12,11 +12,11 @@
 
 #include "./include/minishell.h"
 
-void init_fd(t_ms *ms)
+void	init_fd(t_ms *ms)
 {
-    ms->in = dup(STDIN_FILENO);
-    ms->out = dup(STDOUT_FILENO);
-    ms->err = dup(STDERR_FILENO);
+	ms->in = dup(STDIN_FILENO);
+	ms->out = dup(STDOUT_FILENO);
+	ms->err = dup(STDERR_FILENO);
 	ms->pipebef = 0;
 	ms->pipe = 0;
 	ms->caca = 1;
@@ -25,8 +25,6 @@ void init_fd(t_ms *ms)
 	ms->quote = 1;
 	ms->flag = 0;
 }
-
-// faire une globale pour exit, car on peut rien envoyer en parametre
 
 void	sighandler(int sig_num)
 {
@@ -39,10 +37,16 @@ void	sighandler(int sig_num)
 	return ;
 }
 
-void ft_shlvl(t_env *env)
+void	ft_shlvl(t_env *env)
 {
- replace_var_env("SHLVL", "SHLVL=2", env);
- replace_var_export("SHLVL", "SHLVL=2", env);
+	replace_var_env("SHLVL", "SHLVL=2", env);
+	replace_var_export("SHLVL", "SHLVL=2", env);
+}
+
+void	free_x(t_env *env)
+{
+	free_tab_char(env->env);
+	free_tab_char(env->export);
 }
 // voir pour retirer buff size, gnl protégé
 
@@ -60,14 +64,10 @@ int	main(int ac, char **av, char **envp)
 	env.env = duplicate_tab_char(envp);
 	env.export = duplicate_tab_char(envp);
 	ft_shlvl(&env);
-	buffer = (char *)calloc(sizeof(char), 15);
-	if (buffer == NULL)
-		ft_error_malloc();
 	mini_printf_fd(2, "" PINK "%s" SET"", "minishell $> ");
 	ms.fd = 0;
 	signal(SIGQUIT, sighandler);
 	signal(SIGINT, sighandler);
-	//while (getline(&buffer, &buuf_size, stdin) > 0)
 	while (get_next_line(0, &buffer) > 0)
 	{
 		init_fd(&ms);
@@ -75,12 +75,10 @@ int	main(int ac, char **av, char **envp)
 		ft_read_buffer(cmd, &env, &ms);
 		mini_printf_fd(2, "" PINK "%s" SET"", "minishell $> ");
 		free(cmd);
-		//free(buffer);
+		free(buffer);
 	}
 	free(buffer);
-	free_tab_char(env.env);
-	free_tab_char(env.export);
+	free_x(&env);
 	free(ms.redplus);
-	//system("leaks ./minishell");
-	return(0);
+	return (0);
 }

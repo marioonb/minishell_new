@@ -14,7 +14,8 @@
 
 /*
 ** la fonction est appelé pour changer le tableau export
-** elle appelle une fonction pour creer un tableau avec la ligne supplementaire a ajouter
+** elle appelle une fonction pour creer un tableau avec
+** la ligne supplementaire a ajouter
 ** elle appel une focntion pour le dupliquer et le mettre dans la structure
 */
 
@@ -41,8 +42,12 @@ void	replace_var_export(char *bin, char *str, t_env *env)
 	i = 0;
 	while (env->export[i])
 	{
-		if (strncmp(bin, env->export[i], ft_strlen(bin)) == 0)
+		if (ft_strncmp(bin, env->export[i], ft_strlen(bin)) == 0)
+		{
+			free(env->export[i]);
+			env->export[i] = NULL;
 			env->export[i] = ft_strdup(str);
+		}
 		i++;
 	}
 }
@@ -51,11 +56,12 @@ void	replace_var_export(char *bin, char *str, t_env *env)
 ** permet l'afficher du tableau export a l appel de la commande export seule
 */
 
-void	declare_x(t_env *env, int fd)
+void		declare_x(t_env *env, int fd)
 {
 	int		i;
 	char	*bin;
 	int		j;
+	char	*cpy;
 
 	i = 0;
 	while (env->export[i])
@@ -69,12 +75,14 @@ void	declare_x(t_env *env, int fd)
 		if ((int)ft_strlen(env->export[i]) > (int)ft_strlen(bin))
 		{
 			ft_putstr_fd("=\"", fd);
-			mini_printf_fd(fd, "%s", ft_substr(env->export[i], (int)ft_strlen(bin) + 1,
-				(int)ft_strlen(env->export[i])));
+			cpy = ft_substr(env->export[i], (int)ft_strlen(bin) + 1,
+				(int)ft_strlen(env->export[i]));
+			mini_printf_fd(fd, "%s", cpy);
 			ft_putchar_fd('"', fd);
+			free(cpy);
 		}
+		free(bin);
 		write(fd, "\n", 1);
 		i++;
 	}
-	free(bin);
 }

@@ -20,7 +20,7 @@
 
 # define BUFFER_SIZE 100
 
-typedef struct s_list
+typedef struct		s_list
 {
 	void			*content;
 	struct s_list	*next;
@@ -85,7 +85,7 @@ void		*ft_toomuch_read(char *memory, int i);
 char		*memorywork(char **line, char *memory);
 int			get_next_line(int fd, char **line);
 char		*ft_strstr(char *str, char *to_find);
-
+char		*ft_strcat(char *dest, char *src);
 /*
 ** PERSONNELLES
 */

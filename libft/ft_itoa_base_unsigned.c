@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static int	convertletter_un(int nb)
+static int			convertletter_un(int nb)
 {
 	if (nb >= 10)
 		return (nb - 10 + 'a');
@@ -20,7 +20,7 @@ static int	convertletter_un(int nb)
 		return (nb + '0');
 }
 
-char	*ft_itoa_base_unsigned(unsigned int value, int base)
+char				*ft_itoa_base_unsigned(unsigned int value, int base)
 {
 	int				i;
 	char			*str;

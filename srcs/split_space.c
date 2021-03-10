@@ -17,44 +17,43 @@ static int	for_the_norm(char *s, int i)
 	char	d;
 
 	d = s[i];
-
-	if (i > 0 && s[i - 1] == '\\') // ca pas mis dans compt word, a voir
-				i++; // a remettre si cas trouvé et a ajoute a compt word
+	if (i > 0 && s[i - 1] == '\\')
+		i++;
 	else
 	{
 		i++;
 		while (s[i] && s[i] != d)
 		{
-			if (s[i] == '\\' && d != SIMPLE_Q) // while au lieu de if
+			if (s[i] == '\\' && d != SIMPLE_Q)
 				i++;
-			if (s[i]) // ajout
-			i++;
+			if (s[i])
+				i++;
 		}
-		if (s[i] && s[i] == d) // avant on mettais si a = 1 et on envoyait 1 dans word et 2 dans caractere
+		if (s[i] && s[i] == d)
 			i++;
 	}
-		return (i);
+	return (i);
 }
 
-int split_back(char *s, int i, char c)
+int			split_back(char *s, int i, char c)
 {
+	int		cpt;
 
-int cpt = 0;
-
+	cpt = 0;
 	while (s[i] == BACK_S)
 	{
 		i++;
 		cpt++;
 	}
-	if (s[i] && s[i] == c && cpt%2 != 0)
+	if (s[i] && s[i] == c && cpt % 2 != 0)
 		i++;
 	return (i);
 }
 
 static int	comptword(char *s, char c)
 {
-	int	word;
-	int	i;
+	int		word;
+	int		i;
 
 	word = 1;
 	i = 0;
@@ -62,8 +61,8 @@ static int	comptword(char *s, char c)
 		i++;
 	while (s[i] != '\0')
 	{
-		if (s[i] == '\'' || s[i] == '"' )
-				i = for_the_norm(s, i);
+		if (s[i] == '\'' || s[i] == '"')
+			i = for_the_norm(s, i);
 		else if (s[i] == BACK_S)
 			i = split_back(s, i, c);
 		else if (s[i] == c)
@@ -81,13 +80,13 @@ static int	comptword(char *s, char c)
 
 static int	comptcaractere(char *s, char c)
 {
-	int	i;
+	int		i;
 
 	i = 0;
 	while (s[i] != c && s[i] != '\0')
 	{
 		if (s[i] == '\'' || s[i] == '"')
-				i = for_the_norm(s, i); //1
+			i = for_the_norm(s, i);
 		else if (s[i] == BACK_S && c != ' ')
 			i = split_back(s, i, c);
 		else if (s[i] != '\0')
@@ -96,7 +95,7 @@ static int	comptcaractere(char *s, char c)
 	return (i);
 }
 
-char	**ft_split_space(char const *s, char c)
+char		**ft_split_space(char *s, char c)
 {
 	char	**resultat;
 	int		caractere;

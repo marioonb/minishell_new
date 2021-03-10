@@ -17,7 +17,7 @@ int	var_lenght (char *str)
 	int	i;
 
 	i = 0;
-	while (str[i] != '=' && str[i])
+	while (str[i] && str[i] != '=')
 		i++;
 	return (i);
 }
