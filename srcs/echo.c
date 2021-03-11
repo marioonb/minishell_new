@@ -47,10 +47,21 @@ void		write_end(char **redplus, int fd, char **env, t_ms *ms)
 	}
 }
 
+static void	deb_and_end(int fd, char **env, t_ms *ms, char *tab)
+{
+	char *str;
+
+	str = find_deb(tab, '>');
+	ft_treatment_instruct(str, fd, env, ms);
+	if (ms->redplus)
+		write_end(ms->redplus, fd, env, ms);
+	free(str);
+
+}
+
 static void	parse_echo(char **tab, char **env, int fd, t_ms *ms)
 {
 	int		i;
-	char	*str;
 
 	i = 1;
 	while (tab[i] && flag_n(tab[i]) == 1)
@@ -59,11 +70,7 @@ static void	parse_echo(char **tab, char **env, int fd, t_ms *ms)
 	{
 		if (ft_strchr(tab[i], '>') && no_back(tab[i], '>'))
 		{
-			str = find_deb(tab[i], '>');
-			ft_treatment_instruct(str, fd, env, ms);
-			if (ms->redplus)
-				write_end(ms->redplus, fd, env, ms);
-			free(str);
+			deb_and_end(fd, env, ms, tab[i]);
 			break ;
 		}
 		else if (tab[i][0] == '<')
