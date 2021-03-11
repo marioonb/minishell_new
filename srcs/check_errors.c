@@ -17,7 +17,6 @@ static char	*check_quote_end(char *tab, char c, t_ms *ms)
 	int		cpt;
 
 	ms->quote *= -1;
-	tab++;
 	while (*tab && ms->quote < 0)
 	{
 		cpt = 0;
@@ -45,6 +44,7 @@ static char	*check_quote_end(char *tab, char c, t_ms *ms)
 static void	check_error_quote(char *tab, t_ms *ms)
 {
 	int		cpt;
+	char	c;
 
 	cpt = 0;
 	while (*tab)
@@ -55,10 +55,12 @@ static void	check_error_quote(char *tab, t_ms *ms)
 			cpt++;
 			tab++;
 		}
-		if (*tab == DOUBLE_Q && cpt % 2 == 0)
-			tab = check_quote_end(tab, DOUBLE_Q, ms);
-		else if (*tab == SIMPLE_Q && cpt % 2 == 0)
-			tab = check_quote_end(tab, SIMPLE_Q, ms);
+		if ((*tab == DOUBLE_Q || *tab == SIMPLE_Q) && cpt % 2 == 0)
+		{
+			c = *tab;
+			tab++;
+			tab = check_quote_end(tab, c, ms);
+		}
 		else if (*tab)
 			tab++;
 	}
