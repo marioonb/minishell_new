@@ -132,24 +132,3 @@ char	*double_quote(char *cmd, int fd, char **env, t_ms *ms)
 	free(str);
 	return (cmd);
 }
-
-void	ft_treatment_instruct(char *cmd, int fd, char **env, t_ms *ms)
-{
-	while (*cmd)
-	{
-		if (*cmd == DOUBLE_Q)
-			cmd = double_quote(cmd, fd, env, ms);
-		else if (*cmd == SIMPLE_Q)
-			cmd = simple_quote(cmd, fd);
-		else if (*cmd == DOLLS && cmd[1])
-			cmd = dolls(cmd, fd, env, ms);
-		else if (*cmd == BACK_S)
-			cmd = backslash(cmd, fd, env, 1);
-		else
-		{
-			ft_putchar_fd(cmd[0], fd);
-			cmd++;
-		}
-		g_exit = 0;
-	}
-}

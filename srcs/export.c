@@ -12,6 +12,30 @@
 
 #include "../include/minishell.h"
 
+void	treat_var2(t_env *env, int i, char *str)
+{
+	char *bin;
+	char*cpy;
+
+	bin = NULL;
+	cpy = NULL;
+	bin = find_bin(str, '=', i);
+	cpy = find_var(bin, env->env);
+	if (cpy != NULL)
+		replace_var_env(bin, str, env);
+	else
+		change_env_add(str, env);
+	free(cpy);
+	cpy = NULL;
+	cpy = find_var(bin, env->export);
+	if (cpy != NULL)
+		replace_var_export(bin, str, env);
+	else
+		change_export_add(str, env);
+	free(bin);
+	free(cpy);
+}
+
 void	treat_var(char *str, t_env *env)
 {
 	int		i;
@@ -23,30 +47,18 @@ void	treat_var(char *str, t_env *env)
 	while (str[i] != '=' && str[i])
 		i++;
 	if (i < (int)ft_strlen(str))
-	{
-		bin = find_bin(str, '=', i);
-		cpy = find_var(bin, env->env);
-		if (cpy != NULL)
-			replace_var_env(bin, str, env);
-		else
-			change_env_add(str, env);
-		free(cpy);
-		cpy = NULL;
-		cpy = find_var(bin, env->export);
-		if (cpy != NULL)
-			replace_var_export(bin, str, env);
-		else
-			change_export_add(str, env);
-	}
+		treat_var2(env, i, str);
 	else
 	{
 		bin = find_bin(str, '\0', i);
 		cpy = find_var(bin, env->export);
 		if (cpy == NULL)
 			change_export_add(str, env);
+		free(bin);
+		free(cpy);
 	}
-	free(bin);
-	free(cpy);
+	//free(bin);
+	//free(cpy);
 }
 
 void	builtin_export(char **tab, t_env *env, t_ms *ms)

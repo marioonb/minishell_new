@@ -17,28 +17,10 @@
 ** et separe chaque commande en double tableau de char
 */
 
-int				empty(char *s)
+void		ft_read_buffer(char *buffer, t_env *env, t_ms *ms)
 {
-	int			cpt;
-
-	cpt = 0;
-	while (*s)
-	{
-		if (*s != ' ' && *s != ';' && *s != '|')
-			return (1);
-		if (*s == ';' || *s == '|')
-			cpt++;
-		s++;
-	}
-	if (cpt > 0)
-		g_exit = ft_error(2, 2);
-	return (0);
-}
-
-void			ft_read_buffer(char *buffer, t_env *env, t_ms *ms)
-{
-	char		**tab;
-	int			i;
+	char	**tab;
+	int		i;
 
 	tab = NULL;
 	i = 0;
@@ -54,200 +36,13 @@ void			ft_read_buffer(char *buffer, t_env *env, t_ms *ms)
 	}
 }
 
-void			exec_cmd_shell(char **cmd, t_env *env)
-{
-	pid_t		pid;
-	int			status;
-
-	pid = 0;
-	status = 0;
-	if (cmd[0] == NULL)
-		exit(1);
-	pid = fork();
-	if (pid == -1)
-		perror("fork");
-	else if (pid > 0)
-	{
-		waitpid(pid, &status, 0);
-		kill(pid, SIGTERM);
-	}
-	else
-	{
-		if (execve(cmd[0], cmd, env->env) == -1)
-			perror("shell");
-		exit(EXIT_FAILURE);
-	}
-}
-
-int				ft_verif_path(char *bin, int type)
-{
-	struct stat	mystat;
-
-	errno = 0;
-	stat(bin, &mystat);
-	if (errno == 2 && type == 1)
-		g_exit = ft_error_str(7, bin, 127);
-	if (errno)
-		return (1);
-	if ((mystat.st_mode & S_IFMT) == S_IFDIR) // s_ifdir -> repertoire
-		g_exit = ft_error_str(5, bin, 126);
-	if ((mystat.st_mode & S_IFMT) == S_IFREG) // s_ifreg -> fichier ordinnaire
-	{
-		if ((mystat.st_mode & S_IXUSR) == 0) // s_ixusr -> proprietaire droit d execution
-			g_exit = ft_error_str(6, bin, 126);
-	}
-	return (0);
-}
-
-/*
-** Il s’agit des dossiers (séparer par ‘:‘) ou notre Shell va
-**chercher notre binaire à exécuter.
-**Nous devons maintenant écrire la fonction qui va concaténer
-**notre path et le binaire.
-**Il faut récupérer le contenu de la variable $PATH avec la fonction getenv.
-**Elle prend un seul paramètre qui est la variable que l’on cherche
-** et renvoie un pointeur sur le contenu de la variable passer en paramètre.
-**Si notre binaire n’est dans aucun dossier, on peut avertir
-**l’utilisateur par un Command not found, sinon on peut exécuter notre execve : D.
-**La fonction qui récupère le contenue de la variable $PATH et
-**qui renvoie le chemin absolu :
-*/
-
-char			*check_tab_path(char **path_split, char *bin, char *cmd)
-{
-	int			i;
-
-	i = 0;
-	while (path_split[i])
-	{
-		bin = (char *)calloc(sizeof(char), (strlen(path_split[i]) + 1 + strlen(cmd) + 1));
-		if (bin == NULL)
-			ft_error_malloc();
-		ft_strcat(bin, path_split[i]);
-		ft_strcat(bin, "/");
-		ft_strcat(bin, cmd);
-		if (ft_verif_path(bin, 2) != 1)
-			break ;
-		free(bin);
-		bin = NULL;
-		i++;
-	}
-	return (bin);
-}
-
-/*int	get_path(char **cmd, t_env *env)
-{
-	char	*path;
-	char	*bin;
-	char	**path_split;
-
-	path = NULL;
-	bin = NULL;
-	path_split = NULL;
-	if (ft_strncmp(cmd[0], "./", 2) == 0 || cmd[0][0] == '/')
-	{
-		ft_verif_path(cmd[0], 1);
-		return(-1);
-	}
-	else if (cmd[0][0] != '/' && ft_strncmp(cmd[0], "./", 2) != 0)
-	{
-		path = find_var("PATH", env->env);
-		if (path == NULL)
-			return (0);
-		path_split = ft_split(path, ':');
-		free(path);
-		path = NULL;
-		bin = check_tab_path(path_split, bin, cmd[0]);
-		free_tab_char(path_split);
-		if (bin != NULL){
-			free(cmd[0]); //
-		cmd[0] = NULL; //
-		cmd[0] = ft_strdup(bin);}//d
-	}
-	else
-	{
-		free(path);
-		path = NULL;
-	}
-	if (bin == NULL)
-	{
-		return (0);
-	}
-	else
-	{
-		free(bin); 
-		return (1);
-	}
-}*/
-
-int				get_path(char **cmd, t_env *env)
-{
-	char		*path;
-	char		*bin;
-	char		**path_split;
-
-	path = NULL;
-	bin = NULL;
-	path_split = NULL;
-	if (ft_strncmp(cmd[0], "./", 2) == 0 || cmd[0][0] == '/')
-	{
-		ft_verif_path(cmd[0], 1);
-		return (-1);
-	}
-	else if (cmd[0][0] != '/' && ft_strncmp(cmd[0], "./", 2) != 0)
-	{
-		path = find_var("PATH", env->env);
-		if (path == NULL)
-			return (0);
-		path_split = ft_split(path, ':');
-		free(path);
-		path = NULL;
-		bin = check_tab_path(path_split, bin, cmd[0]);
-		free_tab_char(path_split);
-	}
-	else
-	{
-		free(path);
-		path = NULL;
-	}
-	if (bin == NULL)
-	{
-		g_exit = ft_error_str(4, cmd[0], 127);
-		return (0);
-	}
-	free(cmd[0]);
-	cmd[0] = NULL;
-	cmd[0] = ft_strdup(bin);
-	free(bin);
-	return (1);
-}
-
-char			*modif_commande_quote(char *cmd)
-{
-	char		*str;
-	int			c;
-
-	str = NULL;
-	if (cmd)
-		str = strdup(cmd);
-	if (str && (str[0] == DOUBLE_Q || str[0] == SIMPLE_Q))
-	{
-		c = str[0];
-		str = ft_strtrim_char(str, c);
-		ft_strncpy(cmd, str, ft_strlen(str)); // mis str a la fin au lieu de cmd dans ft_Strlen
-	}
-	free(str);
-	return (cmd);
-}
-
-void			ft_parse(char *tab, t_env *env, t_ms *ms)
+void		ft_parse(char *tab, t_env *env, t_ms *ms)
 {
 	ms->pipe = find_pipe(tab);
-	if (ms->pipe > 0) // si pas de pipe pipe sera a zero
-		ms->pipe++; // si il y en a au moins un, c est qui il a une cmd en plus, pipe est alors le nb de commande
+	if (ms->pipe > 0)
+		ms->pipe++;
 	if (ms->pipe > 0)
 		execute_pipe(tab, env, ms);
 	else if (ms->pipe == 0)
 		execute_no_pipe(tab, env, ms);
-	//free_double_tab(tab_cmd); -> seg
 }

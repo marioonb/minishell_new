@@ -12,29 +12,6 @@
 
 #include "../include/minishell.h"
 
-char		*check_path(char **tab)
-{
-	int		i;
-
-	i = 0;
-	if (tab[2])
-	{
-		g_exit = ft_error(4, 1);
-		return (NULL);
-	}
-	if (tab[1][i] == '.')
-		while (tab[1][i] == '.')
-			i++;
-	if (!tab[1][i])
-	{
-		if (i == 2)
-			return (tab[1]);
-		else if (i == 1)
-			return (NULL);
-	}
-	return (tab[1]);
-}
-
 static void	concat_for_change(char *s1, char *var, int size, t_env *env)
 {
 	char	*copy;
@@ -77,7 +54,7 @@ static void	exec_chdir(t_env *env)
 ** recherche les path oldpwd et pwd et les modifie
 */
 
-char		*ft_home(char *tab, t_env *env)
+static char	*ft_home(char *tab, t_env *env)
 {
 	char	*path;
 	char	*path2;

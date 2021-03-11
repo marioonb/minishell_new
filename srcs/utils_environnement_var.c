@@ -12,9 +12,9 @@
 
 #include "../include/minishell.h"
 
-int	var_lenght (char *str)
+int			var_lenght(char *str)
 {
-	int	i;
+	int		i;
 
 	i = 0;
 	while (str[i] && str[i] != '=')
@@ -22,24 +22,21 @@ int	var_lenght (char *str)
 	return (i);
 }
 
-/* recherche dans une chaine si un element de env s'y trouve
-* si oui elle renvoi la ligen complete de env - le nom de varibqle jusqu'a =
-* sinon elle renvoi NULL
+/*
+** recherche dans une chaine si un element de env s'y trouve
+** si oui elle renvoi la ligen complete de env - le nom de varibqle jusqu'a =
+** sinon elle renvoi NULL
 */
 
-char	*find_var(char *str, char **env)
+char		*find_var(char *str, char **env)
 {
-	int	i;
-	int	lenght;
+	int		i;
+	int		lenght;
 
 	i = 0;
 	while (env[i])
 	{
 		lenght = var_lenght(env[i]);
-		//printf ("env[i] = %s pos %d\n", env[i], i);
-		//printf("lenght est a = %d\n", lenght);
-		//printf("env[i] avant boucle = %s\n", env[i]);
-		//		if (ft_strncmp(str, env[i], (int)ft_strlen(str)) == 0)
 		if (ft_strncmp(str, env[i], lenght) == 0
 			&& (int)ft_strlen(str) <= lenght)
 			return (ft_substr(env[i] + 1, lenght, ft_strlen(env[i]) - lenght));
@@ -48,7 +45,7 @@ char	*find_var(char *str, char **env)
 	return (NULL);
 }
 
-char	*find_bin(char *str, char c, int a)
+char		*find_bin(char *str, char c, int a)
 {
 	int		i;
 	char	*strr;
@@ -69,17 +66,17 @@ char	*find_bin(char *str, char c, int a)
 
 // voir pour la faire en une seule avec check_name_var
 
-int	check_caractere_name_var(char c)
+int			check_caractere_name_var(char c)
 {
-	if (ft_isalnum(c) || c == '_' ) // AJOUTER # pour unset, voir pour export
+	if (ft_isalnum(c) || c == '_') // AJOUTER # pour unset, voir pour export
 		return (1);
 	else
 		return (0);
 }
 
-void	check_name_var(char *str)
+void		check_name_var(char *str)
 {
-	int	i;
+	int		i;
 
 	i = 0;
 	if (ft_isdigit(str[0]))

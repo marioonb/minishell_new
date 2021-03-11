@@ -19,7 +19,7 @@
 ** elle appel une focntion pour le dupliquer et le mettre dans la structure
 */
 
-void	change_export_add(char *tab, t_env *env)
+void		change_export_add(char *tab, t_env *env)
 {
 	char	**new_export;
 
@@ -35,9 +35,9 @@ void	change_export_add(char *tab, t_env *env)
 ** elle remplace la ligne avec la nouvelle variable
 */
 
-void	replace_var_export(char *bin, char *str, t_env *env)
+void			replace_var_export(char *bin, char *str, t_env *env)
 {
-	int	i;
+	int			i;
 
 	i = 0;
 	while (env->export[i])
@@ -52,16 +52,28 @@ void	replace_var_export(char *bin, char *str, t_env *env)
 	}
 }
 
+static void		print_export(int fd, char *bin, t_env *env, int i)
+{
+	char		*cpy;
+
+	cpy = NULL;
+	ft_putstr_fd("=\"", fd);
+	cpy = ft_substr(env->export[i], (int)ft_strlen(bin) + 1,
+		(int)ft_strlen(env->export[i]));
+	mini_printf_fd(fd, "%s", cpy);
+	ft_putchar_fd('"', fd);
+	free(cpy);
+}
+
 /*
 ** permet l'afficher du tableau export a l appel de la commande export seule
 */
 
-void		declare_x(t_env *env, int fd)
+void			declare_x(t_env *env, int fd)
 {
-	int		i;
-	char	*bin;
-	int		j;
-	char	*cpy;
+	int			i;
+	char		*bin;
+	int			j;
 
 	i = 0;
 	while (env->export[i])
@@ -73,14 +85,7 @@ void		declare_x(t_env *env, int fd)
 		bin = find_bin(env->export[i], '=', j);
 		ft_putstr_fd(bin, fd);
 		if ((int)ft_strlen(env->export[i]) > (int)ft_strlen(bin))
-		{
-			ft_putstr_fd("=\"", fd);
-			cpy = ft_substr(env->export[i], (int)ft_strlen(bin) + 1,
-				(int)ft_strlen(env->export[i]));
-			mini_printf_fd(fd, "%s", cpy);
-			ft_putchar_fd('"', fd);
-			free(cpy);
-		}
+			print_export(fd, bin, env, i);
 		free(bin);
 		write(fd, "\n", 1);
 		i++;

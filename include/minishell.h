@@ -160,3 +160,8 @@ int		check_back(char **tab);
 int		red_back(char *s, int i, char c);
 int no_back(char *str, char c);
 int only_space(char *tab, int i);
+int     caractere_red(char *c);
+char		**duplicate_end(char **tab, int i);
+int			only_chevron(char *str, t_ms *ms, char c);
+char *find_deb(char *str, char c);
+int			empty(char *s);

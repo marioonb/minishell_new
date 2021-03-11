@@ -24,16 +24,21 @@ SRC = 	main.c \
 		srcs/export.c \
 		srcs/cd.c \
 		srcs/unset.c \
-		srcs/split_minishell.c \
 		srcs/split_space.c \
 		srcs/tab_env_utils.c \
 		srcs/tab_export_utils.c \
 		srcs/exit.c \
 		srcs/echo_utils.c \
+		srcs/fd.c \
 		srcs/execute.c \
 		srcs/utils_environnement_var.c \
-		srcs/fd.c \
-		srcs/redirection.c
+		srcs/redirection.c \
+		srcs/charactere.c \
+		srcs/echo_utils2.c \
+		srcs/pipe.c \
+		srcs/redirection_utils.c \
+		srcs/shell.c \
+		srcs/utils.c
 
 OBJ = main.o \
 		parse.o \
@@ -47,18 +52,23 @@ OBJ = main.o \
 		export.o \
 		cd.o \
 		unset.o \
-		split_minishell.o \
 		split_space.o \
 		tab_env_utils.o \
 		tab_export_utils.o \
 		exit.o \
 		echo_utils.o \
+		fd.o \
 		execute.o \
 		utils_environnement_var.o \
-		fd.o \
-		redirection.o
+		redirection.o \
+		charactere.o \
+		echo_utils2.o \
+		pipe.o \
+		redirection_utils.o \
+		shell.o \
+		utils.o
 
-FLAGS = -Wall -Wextra -g3
+FLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
 
 LIB = ./libft/libft.a
 

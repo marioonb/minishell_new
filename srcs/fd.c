@@ -1,37 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_read_tab_char.c                                 :+:      :+:    :+:   */
+/*   fd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbelorge <mbelorge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/05 11:12:31 by mbelorge          #+#    #+#             */
-/*   Updated: 2021/02/05 18:58:33 by mbelorge         ###   ########.fr       */
+/*   Created: 2021/02/16 11:12:31 by mbelorge          #+#    #+#             */
+/*   Updated: 2021/02/16 18:58:33 by mbelorge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../include/minishell.h"
 
-/*
-** affiche un double tableau de char
-*/
-
-void	ft_read_tab_char(char **tab)
+void	reset_fd(t_ms *ms)
 {
-	int	i;
-	int	j;
+	dup2(ms->in, 0);
+	dup2(ms->out, 1);
+	dup2(ms->err, 2);
+}
 
-	i = 0;
-	j = 0;
-	while (tab[i] != NULL)
-	{
-		while (tab[i][j] != '\0')
-		{
-			mini_printf("|%c|", tab[i][j]);
-			j++;
-		}
-		mini_printf("\n");
-		j = 0;
-		i++;
-	}
+void	close_pipe(t_ms *ms)
+{
+	close(ms->fdp[0]);
+	close(ms->fdp[1]);
 }

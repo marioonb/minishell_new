@@ -12,9 +12,7 @@
 
 #include "../include/minishell.h"
 
-// type 1 = >, type 2 = <
-
-int	open_files(char *s, t_ms *ms, char type)
+int			open_files(char *s, t_ms *ms, char type)
 {
 	char	*files;
 	int		fd;
@@ -37,18 +35,9 @@ int	open_files(char *s, t_ms *ms, char type)
 	return (fd);
 }
 
-int	caractere_red(char *c)
+int			search_fd(char *str, t_ms *ms, char c)
 {
-	if (*c == '?' && !c[1])
-		return (0);
-	if (*c == '#' || *c == '&' || *c == '*' || *c == '.' || *c == '/')
-		return (0);
-	return (1);
-}
-
-int	search_fd(char *str, t_ms *ms, char c)
-{
-	int	fd;
+	int		fd;
 
 	fd = 1;
 	ms->red = 0;
@@ -59,7 +48,7 @@ int	search_fd(char *str, t_ms *ms, char c)
 		ms->red++;
 		str++;
 	}
-	if (!(caractere_red(str))) // si rien apres le chevrons c'est qui y en a qu un retournre 1
+	if (!(caractere_red(str)))
 	{
 		g_exit = ft_error_char(1, 2, *str);
 		return (0);
@@ -69,7 +58,7 @@ int	search_fd(char *str, t_ms *ms, char c)
 		g_exit = ft_error_char(2, 2, c);
 		return (-1);
 	}
-	fd = open_files(str, ms, c); // redirection <
+	fd = open_files(str, ms, c);
 	return (fd);
 }
 
@@ -79,56 +68,9 @@ int	search_fd(char *str, t_ms *ms, char c)
 ** renvoi le type de fd a la fonction appelante
 */
 
-int	only_chevron(char *str, t_ms *ms, char c)
+int			ft_redirection(char **tab, char type, t_ms *ms, int *i)
 {
-	int	i;
-
-	i = 0;
-	ms->red = 0;
-	while (str[i] != c && str[i] != BACK_S)//
-		i++;//
-	if (str[i] == '\\')
-		i = red_back(str, i, '>');
-	while (str[i] == c)
-	{
-		ms->red++;
-		i++;
-	}
-	if (!str[i])
-		return (1);
-	return (0);
-}
-
-char	**duplicate_end(char **tab, int i)
-{
-	int		j;
-	int		cpt;
-	char	**env;
-
-	j = i;
-	cpt = 0;
-	while (tab[i])
-	{
-		cpt++;
-		i++;
-	}
-	env = malloc(sizeof(char*) * (cpt + 1));
-	if (!env)
-		return (0);
-	i = 0;
-	while (i < cpt)
-	{
-		env[i] = ft_strdup(tab[j]);
-		i++;
-		j++;
-	}
-	env[i] = NULL;
-	return (env);
-}
-
-int	ft_redirection(char **tab, char type, t_ms *ms, int *i)
-{
-	int	fd;
+	int		fd;
 
 	fd = 1;
 	if (only_chevron(tab[*i], ms, type))
@@ -154,10 +96,10 @@ int	ft_redirection(char **tab, char type, t_ms *ms, int *i)
 	return (fd);
 }
 
-int	find_fd(char **tab, t_ms *ms)
+int			find_fd(char **tab, t_ms *ms)
 {
-	int	i;
-	int	fd;
+	int		i;
+	int		fd;
 
 	fd = 1;
 	i = 0;

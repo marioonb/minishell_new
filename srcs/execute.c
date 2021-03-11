@@ -24,9 +24,11 @@ static void	exec_cmd(char **tab, t_env *env, t_ms *ms)
 	}
 }
 
-// a la fin ms->caca = dup(ms->fdp[0]);
-// on stoque le fd d'entrée (lecture) du processus pere dans lequel
-// il y a tout ce qu'a écrit le fils. on va pouvoir le filer à (1)
+/*
+** a la fin ms->caca = dup(ms->fdp[0]);
+** on stoque le fd d'entrée (lecture) du processus pere dans lequel
+** il y a tout ce qu'a écrit le fils. on va pouvoir le filer à (1)
+*/
 
 static void	open_process_pipe(char **cmd, t_env *env, t_ms *ms)
 {
@@ -38,12 +40,12 @@ static void	open_process_pipe(char **cmd, t_env *env, t_ms *ms)
 		exit(-1);
 	if (pid == 0)
 	{
-		if (ms->pipebef > 0) // si une commande avant bef est a 1
+		if (ms->pipebef > 0)
 		{
 			dup2(ms->caca, 0);
 			close(ms->caca);
 		}
-		if (ms->pipe > 0) // si ya une comande apres, pipe n est toujours pas a 0
+		if (ms->pipe > 0)
 			dup2(ms->fdp[1], 1);
 		exec_cmd(cmd, env, ms);
 		close_pipe(ms);
@@ -66,7 +68,6 @@ int			execute_no_pipe(char *tab, t_env *env, t_ms *ms)
 		return (0);
 	tab_cmd[0] = modif_commande_quote(tab_cmd[0]);
 	exec_cmd(tab_cmd, env, ms);
-	//free_tab_char(tab_cmd); //--> SEGFAULT
 	return (1);
 }
 
@@ -89,14 +90,12 @@ int			execute_pipe(char *tab, t_env *env, t_ms *ms)
 
 	i = 0;
 	g_exit = 0;
-	//tab_cmd = ft_split_minishell(tab, PIPE);
 	tab_cmd = ft_split_space(tab, PIPE);
 	if (!(check_error_quotes1(tab_cmd, ms)))
 		return (0);
 	while (ms->pipe > 0)
 	{
 		ms->pipe--;
-		//tab_cmd[i] = ft_strtrim(tab_cmd[i], " ");
 		tab_cmd2 = ft_split_space(tab_cmd[i], ' ');
 		tab_cmd2[0] = modif_commande_quote(tab_cmd2[0]);
 		open_process_pipe(tab_cmd2, env, ms);

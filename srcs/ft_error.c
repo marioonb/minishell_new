@@ -14,7 +14,7 @@
 
 void	ft_error_malloc(void)
 {
-	putstr_fd("erreur malloc", 2);
+	ft_putstr_fd("erreur malloc", 2);
 	exit(EXIT_FAILURE);
 }
 

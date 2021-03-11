@@ -30,7 +30,7 @@ void	sighandler(int sig_num)
 {
 	if (sig_num == SIGINT)
 	{
-		printf("\n");
+		mini_printf("\n");
 		g_exit = 130;
 		mini_printf_fd(2, "" PINK "%s" SET"", "minishell $> ");
 	}
