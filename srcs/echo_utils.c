@@ -91,7 +91,7 @@ char	*backslash(char *cmd, int fd, char **env, int x)
 	return (cmd);
 }
 
-void	double_quote2(char *str, int fd, char **env, t_ms *ms)
+static void	double_quote2(char *str, int fd, char **env, t_ms *ms)
 {
 	while (*str)
 	{

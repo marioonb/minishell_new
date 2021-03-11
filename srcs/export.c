@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-void	treat_var2(t_env *env, int i, char *str)
+static void	treat_var2(t_env *env, int i, char *str)
 {
 	char *bin;
 	char*cpy;

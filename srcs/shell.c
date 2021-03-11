@@ -37,7 +37,7 @@ void			exec_cmd_shell(char **cmd, t_env *env)
 	}
 }
 
-int				ft_verif_path(char *bin, int type)
+static int				ft_verif_path(char *bin, int type)
 {
 	struct stat	mystat;
 
@@ -72,7 +72,7 @@ int				ft_verif_path(char *bin, int type)
 **qui renvoie le chemin absolu :
 */
 
-char			*check_tab_path(char **path_split, char *bin, char *cmd)
+static char			*check_tab_path(char **path_split, char *bin, char *cmd)
 {
 	int			i;
 

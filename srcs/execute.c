@@ -42,8 +42,8 @@ static void	open_process_pipe(char **cmd, t_env *env, t_ms *ms)
 	{
 		if (ms->pipebef > 0)
 		{
-			dup2(ms->caca, 0);
-			close(ms->caca);
+			dup2(ms->res, 0);
+			close(ms->res);
 		}
 		if (ms->pipe > 0)
 			dup2(ms->fdp[1], 1);
@@ -54,7 +54,7 @@ static void	open_process_pipe(char **cmd, t_env *env, t_ms *ms)
 	waitpid(-1, &pid, 0);
 	if (WIFEXITED(pid))
 		g_exit = WEXITSTATUS(pid);
-	ms->caca = dup(ms->fdp[0]);
+	ms->res = dup(ms->fdp[0]);
 	close_pipe(ms);
 }
 

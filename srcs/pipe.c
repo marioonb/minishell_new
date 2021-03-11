@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-int			pipe_back(char *s, int i, char c)
+static int			pipe_back(char *s, int i, char c)
 {
 	int		cpt;
 

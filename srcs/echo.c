@@ -30,7 +30,7 @@ static int	flag_n(char *tab)
 	return (0);
 }
 
-void		write_end(char **redplus, int fd, char **env, t_ms *ms)
+static void		write_end(char **redplus, int fd, char **env, t_ms *ms)
 {
 	int		i;
 

@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-int			open_files(char *s, t_ms *ms, char type)
+static int			open_files(char *s, t_ms *ms, char type)
 {
 	char	*files;
 	int		fd;
@@ -35,7 +35,7 @@ int			open_files(char *s, t_ms *ms, char type)
 	return (fd);
 }
 
-int			search_fd(char *str, t_ms *ms, char c)
+static int			search_fd(char *str, t_ms *ms, char c)
 {
 	int		fd;
 
@@ -68,7 +68,7 @@ int			search_fd(char *str, t_ms *ms, char c)
 ** renvoi le type de fd a la fonction appelante
 */
 
-int			ft_redirection(char **tab, char type, t_ms *ms, int *i)
+static int			ft_redirection(char **tab, char type, t_ms *ms, int *i)
 {
 	int		fd;
 
