@@ -33,7 +33,49 @@ void		ft_treatment_instruct(char *cmd, int fd, char **env, t_ms *ms)
 	}
 }
 
+static int	check_back2(char **tab, int i)
+{
+	int		j;
+	int		cpt;
+
+	cpt = 0;
+	j = 0;
+	while (tab[i][j])
+	{
+		if (tab[i][j] == BACK_S)
+		{
+			while (tab[i][j] && tab[i][j] == BACK_S)
+			{
+				cpt++;
+				j++;
+			}
+			if (!tab[i + 1] && !tab[i][j] && cpt % 2 != 0)
+			{
+				g_exit = ft_error(3, 2);
+				return (0);
+			}
+		}
+		if (tab[i][j])
+			j++;
+	}
+	return(1);
+}
+
 int			check_back(char **tab)
+{
+	int		i;
+
+	i = 0;
+	while (tab[i])
+	{
+		if (check_back2(tab, i) == 0)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+/*int			check_back(char **tab)
 {
 	int		i;
 	int		j;
@@ -65,7 +107,7 @@ int			check_back(char **tab)
 		i++;
 	}
 	return (1);
-}
+}*/
 
 int			red_back(char *s, int i, char c)
 {
