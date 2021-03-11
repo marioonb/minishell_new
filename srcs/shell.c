@@ -23,7 +23,7 @@ void			exec_cmd_shell(char **cmd, t_env *env)
 		exit(1);
 	pid = fork();
 	if (pid == -1)
-		perror("fork");
+		ft_putstr_fd("error fork", 2);
 	else if (pid > 0)
 	{
 		waitpid(pid, &status, 0);
@@ -32,7 +32,7 @@ void			exec_cmd_shell(char **cmd, t_env *env)
 	else
 	{
 		if (execve(cmd[0], cmd, env->env) == -1)
-			perror("shell");
+			ft_putstr_fd("erreur execVe", 2);
 		exit(EXIT_FAILURE);
 	}
 }
@@ -119,6 +119,7 @@ int				get_path(char **cmd, t_env *env)
 {
 	char		*bin;
 
+	g_exit = 0;
 	bin = NULL;
 	if (ft_strncmp(cmd[0], "./", 2) == 0 || cmd[0][0] == '/')
 	{
@@ -127,7 +128,6 @@ int				get_path(char **cmd, t_env *env)
 	}
 	else if (cmd[0][0] != '/' && ft_strncmp(cmd[0], "./", 2) != 0)
 	{
-		ft_putstr_fd("2222",2);
 		bin = get_path_2(cmd[0], env);
 		if (bin == NULL)
 		{
