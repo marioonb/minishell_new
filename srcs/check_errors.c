@@ -30,9 +30,9 @@ static char	*check_quote_end(char *tab, char c, t_ms *ms)
 			if (*tab && *tab == SIMPLE_Q)
 				ms->quote *= -1;
 		}
-		else if (c == DOUBLE_Q)
+		else if (c == DBLE_Q)
 		{
-			if (*tab && *tab == DOUBLE_Q && cpt % 2 == 0)
+			if (*tab && *tab == DBLE_Q && cpt % 2 == 0)
 				ms->quote *= -1;
 		}
 		if (*tab)
@@ -55,7 +55,7 @@ static void	check_error_quote(char *tab, t_ms *ms)
 			cpt++;
 			tab++;
 		}
-		if ((*tab == DOUBLE_Q || *tab == SIMPLE_Q) && cpt % 2 == 0)
+		if ((*tab == DBLE_Q || *tab == SIMPLE_Q) && cpt % 2 == 0)
 		{
 			c = *tab;
 			tab++;

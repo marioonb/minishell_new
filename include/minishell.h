@@ -28,7 +28,7 @@
 # include <sys/stat.h>
 # include <limits.h>
 
-# define DOUBLE_Q '"'
+# define DBLE_Q '"'
 # define SIMPLE_Q '\''
 # define BACK_S '\\'
 # define DOLLS '$'

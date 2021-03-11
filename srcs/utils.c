@@ -66,7 +66,7 @@ char		*modif_commande_quote(char *cmd)
 	char	*str;
 	int		c;
 
-	if (cmd && (cmd[0] == DOUBLE_Q || cmd[0] == SIMPLE_Q))
+	if (cmd && (cmd[0] == DBLE_Q || cmd[0] == SIMPLE_Q))
 	{
 		c = cmd[0];
 		str = ft_strtrim_char(cmd, c);

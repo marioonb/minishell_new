@@ -16,7 +16,7 @@ void		ft_treatment_instruct(char *cmd, int fd, char **env, t_ms *ms)
 {
 	while (*cmd)
 	{
-		if (*cmd == DOUBLE_Q)
+		if (*cmd == DBLE_Q)
 			cmd = double_quote(cmd, fd, env, ms);
 		else if (*cmd == SIMPLE_Q)
 			cmd = simple_quote(cmd, fd);

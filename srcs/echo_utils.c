@@ -36,7 +36,7 @@ char	*dolls(char *cmd, int fd, char **env, t_ms *ms)
 		cmd = special_charactere(cmd, fd);
 	else
 		cmd++;
-	if (*cmd && (!ft_isalpha(*cmd) && *cmd != '_') && *cmd != DOUBLE_Q &&
+	if (*cmd && (!ft_isalpha(*cmd) && *cmd != '_') && *cmd != DBLE_Q &&
 		*cmd != SIMPLE_Q)
 	{
 		cmd++;
@@ -46,6 +46,62 @@ char	*dolls(char *cmd, int fd, char **env, t_ms *ms)
 		cmd = find_var_doll(cmd, fd, env);
 	if (cmd[0] == '\0' && g_write == 0) // voir si ca pose pas de probleme ailleurs, mis pour que ca ne fasse pas d espace ici : echo $kjhjh salut
 		ms->space = 1;
+	return (cmd);
+}
+
+/*char	*backslash(char *cmd, int fd, char **env, int x)
+{
+	int	cpt;
+	int	cpt2;
+
+	cpt = 0;
+	cpt2 = 0;
+	while (*cmd && *cmd == BACK_S)
+	{
+		cpt++;
+		cmd++;
+	}
+	cpt2 = cpt / 2;
+	if ((*cmd && (*cmd != DOLLS && *cmd != DBLE_Q && *cmd != ACCENT)) && x == 2)
+		cpt2 = cpt2 + (cpt % 2);
+	while (cpt2-- > 0)
+	//{
+		ft_putchar_fd(BACK_S, fd);
+	//	cpt2--;
+	//}
+	if (*cmd && *cmd == DOLLS)
+	{
+		if (cpt % 2 == 0)
+		{
+			cmd++;
+			cmd = find_var_doll(cmd, fd, env);
+		}
+		else
+		{
+			ft_putchar_fd(DOLLS, fd);
+			cmd++;
+		}
+	}
+	else if (*cmd && cpt % 2 != 0)
+	{
+		ft_putchar_fd(*cmd, fd);
+		cmd++;
+	}
+	return (cmd);
+}*/
+
+char	*back_s(int cpt, char *cmd, int fd, char **env)
+{
+	if (cpt % 2 == 0)
+	{
+		cmd++;
+		cmd = find_var_doll(cmd, fd, env);
+	}
+	else
+	{
+		ft_putchar_fd(DOLLS, fd);
+		cmd++;
+	}
 	return (cmd);
 }
 
@@ -62,26 +118,13 @@ char	*backslash(char *cmd, int fd, char **env, int x)
 		cmd++;
 	}
 	cpt2 = cpt / 2;
-	if ((*cmd && (*cmd != DOLLS && *cmd != DOUBLE_Q && *cmd != ACCENT))
-		&& x == 2)
+	if ((*cmd && (*cmd != DOLLS && *cmd != DBLE_Q && *cmd != ACCENT)) && x == 2)
 		cpt2 = cpt2 + (cpt % 2);
-	while (cpt2 > 0)
-	{
+	while (cpt2-- > 0)
 		ft_putchar_fd(BACK_S, fd);
-		cpt2--;
-	}
 	if (*cmd && *cmd == DOLLS)
 	{
-		if (cpt % 2 == 0)
-		{
-			cmd++;
-			cmd = find_var_doll(cmd, fd, env);
-		}
-		else
-		{
-			ft_putchar_fd(DOLLS, fd);
-			cmd++;
-		}
+		cmd = back_s(cpt, cmd, fd, env);
 	}
 	else if (*cmd && cpt % 2 != 0)
 	{
@@ -116,7 +159,7 @@ char	*double_quote(char *cmd, int fd, char **env, t_ms *ms)
 	i = 0;
 	cmd++;
 	str = ft_strdup(cmd);
-	while (*cmd && *cmd != DOUBLE_Q)
+	while (*cmd && *cmd != DBLE_Q)
 	{
 		if (*cmd == BACK_S)
 		{
