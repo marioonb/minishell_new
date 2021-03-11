@@ -48,7 +48,7 @@ int			only_chevron(char *str, t_ms *ms, char c)
 	while (str[i] != c && str[i] != BACK_S)
 		i++;
 	if (str[i] == '\\')
-		i = red_back(str, i, '>');
+		i = red_back(str, i, c);
 	while (str[i] == c)
 	{
 		ms->red++;

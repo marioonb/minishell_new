@@ -123,10 +123,11 @@ int				get_path(char **cmd, t_env *env)
 	if (ft_strncmp(cmd[0], "./", 2) == 0 || cmd[0][0] == '/')
 	{
 		ft_verif_path(cmd[0], 1);
-		return (-1);
+		return (1);
 	}
 	else if (cmd[0][0] != '/' && ft_strncmp(cmd[0], "./", 2) != 0)
 	{
+		ft_putstr_fd("2222",2);
 		bin = get_path_2(cmd[0], env);
 		if (bin == NULL)
 		{

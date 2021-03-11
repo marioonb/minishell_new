@@ -12,6 +12,18 @@
 
 #include "../include/minishell.h"
 
+static void treat_quote_cmd(char **cmd)
+{
+	int i;
+
+	i = 1;
+	while (cmd[i])
+	{
+		cmd[i] = modif_commande_quote(cmd[i]);
+		i++;
+	}
+}
+
 static void	exec_cmd(char **tab, t_env *env, t_ms *ms)
 {
 	if (is_builtin(tab[0]) == 1)
@@ -19,7 +31,10 @@ static void	exec_cmd(char **tab, t_env *env, t_ms *ms)
 	else
 	{
 		if (get_path(tab, env))
-			exec_cmd_shell(tab, env);
+			{
+				treat_quote_cmd(tab);
+				exec_cmd_shell(tab, env);
+			}
 		free_tab_char(tab);
 	}
 }
