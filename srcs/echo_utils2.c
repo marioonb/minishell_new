@@ -58,7 +58,7 @@ static int	check_back2(char **tab, int i)
 		if (tab[i][j])
 			j++;
 	}
-	return(1);
+	return (1);
 }
 
 int			check_back(char **tab)
@@ -75,40 +75,6 @@ int			check_back(char **tab)
 	return (1);
 }
 
-/*int			check_back(char **tab)
-{
-	int		i;
-	int		j;
-	int		cpt;
-
-	cpt = 0;
-	i = 0;
-	while (tab[i])
-	{
-		j = 0;
-		while (tab[i][j])
-		{
-			if (tab[i][j] == BACK_S)
-			{
-				while (tab[i][j] && tab[i][j] == BACK_S)
-				{
-					cpt++;
-					j++;
-				}
-				if (!tab[i + 1] && !tab[i][j] && cpt % 2 != 0)
-				{
-					g_exit = ft_error(3, 2);
-					return (0);
-				}
-			}
-			if (tab[i][j])
-				j++;
-		}
-		i++;
-	}
-	return (1);
-}*/
-
 int			red_back(char *s, int i, char c)
 {
 	int		cpt;
@@ -119,7 +85,6 @@ int			red_back(char *s, int i, char c)
 		i++;
 		cpt++;
 	}
-	//if (s[i] && (s[i] == '>' || s[i] == '<') && cpt%2 != 0)
 	if (s[i] && s[i] == c && cpt % 2 != 0)
 		i++;
 	return (i);
@@ -129,31 +94,27 @@ char		*find_deb(char *str, char c)
 {
 	int		i;
 	char	*res;
+	char	d;
 
-	res = malloc(sizeof(char) * ft_strlen(str));
+	res = malloc(sizeof(char) * ft_strlen(str) + 1);
 	i = 0;
-	while (str[i] != c)
+	while (str[i] && str[i] != c)
 	{
 		res[i] = str[i];
-		i++;
-	}
-	res[i] = '\0';
-	return (res);
-}
-
-int			no_back(char *str, char c)
-{
-	int		i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == BACK_S)
-			i = red_back(str, i, c);
-		if (str[i] == c)
-			return (1);
+		if (str[i] == DBLE_Q || str[i] == SIMPLE_Q)
+		{
+			d = str[i];
+			i++;
+			while (str[i] && str[i] != d)
+			{
+				res[i] = str[i];
+				i++;
+			}
+			res[i] = str[i];
+		}
 		if (str[i])
 			i++;
 	}
-	return (0);
+	res[i] = '\0';
+	return (res);
 }

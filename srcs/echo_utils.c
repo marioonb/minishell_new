@@ -12,19 +12,7 @@
 
 #include "../include/minishell.h"
 
-char	*simple_quote(char *cmd, int fd)
-{
-	cmd++;
-	while (*cmd && *cmd != SIMPLE_Q)
-	{
-		ft_putchar_fd(*cmd, fd);
-		cmd++;
-	}
-	cmd++;
-	return (cmd);
-}
-
-char	*dolls(char *cmd, int fd, char **env, t_ms *ms)
+char		*dolls(char *cmd, int fd, char **env, t_ms *ms)
 {
 	g_write = 1;
 	if (cmd[1] && cmd[1] == '?')
@@ -44,53 +32,12 @@ char	*dolls(char *cmd, int fd, char **env, t_ms *ms)
 	}
 	else
 		cmd = find_var_doll(cmd, fd, env);
-	if (cmd[0] == '\0' && g_write == 0) // voir si ca pose pas de probleme ailleurs, mis pour que ca ne fasse pas d espace ici : echo $kjhjh salut
+	if (cmd[0] == '\0' && g_write == 0)
 		ms->space = 1;
 	return (cmd);
 }
 
-/*char	*backslash(char *cmd, int fd, char **env, int x)
-{
-	int	cpt;
-	int	cpt2;
-
-	cpt = 0;
-	cpt2 = 0;
-	while (*cmd && *cmd == BACK_S)
-	{
-		cpt++;
-		cmd++;
-	}
-	cpt2 = cpt / 2;
-	if ((*cmd && (*cmd != DOLLS && *cmd != DBLE_Q && *cmd != ACCENT)) && x == 2)
-		cpt2 = cpt2 + (cpt % 2);
-	while (cpt2-- > 0)
-	//{
-		ft_putchar_fd(BACK_S, fd);
-	//	cpt2--;
-	//}
-	if (*cmd && *cmd == DOLLS)
-	{
-		if (cpt % 2 == 0)
-		{
-			cmd++;
-			cmd = find_var_doll(cmd, fd, env);
-		}
-		else
-		{
-			ft_putchar_fd(DOLLS, fd);
-			cmd++;
-		}
-	}
-	else if (*cmd && cpt % 2 != 0)
-	{
-		ft_putchar_fd(*cmd, fd);
-		cmd++;
-	}
-	return (cmd);
-}*/
-
-char	*back_s(int cpt, char *cmd, int fd, char **env)
+char		*back_s(int cpt, char *cmd, int fd, char **env)
 {
 	if (cpt % 2 == 0)
 	{
@@ -105,10 +52,10 @@ char	*back_s(int cpt, char *cmd, int fd, char **env)
 	return (cmd);
 }
 
-char	*backslash(char *cmd, int fd, char **env, int x)
+char		*backslash(char *cmd, int fd, char **env, int x)
 {
-	int	cpt;
-	int	cpt2;
+	int		cpt;
+	int		cpt2;
 
 	cpt = 0;
 	cpt2 = 0;
@@ -150,7 +97,7 @@ static void	double_quote2(char *str, int fd, char **env, t_ms *ms)
 	}
 }
 
-char	*double_quote(char *cmd, int fd, char **env, t_ms *ms)
+char		*double_quote(char *cmd, int fd, char **env, t_ms *ms)
 {
 	char	*str;
 	int		i;
@@ -158,7 +105,7 @@ char	*double_quote(char *cmd, int fd, char **env, t_ms *ms)
 	str = NULL;
 	i = 0;
 	cmd++;
-	str = ft_strdup(cmd);
+	str = cmd;
 	while (*cmd && *cmd != DBLE_Q)
 	{
 		if (*cmd == BACK_S)

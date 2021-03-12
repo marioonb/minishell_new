@@ -19,9 +19,9 @@
 ** elle appel une focntion pour le dupliquer et le mettre dans la structure
 */
 
-void		change_export_add(char *tab, t_env *env)
+void			change_export_add(char *tab, t_env *env)
 {
-	char	**new_export;
+	char		**new_export;
 
 	new_export = replace_for_add(tab, env->export);
 	free_tab_char(env->export);

@@ -37,7 +37,13 @@ void			exec_cmd_shell(char **cmd, t_env *env)
 	}
 }
 
-static int				ft_verif_path(char *bin, int type)
+/*
+** s_ifdir -> repertoire
+** s_ifreg -> fichier ordinnaire
+**s_ixusr -> proprietaire droit d execution
+*/
+
+static int		ft_verif_path(char *bin, int type)
 {
 	struct stat	mystat;
 
@@ -47,32 +53,17 @@ static int				ft_verif_path(char *bin, int type)
 		g_exit = ft_error_str(7, bin, 127);
 	if (errno)
 		return (1);
-	if ((mystat.st_mode & S_IFMT) == S_IFDIR) // s_ifdir -> repertoire
+	if ((mystat.st_mode & S_IFMT) == S_IFDIR)
 		g_exit = ft_error_str(5, bin, 126);
-	if ((mystat.st_mode & S_IFMT) == S_IFREG) // s_ifreg -> fichier ordinnaire
+	if ((mystat.st_mode & S_IFMT) == S_IFREG)
 	{
-		if ((mystat.st_mode & S_IXUSR) == 0) // s_ixusr -> proprietaire droit d execution
+		if ((mystat.st_mode & S_IXUSR) == 0)
 			g_exit = ft_error_str(6, bin, 126);
 	}
 	return (0);
 }
 
-/*
-** Il s’agit des dossiers (séparer par ‘:‘) ou notre Shell va
-**chercher notre binaire à exécuter.
-**Nous devons maintenant écrire la fonction qui va concaténer
-**notre path et le binaire.
-**Il faut récupérer le contenu de la variable $PATH avec la fonction getenv.
-**Elle prend un seul paramètre qui est la variable que l’on cherche
-** et renvoie un pointeur sur le contenu de la variable passer en paramètre.
-**Si notre binaire n’est dans aucun dossier, on peut avertir
-**l’utilisateur par un Command not found, sinon on peut exécuter
-** notre execve : D.
-**La fonction qui récupère le contenue de la variable $PATH et
-**qui renvoie le chemin absolu :
-*/
-
-static char			*check_tab_path(char **path_split, char *bin, char *cmd)
+static char		*check_tab_path(char **path_split, char *bin, char *cmd)
 {
 	int			i;
 
@@ -95,7 +86,7 @@ static char			*check_tab_path(char **path_split, char *bin, char *cmd)
 	return (bin);
 }
 
-static char*	get_path_2(char *cmd, t_env *env)
+static char		*get_path_2(char *cmd, t_env *env)
 {
 	char		*path;
 	char		**path_split;
@@ -112,7 +103,7 @@ static char*	get_path_2(char *cmd, t_env *env)
 	path = NULL;
 	bin = check_tab_path(path_split, bin, cmd);
 	free_tab_char(path_split);
-	return(bin);
+	return (bin);
 }
 
 int				get_path(char **cmd, t_env *env)

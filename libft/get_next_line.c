@@ -102,7 +102,7 @@ int				get_next_line(int fd, char **line)
 	if (!memory)
 		memory = (char *)ft_calloc(sizeof(char), 1);
 	buf = (char *)ft_calloc(sizeof(char), BUFFER_SIZE + 1);
-	while (!ft_strchr(buf, '\n') && (ret = read(fd, buf, BUFFER_SIZE)) > 0)
+	while (!fstrchr(buf, '\n') && (ret = read(fd, buf, BUFFER_SIZE)) > 0)
 	{
 		buf[ret] = '\0';
 		memory = ft_strjoinfree(memory, buf);

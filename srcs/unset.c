@@ -61,7 +61,7 @@ static void	change_export_supp(int i, t_env *env)
 	free_tab_char(new_export);
 }
 
-static void		change_var_tab(t_env *env, char *str)
+static void	change_var_tab(t_env *env, char *str)
 {
 	int		i;
 

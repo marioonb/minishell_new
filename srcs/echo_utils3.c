@@ -1,26 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   echo_utils3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbelorge <mbelorge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/05 12:16:58 by mbelorge          #+#    #+#             */
-/*   Updated: 2019/12/02 20:13:12 by mbelorge         ###   ########.fr       */
+/*   Created: 2021/03/11 07:45:31 by mbelorge          #+#    #+#             */
+/*   Updated: 2021/03/11 18:58:33 by mbelorge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../include/minishell.h"
 
-char	*fstrchr(const char *s, int c)
+char	*simple_quote(char *cmd, int fd)
 {
-	while (*s)
+	cmd++;
+	while (*cmd && *cmd != SIMPLE_Q)
 	{
-		if (*s == (char)c)
-			return ((char *)s);
-		s++;
+		ft_putchar_fd(*cmd, fd);
+		cmd++;
 	}
-	if (!c && !*s)
-		return ((char *)s);
+	cmd++;
+	return (cmd);
+}
+
+int		n(char *str, char c)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == BACK_S)
+			i = red_back(str, i, c);
+		if (str[i] == c)
+			return (1);
+		if (str[i])
+			i++;
+	}
 	return (0);
 }

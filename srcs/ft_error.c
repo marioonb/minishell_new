@@ -22,7 +22,8 @@ void	ft_error_exit(int a, char *s, int nexit)
 {
 	ft_putstr_fd("exit\n", 2);
 	if (a == 1)
-		mini_printf_fd(2, ""RED"minishell: exit: %s : numeric argument required"SET"\n", s);
+		mini_printf_fd(2,
+		""RED"minishell: exit: %s : numeric argument required"SET"\n", s);
 	if (a == 2)
 		ft_putstr_fd(""RED"minishell: exit: too many arguments"SET"\n", 2);
 	if (a == 3)
@@ -36,7 +37,8 @@ int		ft_error(int a, int nexit)
 		ft_putstr_fd(""RED"erreur de quotes"SET"\n", 2);
 	if (a == 2)
 		ft_putstr_fd(
-		""RED"minishell: erreur de syntaxe près du symbole inattendu « ; » or « ; »"SET"\n", 2);
+		""RED"minishell: syntax error near unexpected token « ; »or « | »"SET
+		"\n", 2);
 	if (a == 3)
 		ft_putstr_fd(""RED"error backslash"SET"\n", 2);
 	if (a == 4)
@@ -51,7 +53,8 @@ int		ft_error(int a, int nexit)
 int		ft_error_char(int a, int nexit, char c)
 {
 	if (a == 1)
-		mini_printf_fd(2, ""RED"minishell: erreur de redirection : '%c'"SET"\n", c);
+		mini_printf_fd(2,
+		""RED"minishell: erreur de redirection : '%c'"SET"\n", c);
 	if (a == 2)
 		mini_printf_fd(2, ""RED"parse error near '%c'"SET"\n", c);
 	return (nexit);
@@ -60,22 +63,24 @@ int		ft_error_char(int a, int nexit, char c)
 int		ft_error_str(int a, char *s, int nexit)
 {
 	if (a == 1)
-		mini_printf_fd(2, ""RED"export: « %s » : identifiant non valable"SET"\n", s);
+		mini_printf_fd(2,
+		""RED"minishell: export: « %s » : not a valid identifier"SET"\n", s);
 	if (a == 2)
-		mini_printf_fd(2, ""RED"env: «%s»: Aucun fichier ou dossier de ce type"SET"\n", s);
+		mini_printf_fd(2,
+		""RED"minishell: env: «%s»: no such file or directory"SET"\n", s);
 	if (a == 3)
 		mini_printf_fd(2,
-		""RED"minishell: cd: %s: no such file or directory: %s"SET"\n", s);
+		""RED"minishell: cd: %s: no such file or directory"SET"\n", s);
 	if (a == 4)
 		mini_printf_fd(2, ""RED"%s : command not found"SET"\n", s);
 	if (a == 5)
 		mini_printf_fd(2,
-		""RED"minishell: %s : est un dossier"SET"\n", s);
+		""RED"minishell: %s : is a directory"SET"\n", s);
 	if (a == 6)
 		mini_printf_fd(2,
 		""RED"minishell: %s : Permission non accordée"SET"\n", s);
 	if (a == 7)
 		mini_printf_fd(2,
-		""RED"minishell: %s : Aucun fichier ou dossier de ce type"SET"\n", s);
+		""RED"minishell: %s : no such file or directory"SET"\n", s);
 	return (nexit);
 }

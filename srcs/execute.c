@@ -12,9 +12,9 @@
 
 #include "../include/minishell.h"
 
-static void treat_quote_cmd(char **cmd)
+static void	treat_quote_cmd(char **cmd)
 {
-	int i;
+	int		i;
 
 	i = 1;
 	while (cmd[i])
@@ -30,11 +30,12 @@ static void	exec_cmd(char **tab, t_env *env, t_ms *ms)
 		find_builtin(tab, env, ms);
 	else
 	{
+		ms->type = 0;
 		if (get_path(tab, env))
-			{
-				treat_quote_cmd(tab);
-				exec_cmd_shell(tab, env);
-			}
+		{
+			treat_quote_cmd(tab);
+			exec_cmd_shell(tab, env);
+		}
 		free_tab_char(tab);
 	}
 }

@@ -96,29 +96,53 @@ static int	ft_redirection(char **tab, char type, t_ms *ms, int *i)
 	return (fd);
 }
 
-int			find_fd(char **tab, t_ms *ms)
+int			b(char *str, char c)
+{
+	int		i;
+	char	d;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			return (0);
+		if (str[i] == DBLE_Q || str[i] == SIMPLE_Q)
+		{
+			d = str[i];
+			i++;
+			while (str[i] != d)
+				i++;
+		}
+		if (str[i])
+			i++;
+	}
+	return (1);
+}
+
+int			find_fd(char **t, t_ms *ms)
 {
 	int		i;
 	int		fd;
 
 	fd = 1;
 	i = 0;
-	while (tab[i])
+	while (t[i])
 	{
-		if (tab[i] && ft_strchr(tab[i], '<') && no_back(tab[i], '<'))
-			fd = ft_redirection(tab, '<', ms, &i);
-		else if (tab[i] && ft_strchr(tab[i], '>') && no_back(tab[i], '>'))
+		if (t[i] && fstrchr(t[i], '<') && n(t[i], '<') && b(t[i], '<') == 0)
+			fd = ft_redirection(t, '<', ms, &i);
+		else if (t[i] && fstrchr(t[i], '>') && n(t[i], '>') &&
+		b(t[i], '>') == 0)
 		{
-			fd = ft_redirection(tab, '>', ms, &i);
+			fd = ft_redirection(t, '>', ms, &i);
 			if (fd == -1)
 				break ;
-			if (tab[i] && !ft_strchr(tab[i], '>'))
+			if (t[i] && !fstrchr(t[i], '>'))
 			{
-				ms->redplus = duplicate_end(tab, i);
+				ms->redplus = duplicate_end(t, i);
 				break ;
 			}
 		}
-		if (tab[i] && (!ft_strchr(tab[i], '>') || !no_back(tab[1], '>')))
+		if (t[i] && (!fstrchr(t[i], '>') || !n(t[1], '>') || b(t[i], '>' == 0)))
 			i++;
 	}
 	return (fd);

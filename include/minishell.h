@@ -63,6 +63,7 @@ typedef struct	s_ms
 	int			err;
 	int			red;
 	char		**redplus;
+	int			type;
 }				t_ms;
 
 int		g_exit;
@@ -85,7 +86,7 @@ void			ft_treatment_instruct(char *cmd, int fd, char **env, t_ms *ms);
 int				check_back(char **tab);
 int				red_back(char *s, int i, char c);
 char			*find_deb(char *str, char c);
-int				no_back(char *str, char c);
+int				n(char *str, char c);
 void			builtin_echo(char **tab, char **env, t_ms *ms);
 void			builtin_env(char **tab, t_env *env, t_ms *ms);
 int				execute_no_pipe(char *tab, t_env *env, t_ms *ms);

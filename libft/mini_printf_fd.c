@@ -66,7 +66,7 @@ int			mini_printf_fd(int fd, const char *s, ...)
 
 	str = (char*)s;
 	va_start(arg, s);
-	if (ft_strchr(s, '%') == NULL)
+	if (fstrchr(s, '%') == NULL)
 	{
 		ft_putstr_fd(str, fd);
 		return (0);

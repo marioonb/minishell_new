@@ -38,7 +38,8 @@ SRC = 	main.c \
 		srcs/pipe.c \
 		srcs/redirection_utils.c \
 		srcs/shell.c \
-		srcs/utils.c
+		srcs/utils.c \
+		srcs/echo_utils3.c
 
 OBJ = main.o \
 		parse.o \
@@ -66,7 +67,8 @@ OBJ = main.o \
 		pipe.o \
 		redirection_utils.o \
 		shell.o \
-		utils.o
+		utils.o \
+		echo_utils3.o
 
 FLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
 

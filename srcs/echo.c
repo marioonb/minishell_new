@@ -30,7 +30,7 @@ static int	flag_n(char *tab)
 	return (0);
 }
 
-static void		write_end(char **redplus, int fd, char **env, t_ms *ms)
+static void	write_end(char **redplus, int fd, char **env, t_ms *ms)
 {
 	int		i;
 
@@ -40,7 +40,7 @@ static void		write_end(char **redplus, int fd, char **env, t_ms *ms)
 		while (redplus[i])
 		{
 			ft_treatment_instruct(redplus[i], fd, env, ms);
-			if (redplus[i + 1] && ms->space != 1) //ajout de space pour pas d espace quand rien d afficher par la premiere commade, ex : $ljk
+			if (redplus[i + 1] && ms->space != 1)
 				ft_putstr_fd(" ", fd);
 			i++;
 		}
@@ -49,14 +49,13 @@ static void		write_end(char **redplus, int fd, char **env, t_ms *ms)
 
 static void	deb_and_end(int fd, char **env, t_ms *ms, char *tab)
 {
-	char *str;
+	char	*str;
 
 	str = find_deb(tab, '>');
 	ft_treatment_instruct(str, fd, env, ms);
 	if (ms->redplus)
 		write_end(ms->redplus, fd, env, ms);
 	free(str);
-
 }
 
 static void	parse_echo(char **tab, char **env, int fd, t_ms *ms)
@@ -68,7 +67,7 @@ static void	parse_echo(char **tab, char **env, int fd, t_ms *ms)
 		i++;
 	while (tab[i])
 	{
-		if (ft_strchr(tab[i], '>') && no_back(tab[i], '>'))
+		if (fstrchr(tab[i], '>') && n(tab[i], '>'))
 		{
 			deb_and_end(fd, env, ms, tab[i]);
 			break ;
@@ -81,7 +80,7 @@ static void	parse_echo(char **tab, char **env, int fd, t_ms *ms)
 		else
 		{
 			ft_treatment_instruct(tab[i], fd, env, ms);
-			if (tab[i + 1] && ms->space != 1 && !only_space(tab[i + 1], 0)) //ajout de space pour pas d espace quand rien d afficher par la premiere commade, ex : $ljk
+			if (tab[i + 1] && ms->space != 1 && !only_space(tab[i + 1], 0))
 				ft_putstr_fd(" ", fd);
 		}
 		i++;
@@ -93,7 +92,7 @@ void		builtin_echo(char **tab, char **env, t_ms *ms)
 	int		fd;
 	int		flag;
 
-	ms->space = 0; // dans init plutot ? et init en debut de boucle
+	ms->space = 0;
 	flag = 0;
 	fd = find_fd(tab, ms);
 	if (flag_n(tab[1]) == 1)

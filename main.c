@@ -24,24 +24,32 @@ void		init_fd(t_ms *ms)
 	ms->redplus = NULL;
 	ms->quote = 1;
 	ms->flag = 0;
+	ms->type = 0;
 }
 
 void		sighandler(int sig_num)
 {
 	if (sig_num == SIGINT)
 	{
-		mini_printf("\n");
+		mini_printf_fd(2, "\n");
 		g_exit = 130;
 		mini_printf_fd(2, "" PINK "%s" SET"", "minishell $> ");
+	}
+	if (sig_num == SIGQUIT)
+	{
+		ft_putstr_fd("\033[1C", 2);
+		ft_putstr_fd("\b\b \b\b \b\b", 2);
+		ft_putstr_fd("\033[1C", 2);
 	}
 	return ;
 }
 
-void		free_end(t_env *env, t_ms *ms)
+void		free_end(t_env *env)
 {
-	free_tab_char(env->env);
-	free_tab_char(env->export);
-	free(ms->redplus);
+	if (env->env != NULL)
+		free_tab_char(env->env);
+	if (env->export != NULL)
+		free_tab_char(env->export);
 }
 
 void		init(t_env *env, char **envp, t_ms *ms)
@@ -78,6 +86,6 @@ int			main(int ac, char **av, char **envp)
 		free(buffer);
 	}
 	free(buffer);
-	free_end(&env, &ms);
+	free_end(&env);
 	return (0);
 }

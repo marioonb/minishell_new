@@ -57,6 +57,7 @@ int			is_builtin(char *cmd)
 
 void		find_builtin(char **tab, t_env *env, t_ms *ms)
 {
+	ms->type = 1;
 	if (ft_strncmp(tab[0], "echo", ft_strlen(tab[0])) == 0)
 		builtin_echo(tab, env->env, ms);
 	else if (ft_strncmp(tab[0], "pwd", ft_strlen(tab[0])) == 0)
